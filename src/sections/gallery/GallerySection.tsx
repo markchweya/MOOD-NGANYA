@@ -1,5 +1,5 @@
 import { motion } from "motion/react";
-import { useState } from "react";
+import { useCallback, useState } from "react";
 import { Highlight, SectionHeading } from "@/components/ui/SectionHeading";
 import { galleryOrder, photos } from "@/content/photos";
 import type { PhotoId } from "@/content/types";
@@ -9,6 +9,15 @@ import { Lightbox } from "./Lightbox";
 
 export function GallerySection() {
   const [openId, setOpenId] = useState<PhotoId | null>(null);
+
+  const step = useCallback((direction: 1 | -1) => {
+    setOpenId((current) => {
+      if (!current) return current;
+      const index = galleryOrder.indexOf(current);
+      const next = (index + direction + galleryOrder.length) % galleryOrder.length;
+      return galleryOrder[next] ?? current;
+    });
+  }, []);
 
   return (
     <section id="gallery" aria-labelledby="gallery-title" className="bg-bg-raised py-24 md:py-32">
@@ -67,6 +76,7 @@ export function GallerySection() {
         onClose={() => {
           setOpenId(null);
         }}
+        onStep={step}
       />
     </section>
   );
