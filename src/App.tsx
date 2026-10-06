@@ -3,6 +3,7 @@ import { Header } from "@/components/layout/Header";
 import { DetailsSection } from "@/sections/details/DetailsSection";
 import { Hero } from "@/sections/hero/Hero";
 import { PaletteSection } from "@/sections/palette/PaletteSection";
+import { StickersSection } from "@/sections/stickers/StickersSection";
 import { Ticker } from "@/sections/ticker/Ticker";
 import { VideosSection } from "@/sections/videos/VideosSection";
 
@@ -16,6 +17,7 @@ export function App() {
         <VideosSection />
         <DetailsSection />
         <PaletteSection />
+        <StickersSection />
       </main>
       <Dock />
     </>
