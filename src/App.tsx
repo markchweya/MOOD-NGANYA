@@ -1,5 +1,6 @@
 import { Dock } from "@/components/layout/Dock";
 import { Header } from "@/components/layout/Header";
+import { DetailsSection } from "@/sections/details/DetailsSection";
 import { Hero } from "@/sections/hero/Hero";
 import { Ticker } from "@/sections/ticker/Ticker";
 import { VideosSection } from "@/sections/videos/VideosSection";
@@ -12,6 +13,7 @@ export function App() {
         <Hero />
         <Ticker />
         <VideosSection />
+        <DetailsSection />
       </main>
       <Dock />
     </>
