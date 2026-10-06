@@ -1,15 +1,24 @@
+import { ZoomOut } from "lucide-react";
 import { AnimatePresence, motion } from "motion/react";
 import { useState } from "react";
+import { IconButton } from "@/components/ui/IconButton";
 import { explorerViews } from "@/content/details";
 import { photos } from "@/content/photos";
 import type { ViewId } from "@/content/types";
 import { cn } from "@/lib/cn";
 import { easeOut, spring } from "@/lib/motion";
 
-/** Numbered hotspots over Mood's photos; picking one pops its story into the card. */
+/** How far the photo zooms into a picked hotspot. */
+const ZOOM = 2;
+
+/**
+ * Numbered hotspots over Mood's photos. Picking one zooms the photo into that
+ * detail and pops its story into the card.
+ */
 export function Explorer() {
   const [viewId, setViewId] = useState<ViewId>("head-on");
   const [selected, setSelected] = useState(0);
+  const [zoomed, setZoomed] = useState(false);
 
   const view = explorerViews.find((v) => v.id === viewId) ?? explorerViews[0];
   if (!view) return null;
@@ -19,6 +28,12 @@ export function Explorer() {
   const changeView = (id: ViewId) => {
     setViewId(id);
     setSelected(0);
+    setZoomed(false);
+  };
+
+  const pick = (index: number) => {
+    setSelected(index);
+    setZoomed(true);
   };
 
   return (
@@ -64,64 +79,100 @@ export function Explorer() {
           aria-label={`${view.label} view`}
           className="relative overflow-hidden rounded-3xl border-4 border-ink shadow-slab"
         >
-          <AnimatePresence mode="popLayout" initial={false}>
-            <motion.img
-              key={photo.id}
-              src={photo.src}
-              width={photo.width}
-              height={photo.height}
-              alt={photo.alt}
-              loading="lazy"
-              initial={{ opacity: 0, scale: 1.04 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0 }}
-              transition={{ duration: 0.6, ease: easeOut }}
-              className="h-auto w-full"
-            />
-          </AnimatePresence>
           <motion.div
-            key={view.id}
-            initial="hidden"
-            animate="show"
-            variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.3 } } }}
-            className="absolute inset-0"
+            animate={{
+              scale: zoomed ? ZOOM : 1,
+              originX: (detail?.x ?? 50) / 100,
+              originY: (detail?.y ?? 50) / 100,
+            }}
+            transition={{ type: "spring", stiffness: 110, damping: 22 }}
+            className="relative"
           >
-            {view.hotspots.map((spot, i) => {
-              const isSelected = i === selected;
-              return (
-                <motion.button
-                  key={spot.title}
-                  type="button"
-                  aria-label={`${i + 1}: ${spot.title}`}
-                  aria-pressed={isSelected}
-                  onClick={() => {
-                    setSelected(i);
-                  }}
-                  variants={{
-                    hidden: { scale: 0, opacity: 0 },
-                    show: { scale: 1, opacity: 1, transition: { ...spring, damping: 14 } },
-                  }}
-                  whileHover={{ scale: 1.2 }}
-                  whileTap={{ scale: 0.9 }}
-                  style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
-                  className={cn(
-                    "absolute -mt-4 -ml-4 grid size-8 place-items-center rounded-full border-2 font-sans text-sm font-bold shadow-lg transition-colors",
-                    isSelected
-                      ? "z-10 border-atmos-white bg-tail-red text-atmos-white"
-                      : "border-ink bg-smiley text-ink",
-                  )}
-                >
-                  {!isSelected && (
-                    <span
-                      aria-hidden
-                      className="absolute inset-0 animate-ping rounded-full border-2 border-smiley opacity-60"
-                    />
-                  )}
-                  {i + 1}
-                </motion.button>
-              );
-            })}
+            <AnimatePresence mode="popLayout" initial={false}>
+              <motion.img
+                key={photo.id}
+                src={photo.src}
+                width={photo.width}
+                height={photo.height}
+                alt={photo.alt}
+                loading="lazy"
+                initial={{ opacity: 0, scale: 1.04 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0 }}
+                transition={{ duration: 0.6, ease: easeOut }}
+                className="h-auto w-full"
+              />
+            </AnimatePresence>
+            <motion.div
+              key={view.id}
+              initial="hidden"
+              animate="show"
+              variants={{ show: { transition: { staggerChildren: 0.05, delayChildren: 0.3 } } }}
+              className="absolute inset-0"
+            >
+              {view.hotspots.map((spot, i) => {
+                const isSelected = i === selected;
+                return (
+                  <motion.span
+                    key={spot.title}
+                    animate={{ scale: zoomed ? 1 / ZOOM : 1 }}
+                    transition={{ type: "spring", stiffness: 110, damping: 22 }}
+                    style={{ left: `${spot.x}%`, top: `${spot.y}%` }}
+                    className={cn("absolute -mt-4 -ml-4", isSelected && "z-10")}
+                  >
+                    <motion.button
+                      type="button"
+                      aria-label={`${i + 1}: ${spot.title}`}
+                      aria-pressed={isSelected}
+                      onClick={() => {
+                        pick(i);
+                      }}
+                      variants={{
+                        hidden: { scale: 0, opacity: 0 },
+                        show: { scale: 1, opacity: 1, transition: { ...spring, damping: 14 } },
+                      }}
+                      whileHover={{ scale: 1.2 }}
+                      whileTap={{ scale: 0.9 }}
+                      className={cn(
+                        "relative grid size-8 place-items-center rounded-full border-2 font-sans text-sm font-bold shadow-lg transition-colors",
+                        isSelected
+                          ? "border-atmos-white bg-tail-red text-atmos-white"
+                          : "border-ink bg-smiley text-ink",
+                      )}
+                    >
+                      {!isSelected && (
+                        <span
+                          aria-hidden
+                          className="absolute inset-0 animate-ping rounded-full border-2 border-smiley opacity-60"
+                        />
+                      )}
+                      {i + 1}
+                    </motion.button>
+                  </motion.span>
+                );
+              })}
+            </motion.div>
           </motion.div>
+          <AnimatePresence>
+            {zoomed && (
+              <motion.div
+                initial={{ opacity: 0, scale: 0.6 }}
+                animate={{ opacity: 1, scale: 1 }}
+                exit={{ opacity: 0, scale: 0.6 }}
+                className="absolute top-3 right-3 z-20"
+              >
+                <IconButton
+                  label="Zoom out"
+                  tone="primary"
+                  tooltip="none"
+                  icon={<ZoomOut />}
+                  onClick={() => {
+                    setZoomed(false);
+                  }}
+                />
+              </motion.div>
+            )}
+          </AnimatePresence>
         </div>
 
         <div className="grid gap-5 lg:sticky lg:top-28">
@@ -158,7 +209,7 @@ export function Explorer() {
                   type="button"
                   aria-pressed={i === selected}
                   onClick={() => {
-                    setSelected(i);
+                    pick(i);
                   }}
                   className="relative flex w-full items-center gap-3 rounded-2xl border border-line px-3 py-2.5 text-left transition-colors hover:border-accent"
                 >
