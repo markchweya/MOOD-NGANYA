@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { faceAt } from "./useBusRotation";
+import { faceAt } from "./rotation";
 
 describe("faceAt", () => {
   it("shows the front near 0° and full turns", () => {
