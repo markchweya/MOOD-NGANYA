@@ -1,29 +1,35 @@
-import { render, screen } from "@testing-library/react";
+import { render, screen } from "@testing-library/vue";
 import userEvent from "@testing-library/user-event";
 import { describe, expect, it, vi } from "vitest";
-import { Wordmark } from "@/components/brand/Wordmark";
-import { IconButton } from "@/components/ui/IconButton";
+import { h } from "vue";
+import Wordmark from "@/components/brand/Wordmark.vue";
+import IconButton from "@/components/ui/IconButton.vue";
+import ToastHost from "@/components/ui/ToastHost.vue";
 import { palette } from "@/content/palette";
-import { ToastProvider } from "@/features/toast/ToastProvider";
-import { SwatchDetail } from "@/sections/palette/bus/SwatchDetail";
+import SwatchDetail from "@/sections/palette/bus/SwatchDetail.vue";
+
+const icon = { default: () => h("svg") };
 
 describe("Wordmark", () => {
   it("reads as MOOD even though the O's are smileys", () => {
-    render(<Wordmark />);
+    render(Wordmark);
     expect(screen.getByRole("img", { name: "MOOD" })).toBeInTheDocument();
   });
 });
 
 describe("IconButton", () => {
-  it("renders a labelled button that calls back", async () => {
+  it("renders a labelled button that emits click", async () => {
     const onClick = vi.fn();
-    render(<IconButton label="Hoot the horn" icon={<svg />} onClick={onClick} />);
+    render(IconButton, { props: { label: "Hoot the horn", onClick }, slots: icon });
     await userEvent.click(screen.getByRole("button", { name: "Hoot the horn" }));
     expect(onClick).toHaveBeenCalledOnce();
   });
 
   it("renders an external link safely", () => {
-    render(<IconButton label="Instagram" icon={<svg />} href="https://example.com" external />);
+    render(IconButton, {
+      props: { label: "Instagram", href: "https://example.com", external: true },
+      slots: icon,
+    });
     const link = screen.getByRole("link", { name: "Instagram" });
     expect(link).toHaveAttribute("target", "_blank");
     expect(link).toHaveAttribute("rel", "noopener noreferrer");
@@ -37,11 +43,7 @@ describe("SwatchDetail", () => {
     const user = userEvent.setup();
     const writeText = vi.spyOn(navigator.clipboard, "writeText").mockResolvedValue();
 
-    render(
-      <ToastProvider>
-        <SwatchDetail swatch={swatch} />
-      </ToastProvider>,
-    );
+    render({ render: () => [h(SwatchDetail, { swatch }), h(ToastHost)] });
     await user.click(screen.getByRole("button", { name: `Copy ${swatch.hex}` }));
 
     expect(writeText).toHaveBeenCalledWith(swatch.hex);
