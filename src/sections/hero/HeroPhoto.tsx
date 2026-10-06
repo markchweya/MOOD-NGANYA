@@ -34,6 +34,8 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
           <motion.img
             key={bus.src}
             src={bus.src}
+            srcSet={bus.srcSet}
+            sizes="(min-width: 768px) 50vw, 90vw"
             width={bus.width}
             height={bus.height}
             alt={bus.alt}

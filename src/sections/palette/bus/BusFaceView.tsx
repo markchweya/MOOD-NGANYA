@@ -23,6 +23,8 @@ export function BusFaceView({ face, cutout, swatches, selected, onSelect }: BusF
     >
       <img
         src={cutout.src}
+        srcSet={cutout.srcSet}
+        sizes="(min-width: 1024px) 34rem, 90vw"
         width={cutout.width}
         height={cutout.height}
         alt={cutout.alt}
