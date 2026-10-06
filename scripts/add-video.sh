@@ -4,16 +4,16 @@
 #   scripts/add-video.sh <input> <name> [crop-top-px] [crop-bottom-px] [poster-second]
 #
 #   input           the original video file
-#   name            output name, e.g. "pull-up" -> assets/video/pull-up.mp4 / .webm / .webp
+#   name            output name, e.g. "pull-up" -> public/video/pull-up.mp4 / .webm / .webp
 #   crop-top-px     pixels to cut from the top (e.g. Instagram story overlay), default 0
 #   crop-bottom-px  pixels to cut from the bottom, default 0
 #   poster-second   which second to use as the still poster image, default 0.5
 #
-# Then add an entry for it to VIDEOS in js/main.js.
+# Then add an entry for it to src/content/videos.ts.
 set -euo pipefail
 
 in="$1"; name="$2"; top="${3:-0}"; bottom="${4:-0}"; poster_at="${5:-0.5}"
-out_dir="$(dirname "$0")/../assets/video"
+out_dir="$(dirname "$0")/../public/video"
 mkdir -p "$out_dir"
 
 crop="crop=iw:ih-${top}-${bottom}:0:${top}"
