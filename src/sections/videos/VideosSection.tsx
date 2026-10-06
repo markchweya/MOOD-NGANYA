@@ -17,10 +17,10 @@ export function VideosSection() {
 
   return (
     <section
+      id="videos"
       aria-labelledby="videos-title"
       className="relative mx-auto max-w-6xl px-5 pt-36 pb-24 md:px-8"
     >
-      <span id="videos" className="absolute top-0" />
       <div className="grid items-center gap-12 md:grid-cols-[1fr_1.2fr]">
         <div>
           <SectionHeading
