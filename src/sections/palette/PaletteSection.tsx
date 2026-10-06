@@ -5,7 +5,11 @@ import { SwatchCard } from "./SwatchCard";
 
 export function PaletteSection() {
   return (
-    <section id="colours" aria-labelledby="colours-title" className="bg-bg-raised py-24 md:py-32">
+    <section
+      id="colours"
+      aria-labelledby="colours-title"
+      className="overflow-x-clip bg-bg-raised py-24 md:py-32"
+    >
       <div className="mx-auto max-w-6xl px-5 md:px-8">
         <SectionHeading
           id="colours-title"
