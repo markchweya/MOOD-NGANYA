@@ -2,6 +2,7 @@ import { Play } from "lucide-react";
 import { motion, useInView } from "motion/react";
 import { useEffect, useRef } from "react";
 import type { Video } from "@/content/types";
+import { useTilt } from "@/hooks/useTilt";
 import { fadeUp } from "@/lib/motion";
 import { publicUrl } from "@/lib/publicUrl";
 import { VideoSources } from "./VideoSources";
@@ -15,6 +16,7 @@ interface ReelCardProps {
 export function ReelCard({ video, onOpen }: ReelCardProps) {
   const ref = useRef<HTMLVideoElement>(null);
   const inView = useInView(ref, { amount: 0.6 });
+  const tilt = useTilt(8);
 
   useEffect(() => {
     const el = ref.current;
@@ -32,10 +34,17 @@ export function ReelCard({ video, onOpen }: ReelCardProps) {
           onOpen(video);
         }}
         aria-label={`Play with sound: ${video.caption}`}
-        whileHover={{ y: -8, rotate: -1 }}
+        onPointerMove={tilt.onPointerMove}
+        onPointerLeave={tilt.onPointerLeave}
+        whileHover={{ y: -8 }}
         whileTap={{ scale: 0.97 }}
         className="group relative block w-full overflow-hidden rounded-[28px] border-4 border-ink bg-ink shadow-slab"
-        style={{ aspectRatio: `${video.width} / ${video.height}` }}
+        style={{
+          aspectRatio: `${video.width} / ${video.height}`,
+          rotateX: tilt.rotateX,
+          rotateY: tilt.rotateY,
+          transformPerspective: 900,
+        }}
       >
         <video
           ref={ref}
