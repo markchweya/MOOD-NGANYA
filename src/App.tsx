@@ -13,8 +13,14 @@ import { VideosSection } from "@/sections/videos/VideosSection";
 export function App() {
   return (
     <>
+      <a
+        href="#main"
+        className="sr-only z-[90] rounded-full border-2 border-ink bg-smiley px-5 py-3 font-semibold text-ink focus:not-sr-only focus:fixed focus:top-4 focus:left-4"
+      >
+        Skip to content
+      </a>
       <Header />
-      <main>
+      <main id="main">
         <Hero />
         <Ticker />
         <VideosSection />
