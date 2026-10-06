@@ -1,0 +1,24 @@
+/* Lettering like the windshield banner: white fill, ink outline, stacked purple drop. */
+@utility text-sticker {
+  color: var(--color-atmos-white);
+  -webkit-text-stroke: 0.045em var(--color-ink);
+  paint-order: stroke fill;
+  text-shadow:
+    0.03em 0.03em 0 var(--color-mood-purple),
+    0.06em 0.06em 0 var(--color-mood-purple),
+    0.09em 0.09em 0 var(--color-purple-night),
+    0.12em 0.12em 0 var(--color-purple-night);
+}
+
+/* Matching drop for SVG artwork sitting inside sticker lettering. */
+@utility drop-sticker {
+  filter: drop-shadow(0.05em 0.05em 0 var(--color-mood-purple))
+    drop-shadow(0.05em 0.05em 0 var(--color-purple-night));
+}
+
+/* Hard offset shadow used on cards and photos. */
+@utility shadow-slab {
+  box-shadow:
+    10px 10px 0 var(--color-mood-purple),
+    20px 20px 0 var(--color-purple-night);
+}
