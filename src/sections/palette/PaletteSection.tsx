@@ -1,7 +1,5 @@
-import { PuzzleBoard, PuzzlePiece } from "@/components/scroll/Puzzle";
 import { Highlight, SectionHeading } from "@/components/ui/SectionHeading";
-import { palette } from "@/content/palette";
-import { SwatchCard } from "./SwatchCard";
+import { BusStudio } from "./bus/BusStudio";
 
 export function PaletteSection() {
   return (
@@ -19,24 +17,9 @@ export function PaletteSection() {
               Every colour, <Highlight>to the detail</Highlight>.
             </>
           }
-          lede="Measured straight off the matatu. Each chip shows exactly where the colour lives. Tap a swatch to copy it."
+          lede="Measured straight off the matatu. Spin the bus, tap a dot, and see exactly where each colour lives."
         />
-        <div className="grid gap-14">
-          {palette.map((group, groupIndex) => (
-            <div key={group.name}>
-              <h3 className="mb-5 font-display text-sm tracking-[0.2em] text-fg-muted uppercase">
-                {group.name}
-              </h3>
-              <PuzzleBoard className="grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
-                {group.swatches.map((swatch, i) => (
-                  <PuzzlePiece key={swatch.hex} index={i + groupIndex * 10} className="grid">
-                    <SwatchCard swatch={swatch} />
-                  </PuzzlePiece>
-                ))}
-              </PuzzleBoard>
-            </div>
-          ))}
-        </div>
+        <BusStudio />
       </div>
     </section>
   );
