@@ -1,0 +1,44 @@
+/*
+ * Semantic colours that flip between night (dark) and day (light).
+ * The theme is set on <html data-theme="…"> before first paint (see index.html).
+ */
+@custom-variant dark (&:where([data-theme="dark"], [data-theme="dark"] *));
+
+:root,
+:root[data-theme="dark"] {
+  color-scheme: dark;
+  --bg: #12051b;
+  --bg-raised: #1c0a29;
+  --surface: #26103a;
+  --surface-strong: #33164d;
+  --line: rgb(196 194 230 / 0.12);
+  --fg: var(--color-atmos-white);
+  --fg-muted: #b7abcd;
+  --accent: var(--color-smiley);
+  --glow: var(--color-neon-pink);
+}
+
+:root[data-theme="light"] {
+  color-scheme: light;
+  --bg: #f7f2fb;
+  --bg-raised: #efe6f6;
+  --surface: #ffffff;
+  --surface-strong: #f3ebf9;
+  --line: rgb(40 6 51 / 0.1);
+  --fg: #1d0a26;
+  --fg-muted: #5b4a68;
+  --accent: var(--color-mood-purple);
+  --glow: var(--color-mood-purple);
+}
+
+@theme inline {
+  --color-bg: var(--bg);
+  --color-bg-raised: var(--bg-raised);
+  --color-surface: var(--surface);
+  --color-surface-strong: var(--surface-strong);
+  --color-line: var(--line);
+  --color-fg: var(--fg);
+  --color-fg-muted: var(--fg-muted);
+  --color-accent: var(--accent);
+  --color-glow: var(--glow);
+}
