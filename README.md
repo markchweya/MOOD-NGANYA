@@ -7,17 +7,18 @@ Front says _TRY ME_, back says _ATMOSPHERE_.
 
 ## Stack
 
-| Concern   | Choice                                                                 |
-| --------- | ---------------------------------------------------------------------- |
-| UI        | React 19 + TypeScript (strict, `noUncheckedIndexedAccess`)             |
-| Build     | Vite 8                                                                 |
-| Styling   | Tailwind CSS v4 with design tokens in `src/styles`                     |
-| Motion    | Motion (Framer Motion): reveals, shared layout, springs, drag physics  |
-| Scrolling | Lenis smooth scrolling (off when the visitor prefers reduced motion)   |
-| Icons     | Lucide                                                                 |
-| Fonts     | Self-hosted via Fontsource (Bungee, Permanent Marker, Space Grotesk)   |
-| Quality   | ESLint (type-checked, hooks, jsx-a11y), Prettier, Vitest + Testing Lib |
-| CI/CD     | GitHub Actions: verify on every PR, deploy to GitHub Pages from `main` |
+| Concern   | Choice                                                                     |
+| --------- | -------------------------------------------------------------------------- |
+| UI        | Vue 3.5 single-file components, `<script setup lang="ts">` (strict TS)     |
+| Build     | Vite 8, type-checked with `vue-tsc`                                        |
+| Styling   | Tailwind CSS v4 with design tokens in `src/styles`                         |
+| Motion    | Motion for Vue (`motion-v`): reveals, shared layout, springs, drag physics |
+| Scrolling | Lenis smooth scrolling (off when the visitor prefers reduced motion)       |
+| Utilities | VueUse (media queries, element size, event listeners)                      |
+| Icons     | Lucide for Vue                                                             |
+| Fonts     | Self-hosted via Fontsource (Bungee, Permanent Marker, Space Grotesk)       |
+| Quality   | ESLint (type-checked, Vue, a11y), Prettier, Vitest + Testing Library (Vue) |
+| CI/CD     | GitHub Actions: verify on every PR, deploy to GitHub Pages from `main`     |
 
 ## Getting started
 
@@ -32,7 +33,7 @@ npm run dev        # http://localhost:5173
 | `npm run build`     | Type-check and build to `dist/`       |
 | `npm run preview`   | Serve the production build            |
 | `npm run lint`      | ESLint                                |
-| `npm run typecheck` | TypeScript project build              |
+| `npm run typecheck` | `vue-tsc` project build               |
 | `npm test`          | Vitest (unit, content and component)  |
 | `npm run format`    | Prettier (sorts Tailwind classes too) |
 
@@ -40,16 +41,18 @@ npm run dev        # http://localhost:5173
 
 ```
 src/
-  app/           Providers (theme, toast, Motion config, Lenis) and section links
+  App.vue        The page, in scroll order, plus the intro, cursor, dock and toasts
+  main.ts        Mounts the app with the Lenis plugin
+  app/           Section links that drive the dock and scroll spy
   components/
-    brand/       Smiley, Wordmark and every sticker as typed SVG components
+    brand/       Smiley, Wordmark and every sticker as SVG components
     layout/      Header, Dock, Footer, ThemeToggle, CursorFollower, ScrollProgress
-    scroll/      Scroll-linked entrances: Rise, JoinSides, Construct, Puzzle
-    ui/          IconButton, Modal, Reveal, SectionHeading
+    scroll/      Scroll-linked entrances: Rise, JoinSides, Construct, PuzzleBoard/Piece
+    ui/          IconButton, Modal, Reveal, SectionHeading, Highlight, ToastHost
+  composables/   useTheme, useToast, useHorn, useTilt, useMagnetic, useActiveSection, useEntranceProgress
   content/       All copy and data, typed: photos, cutouts, palette, hotspots, videos, stickers
-  features/      Theme and toast state (context + hooks)
-  hooks/         useActiveSection, useHorn, useCopyToClipboard, useElementWidth
-  lib/           cn(), Motion presets, helpers
+  features/      Framework-free theme and intro logic
+  lib/           cn(), Motion presets, clipboard, helpers
   sections/      One folder per page section
   styles/        Tailwind entry, brand tokens, night/day theme, utilities
 public/          Video clips, favicons, manifest, social image
