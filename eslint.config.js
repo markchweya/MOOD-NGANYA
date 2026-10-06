@@ -56,6 +56,8 @@ export default tseslint.config(
       "vue/multi-word-component-names": "off",
       // Optional props are typed `T | undefined` by TypeScript; no runtime default needed.
       "vue/require-default-prop": "off",
+      // The wordmark renders role="img" with an aria-label, which names the heading.
+      "vuejs-accessibility/heading-has-content": ["error", { accessibleChildren: ["Wordmark"] }],
     },
   },
   prettier,
