@@ -5,6 +5,9 @@ import reactHooks from "eslint-plugin-react-hooks";
 import reactRefresh from "eslint-plugin-react-refresh";
 import globals from "globals";
 import tseslint from "typescript-eslint";
+import pluginVue from "eslint-plugin-vue";
+import vueA11y from "eslint-plugin-vuejs-accessibility";
+import vueParser from "vue-eslint-parser";
 
 export default tseslint.config(
   { ignores: ["dist", "coverage", "legacy"] },
@@ -26,6 +29,31 @@ export default tseslint.config(
       "react-refresh/only-export-components": ["warn", { allowConstantExport: true }],
       "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
       "@typescript-eslint/consistent-type-imports": "error",
+    },
+  },
+  {
+    files: ["**/*.vue"],
+    extends: [
+      js.configs.recommended,
+      ...tseslint.configs.strictTypeChecked,
+      ...pluginVue.configs["flat/recommended"],
+      ...vueA11y.configs["flat/recommended"],
+    ],
+    languageOptions: {
+      ecmaVersion: 2023,
+      globals: globals.browser,
+      parser: vueParser,
+      parserOptions: {
+        parser: tseslint.parser,
+        projectService: true,
+        tsconfigRootDir: import.meta.dirname,
+        extraFileExtensions: [".vue"],
+      },
+    },
+    rules: {
+      "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
+      "@typescript-eslint/consistent-type-imports": "error",
+      "vue/multi-word-component-names": "off",
     },
   },
   prettier,

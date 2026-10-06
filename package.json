@@ -2,7 +2,7 @@
   "name": "mood-nganya",
   "private": true,
   "version": "1.0.0",
-  "description": "MOOD \u2014 Nairobi's purple nganya. No risk, no story.",
+  "description": "MOOD — Nairobi's purple nganya. No risk, no story.",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -51,6 +51,8 @@
     "eslint-plugin-jsx-a11y": "^6.10.2",
     "eslint-plugin-react-hooks": "^7.1.1",
     "eslint-plugin-react-refresh": "^0.5.7",
+    "eslint-plugin-vue": "^10.11.1",
+    "eslint-plugin-vuejs-accessibility": "^2.6.0",
     "globals": "^17.13.0",
     "jsdom": "^29.1.1",
     "prettier": "^3.9.9",
@@ -61,6 +63,7 @@
     "vite": "^8.3.3",
     "vite-imagetools": "^12.0.1",
     "vitest": "^5.0.3",
+    "vue-eslint-parser": "^10.4.1",
     "vue-tsc": "^3.3.12"
   }
 }
