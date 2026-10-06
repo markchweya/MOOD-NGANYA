@@ -17,7 +17,52 @@ const CONFIG = {
     { label: "X",         url: "" }, // TODO
     { label: "YouTube",   url: "" }, // TODO
   ],
+
+  // Photographer credit shown in the footer and on photos.
+  photoCredit: { name: "Mziziani Photography", url: "" }, // TODO add their Instagram link
 };
+
+const PHOTOS = {
+  front: { src: "assets/gallery/mood-front.webp", w: 1206, h: 1367,
+           alt: "Front of the MOOD matatu: purple body kit, roof lights and windshield art" },
+  back:  { src: "assets/gallery/mood-rear.webp",  w: 1206, h: 1437,
+           alt: "Back of the MOOD matatu: airbrushed portraits, red LED tail lights and ATMOSPHERE lettering" },
+};
+
+// "Spot the details" hotspots. x / y are percentages of the photo's width / height.
+const DETAILS = {
+  front: [
+    { x: 41, y: 20, title: "The crown",          text: "A roof lined with beacon lamps and a full-width light bar on top. You see Mood long before you hear it." },
+    { x: 55, y: 37, title: "No risk, no story",  text: "The windshield banner: MOOD in bold graffiti, melting smileys and the motto that sums it all up. Signed off with “School kills artists”." },
+    { x: 58, y: 52, title: "TRY ME",             text: "The dashboard plate. A friendly dare to every other nganya on the road." },
+    { x: 43, y: 73, title: "LED headlights",     text: "Sharp blue-white LED headlights with a light bar under the windscreen." },
+    { x: 62, y: 67, title: "Custom grille",      text: "A slatted purple grille with red accent lights, all part of the custom body kit." },
+    { x: 80, y: 63, title: "First Class",        text: "It says so right there. No further questions." },
+    { x: 65, y: 85, title: "The plate",          text: "Personalised MOOD plates, front and back." },
+    { x: 5,  y: 64, title: "Lady Liberty",       text: "A screaming teal Lady Liberty on the side panel. The art keeps going all the way down the body." },
+    { x: 16, y: 88, title: "The rims",           text: "Black multi-spoke alloys to finish the look." },
+  ],
+  back: [
+    { x: 37, y: 7,  title: "Roof rack",          text: "A purple roof rack lined with beacon lights, crowning the tailgate." },
+    { x: 31, y: 30, title: "The faces",          text: "Airbrushed, wide-eyed portraits. Hyper-detailed and impossible to ignore at a traffic light." },
+    { x: 75, y: 32, title: "The attitude",       text: "Tongue out, eyebrow up. Mood's art talks back." },
+    { x: 61, y: 47, title: "Hazard zone",        text: "Warning signs, chain-link fence and the drippy smiley, Mood's signature, hidden in the mix." },
+    { x: 36, y: 54, title: "Tail lights",        text: "Sculpted red LED tail lights wrap around the art like a frame." },
+    { x: 22, y: 70, title: "ATMOSPHERE",         text: "The back has one word for what Mood brings: ATMOSPHERE." },
+    { x: 52, y: 70, title: "The plate",          text: "MOOD on the back too, in case you missed the front." },
+    { x: 50, y: 86, title: "Rear diffuser",      text: "A race-style purple diffuser. Pure nganya engineering." },
+  ],
+};
+
+// Gallery: photos live in assets/gallery/. Tiles without src show a placeholder.
+// size: "" | "wide" | "tall" | "wide tall"
+const GALLERY = [
+  { src: PHOTOS.front.src, alt: PHOTOS.front.alt, caption: "Front · TRY ME",     size: "tall", credit: true },
+  { src: PHOTOS.back.src,  alt: PHOTOS.back.alt,  caption: "Back · ATMOSPHERE",  size: "tall", credit: true },
+  { src: "", alt: "Mood at night",              caption: "Night mode",       size: "" },
+  { src: "", alt: "Mood's side panel art",      caption: "The side",         size: "" },
+  { src: "", alt: "Mood at the stage",          caption: "Stage takeover",   size: "wide" },
+];
 
 // Route: TODO replace with Mood's real route and stages.
 const ROUTE = {
@@ -31,24 +76,12 @@ const ROUTE = {
   ],
 };
 
-// Gallery: drop photos in assets/gallery/ and set `src`.
-// size: "" | "wide" | "tall". Tiles without src show a styled placeholder.
-const GALLERY = [
-  { src: "", alt: "Mood exterior, full side view",  caption: "The full side",     size: "wide tall" },
-  { src: "", alt: "Close-up of graffiti artwork",   caption: "Panel art",         size: "" },
-  { src: "", alt: "Interior lights at night",       caption: "Night mode",        size: "tall" },
-  { src: "", alt: "Custom rims",                    caption: "Rims",              size: "" },
-  { src: "", alt: "Mood at the stage with a crowd", caption: "Stage takeover",    size: "wide" },
-  { src: "", alt: "Neon underglow at night",        caption: "Underglow",         size: "" },
-  { src: "", alt: "Fans posing with Mood",          caption: "The fans",          size: "" },
-];
-
 // Crew: TODO real names, roles, optional photo in assets/crew/.
 const CREW = [
-  { name: "The Dere",    role: "Driver",          bio: "Smooth on the road, steady on the wheel.", photo: "" },
-  { name: "The Makanga", role: "Conductor",       bio: "Runs the door, runs the hype.",            photo: "" },
-  { name: "The Artist",  role: "Graffiti & Design", bio: "The hand behind every panel.",           photo: "" },
-  { name: "The DJ",      role: "Sound & Playlist", bio: "Keeps the speakers fed.",                  photo: "" },
+  { name: "The Dere",    role: "Driver",            bio: "Smooth on the road, steady on the wheel.", photo: "" },
+  { name: "The Makanga", role: "Conductor",         bio: "Runs the door, runs the hype.",            photo: "" },
+  { name: "The Artist",  role: "Graffiti & Design", bio: "The hand behind every panel.",             photo: "" },
+  { name: "The DJ",      role: "Sound & Playlist",  bio: "Keeps the speakers fed.",                   photo: "" },
 ];
 
 /* =========================================================
@@ -68,10 +101,10 @@ const escapeHTML = (s) =>
   String(s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
 
 /* ---------- Mood switcher ---------- */
-const MOOD_COLORS = { hype: "#ff2bd6", chill: "#7c5cff", bendera: "#e3262f", sunset: "#ff7a18" };
+const MOOD_COLORS = { mood: "#7b2cff", hype: "#ff2bd6", bendera: "#e3262f", sunset: "#ff7a18" };
 
 function setMood(mood) {
-  if (!MOOD_COLORS[mood]) return;
+  if (!MOOD_COLORS[mood]) mood = "mood";
   document.documentElement.dataset.mood = mood;
   $$("[data-set-mood]").forEach((b) => b.setAttribute("aria-checked", String(b.dataset.setMood === mood)));
   $('meta[name="theme-color"]')?.setAttribute("content", MOOD_COLORS[mood]);
@@ -82,7 +115,6 @@ function initMoodSwitch() {
   const buttons = $$("[data-set-mood]");
   buttons.forEach((btn, i) => {
     btn.addEventListener("click", () => setMood(btn.dataset.setMood));
-    // Arrow-key navigation, as expected for a radiogroup
     btn.addEventListener("keydown", (e) => {
       const dir = { ArrowRight: 1, ArrowDown: 1, ArrowLeft: -1, ArrowUp: -1 }[e.key];
       if (!dir) return;
@@ -92,7 +124,7 @@ function initMoodSwitch() {
       setMood(next.dataset.setMood);
     });
   });
-  setMood(storage.get("mood") || "hype");
+  setMood(storage.get("mood") || "mood");
 }
 
 /* ---------- Mobile menu ---------- */
@@ -142,16 +174,82 @@ function hoot() {
   art.classList.add("honk");
 }
 
+/* ---------- Spot the details ---------- */
+function initExplorer() {
+  const img = $("#explorer-img");
+  const spots = $("#hotspots");
+  const list = $("#detail-list");
+  const card = $("#detail-card");
+  const tabs = $$('[role="tab"]');
+  let view = "front";
+
+  const select = (i) => {
+    const d = DETAILS[view][i];
+    $$("button", spots).forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+    $$("button", list).forEach((b, j) => b.setAttribute("aria-pressed", String(j === i)));
+    card.innerHTML = `<span class="detail-num">${i + 1}</span>
+                      <div><h3>${escapeHTML(d.title)}</h3><p>${escapeHTML(d.text)}</p></div>`;
+  };
+
+  const show = (v) => {
+    view = v;
+    const photo = PHOTOS[v];
+    img.src = photo.src;
+    img.width = photo.w;
+    img.height = photo.h;
+    img.alt = photo.alt;
+    tabs.forEach((t) => {
+      const on = t.dataset.view === v;
+      t.setAttribute("aria-selected", String(on));
+      t.tabIndex = on ? 0 : -1;
+      if (on) $("#explorer").setAttribute("aria-labelledby", t.id);
+    });
+    spots.innerHTML = DETAILS[v].map((d, i) =>
+      `<button type="button" class="hotspot" style="left:${d.x}%;top:${d.y}%"
+               aria-label="${i + 1}: ${escapeHTML(d.title)}" data-i="${i}">${i + 1}</button>`).join("");
+    list.innerHTML = DETAILS[v].map((d, i) =>
+      `<li><button type="button" data-i="${i}"><span>${i + 1}</span>${escapeHTML(d.title)}</button></li>`).join("");
+    select(0);
+  };
+
+  [spots, list].forEach((root) =>
+    root.addEventListener("click", (e) => {
+      const b = e.target.closest("button[data-i]");
+      if (b) select(Number(b.dataset.i));
+    }));
+
+  tabs.forEach((t, i) => {
+    t.addEventListener("click", () => show(t.dataset.view));
+    t.addEventListener("keydown", (e) => {
+      const dir = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+      if (!dir) return;
+      const next = tabs[(i + dir + tabs.length) % tabs.length];
+      next.focus();
+      show(next.dataset.view);
+    });
+  });
+
+  show("front");
+}
+
 /* ---------- Render content ---------- */
+function creditHTML() {
+  const { name, url } = CONFIG.photoCredit;
+  return url ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">${escapeHTML(name)}</a>` : escapeHTML(name);
+}
+
 function renderGallery() {
-  const grid = $("#gallery-grid");
-  grid.innerHTML = GALLERY.map((item, i) => {
+  $("#gallery-grid").innerHTML = GALLERY.map((item, i) => {
     const media = item.src
-      ? `<img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.alt)}" loading="lazy" decoding="async" />`
-      : `<div class="placeholder" role="img" aria-label="${escapeHTML(item.alt)} (photo coming soon)"
-              style="background:${placeholderBg(i)}">📸<br/>Photo coming soon</div>`;
+      ? `<button type="button" class="tile-open" data-src="${escapeHTML(item.src)}" data-caption="${escapeHTML(item.caption)}" aria-label="View larger: ${escapeHTML(item.alt)}">
+           <img src="${escapeHTML(item.src)}" alt="${escapeHTML(item.alt)}" loading="lazy" decoding="async" />
+         </button>`
+      : `<div class="placeholder" style="background:${placeholderBg(i)}">
+           <svg class="ph-smiley" aria-hidden="true"><use href="#smiley" /></svg>
+           <span>Your shot here</span>
+         </div>`;
     return `<figure class="tile reveal ${escapeHTML(item.size)}">${media}
-              <figcaption>${escapeHTML(item.caption)}</figcaption></figure>`;
+              <figcaption>${escapeHTML(item.caption)}${item.credit ? ` · 📸 ${escapeHTML(CONFIG.photoCredit.name)}` : ""}</figcaption></figure>`;
   }).join("");
 }
 
@@ -160,8 +258,23 @@ function placeholderBg(i) {
   const a = angles[i % angles.length];
   return `linear-gradient(${a}deg,
             color-mix(in srgb, var(--a1) 55%, #000),
-            color-mix(in srgb, var(--a2) 45%, #000) 60%,
-            color-mix(in srgb, var(--a3) 35%, #000))`;
+            color-mix(in srgb, var(--a1) 25%, #000) 60%,
+            color-mix(in srgb, var(--a2) 30%, #000))`;
+}
+
+function initLightbox() {
+  const dlg = $("#lightbox");
+  if (!dlg.showModal) return; // very old browsers: images just stay in the grid
+  $("#gallery-grid").addEventListener("click", (e) => {
+    const b = e.target.closest(".tile-open");
+    if (!b) return;
+    $("#lightbox-img").src = b.dataset.src;
+    $("#lightbox-img").alt = $("img", b).alt;
+    $("#lightbox-caption").textContent = b.dataset.caption;
+    dlg.showModal();
+  });
+  // Click on the backdrop closes
+  dlg.addEventListener("click", (e) => e.target === dlg && dlg.close());
 }
 
 function renderRoute() {
@@ -190,21 +303,20 @@ function renderSocials() {
   $("#socials").innerHTML = links.length
     ? links.map((s) => `<li><a href="${escapeHTML(s.url)}" target="_blank" rel="noopener">${escapeHTML(s.label)}</a></li>`).join("")
     : `<li class="muted small">Socials coming soon</li>`;
+  $("#photo-credit").innerHTML = creditHTML();
 }
 
-/* ---------- Scroll reveal & counters ---------- */
+/* ---------- Scroll reveal ---------- */
 function initReveal() {
   const els = $$(".reveal");
   if (reduceMotion || !("IntersectionObserver" in window)) {
     els.forEach((el) => el.classList.add("in"));
-    $$(".count").forEach((c) => (c.textContent = c.dataset.to));
     return;
   }
   const io = new IntersectionObserver((entries) => {
     entries.forEach((entry) => {
       if (!entry.isIntersecting) return;
       entry.target.classList.add("in");
-      $$(".count", entry.target).forEach(countUp);
       io.unobserve(entry.target);
     });
   }, { threshold: 0.15 });
@@ -214,30 +326,16 @@ function initReveal() {
   });
 }
 
-function countUp(el) {
-  const to = Number(el.dataset.to) || 0;
-  const start = performance.now();
-  const dur = 1200;
-  const tick = (t) => {
-    const p = Math.min((t - start) / dur, 1);
-    el.textContent = Math.round(to * (1 - Math.pow(1 - p, 3)));
-    if (p < 1) requestAnimationFrame(tick);
-  };
-  requestAnimationFrame(tick);
-}
-
 /* ---------- Hire form -> WhatsApp ---------- */
 function initHireForm() {
   const form = $("#hire-form");
   const note = $("#form-note");
-  const dateInput = $("#f-date");
-  dateInput.min = new Date().toISOString().split("T")[0];
+  $("#f-date").min = new Date().toISOString().split("T")[0];
 
   form.addEventListener("submit", (e) => {
     e.preventDefault();
-    const required = $$("[required]", form);
     let firstInvalid = null;
-    required.forEach((el) => {
+    $$("[required]", form).forEach((el) => {
       const ok = el.value.trim() !== "" && el.checkValidity();
       el.setAttribute("aria-invalid", String(!ok));
       if (!ok && !firstInvalid) firstInvalid = el;
@@ -252,19 +350,18 @@ function initHireForm() {
 
     const d = Object.fromEntries(new FormData(form));
     const prettyDate = new Date(d.date + "T00:00").toLocaleDateString("en-KE", { weekday: "short", day: "numeric", month: "short", year: "numeric" });
-    const text = [
-      "Niaje Mood crew! 🚌🔥 I'd like to hire the Mood.",
+    const lines = [
+      "Niaje Mood crew! 🚌💜 I'd like to hire the Mood.",
       "",
       `Name: ${d.name}`,
       `Date: ${prettyDate}`,
       `Event: ${d.type}`,
       `Pickup: ${d.where}`,
-      d.msg ? `Details: ${d.msg}` : "",
-    ].filter((line, i, arr) => line !== "" || arr[i + 1] !== "").join("\n").trim();
+    ];
+    if (d.msg.trim()) lines.push(`Details: ${d.msg.trim()}`);
 
     const num = CONFIG.whatsapp.replace(/\D/g, "");
-    const url = `https://wa.me/${num}?text=${encodeURIComponent(text)}`;
-    window.open(url, "_blank", "noopener");
+    window.open(`https://wa.me/${num}?text=${encodeURIComponent(lines.join("\n"))}`, "_blank", "noopener");
     note.textContent = "Opening WhatsApp… If nothing happened, check your pop-up blocker.";
   });
 
@@ -278,7 +375,9 @@ function initHireForm() {
 /* ---------- Boot ---------- */
 initMoodSwitch();
 initMenu();
+initExplorer();
 renderGallery();
+initLightbox();
 renderRoute();
 renderCrew();
 renderSocials();

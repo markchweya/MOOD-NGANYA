@@ -1,37 +1,50 @@
 <!doctype html>
-<html lang="en" data-mood="hype">
+<html lang="en" data-mood="mood">
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
-  <title>MOOD — Nganya ya Vibes</title>
-  <meta name="description" content="MOOD — one of Nairobi's most iconic matatus. Graffiti, bass, lights and the realest ride on the road. Hire the Mood for your event." />
-  <meta name="theme-color" content="#ff2bd6" />
+  <title>MOOD — No Risk, No Story</title>
+  <meta name="description" content="MOOD, Nairobi's purple nganya. Roof full of lights, graffiti that stares back, and a motto to live by: No risk, no story. Hire the Mood for your event." />
+  <meta name="theme-color" content="#7b2cff" />
 
   <!-- Social share -->
-  <meta property="og:title" content="MOOD — Nganya ya Vibes" />
-  <meta property="og:description" content="Graffiti. Bass. Lights. The ride everyone stops to watch." />
+  <meta property="og:title" content="MOOD — No Risk, No Story" />
+  <meta property="og:description" content="Nairobi's purple nganya. Front says TRY ME. Back says ATMOSPHERE." />
   <meta property="og:type" content="website" />
-  <meta property="og:image" content="assets/og-image.svg" />
+  <meta property="og:image" content="assets/og-image.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
 
   <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="preload" as="image" href="assets/gallery/mood-front.webp" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bungee+Shade&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Bungee+Shade&family=Permanent+Marker&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
 </head>
 <body>
+  <!-- Reusable drippy smiley (the Mood signature) -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <symbol id="smiley" viewBox="0 0 64 72">
+      <path class="smiley-face" d="M32 4a26 26 0 0 0-26 26c0 9.4 5 17.6 12.4 22.2V62a4 4 0 0 0 8 0v-6.4a26 26 0 0 0 5.6.4V68a4 4 0 0 0 8 0V55.2A26 26 0 0 0 32 4z" />
+      <path d="M20 22l7 7m0-7l-7 7" stroke="#1a0b2e" stroke-width="3.5" stroke-linecap="round" />
+      <circle cx="43" cy="25.5" r="3.8" fill="#1a0b2e" />
+      <path d="M18 36c5.5 8 22.5 8 28 0" fill="none" stroke="#1a0b2e" stroke-width="3.5" stroke-linecap="round" />
+    </symbol>
+  </svg>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <!-- ============ HEADER ============ -->
   <header class="site-header" id="top">
     <a href="#top" class="logo" aria-label="MOOD home">
+      <svg class="logo-smiley" aria-hidden="true"><use href="#smiley" /></svg>
       <span class="logo-word neon">MOOD</span>
     </a>
 
     <nav class="nav" id="nav" aria-label="Main">
+      <a href="#details">Details</a>
       <a href="#ride">The Ride</a>
       <a href="#gallery">Gallery</a>
-      <a href="#route">Route</a>
       <a href="#crew">Crew</a>
       <a href="#hire" class="nav-cta">Hire the Mood</a>
     </nav>
@@ -47,129 +60,37 @@
       <div class="hero-grid" aria-hidden="true"></div>
 
       <div class="hero-copy">
-        <p class="eyebrow">Nairobi's most iconic nganya</p>
+        <p class="eyebrow">Nairobi's purple nganya</p>
         <h1 id="hero-title" class="hero-title">
-          <span class="hero-word" data-text="MOOD">MOOD</span>
+          <span class="hero-word">MOOD</span>
         </h1>
-        <p class="hero-tagline">Si nganya tu &mdash; <strong>ni vibe.</strong></p>
-        <p class="hero-sub">Graffiti that stops traffic. Bass you feel in your chest. Lights that turn the night into a show. This is the ride everyone stops to watch.</p>
+        <p class="hero-tagline">No risk, <strong>no story.</strong></p>
+        <p class="hero-sub">A roof full of lights. Graffiti that stares right back at you. The front says <b>TRY ME</b>, the back says <b>ATMOSPHERE</b>, and everything in between is pure vibe.</p>
 
         <div class="hero-actions">
           <a href="#hire" class="btn btn-primary">Hire the Mood</a>
-          <button type="button" class="btn btn-ghost" id="hoot" aria-label="Hoot the horn">
-            <span aria-hidden="true">📯</span> Hoot!
-          </button>
+          <a href="#details" class="btn btn-ghost">Spot the details</a>
+          <button type="button" class="btn btn-ghost btn-icon" id="hoot" aria-label="Hoot the horn" title="Hoot!">📯</button>
         </div>
 
         <!-- Mood switcher: recolours the whole site -->
         <div class="mood-switch" role="radiogroup" aria-label="Pick your mood">
           <span class="mood-label">Set the mood:</span>
-          <button type="button" role="radio" data-set-mood="hype"   aria-checked="true">Hype</button>
-          <button type="button" role="radio" data-set-mood="chill"  aria-checked="false">Chill</button>
+          <button type="button" role="radio" data-set-mood="mood"    aria-checked="true">Signature</button>
+          <button type="button" role="radio" data-set-mood="hype"    aria-checked="false">Hype</button>
           <button type="button" role="radio" data-set-mood="bendera" aria-checked="false">Bendera</button>
-          <button type="button" role="radio" data-set-mood="sunset" aria-checked="false">Sunset</button>
+          <button type="button" role="radio" data-set-mood="sunset"  aria-checked="false">Sunset</button>
         </div>
       </div>
 
-      <!-- Matatu illustration (inline SVG so it follows the mood colours) -->
       <div class="hero-art">
-        <svg class="matatu" viewBox="0 0 820 320" role="img" aria-labelledby="matatu-title">
-          <title id="matatu-title">Illustration of the MOOD matatu with graffiti, neon lights and spinning rims</title>
-          <defs>
-            <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
-              <stop offset="0%"   class="stop-a1" />
-              <stop offset="55%"  class="stop-a2" />
-              <stop offset="100%" class="stop-a3" />
-            </linearGradient>
-            <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
-              <stop offset="0%" stop-color="#1b1f3a" />
-              <stop offset="100%" stop-color="#05060d" />
-            </linearGradient>
-            <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
-              <feGaussianBlur stdDeviation="6" result="b" />
-              <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
-            </filter>
-            <filter id="softglow" x="-50%" y="-200%" width="200%" height="500%">
-              <feGaussianBlur stdDeviation="14" />
-            </filter>
-            <clipPath id="bodyClip">
-              <path d="M60,240 L60,96 Q60,64 94,64 L686,64 Q724,64 740,96 L780,178 Q786,190 786,206 L786,240 Z" />
-            </clipPath>
-          </defs>
-
-          <!-- underglow -->
-          <ellipse class="underglow" cx="420" cy="276" rx="360" ry="16" filter="url(#softglow)" />
-
-          <!-- headlight beam -->
-          <path class="beam" d="M786,200 L820,170 L820,250 Z" />
-
-          <!-- body -->
-          <g class="bus">
-            <path class="body" d="M60,240 L60,96 Q60,64 94,64 L686,64 Q724,64 740,96 L780,178 Q786,190 786,206 L786,240 Z" fill="url(#bodyGrad)" />
-
-            <!-- graffiti layer (clipped to the body) -->
-            <g clip-path="url(#bodyClip)" class="graffiti">
-              <path class="drip" d="M60,150 C160,120 220,190 330,150 S520,120 600,160 S740,190 800,150 L800,240 L60,240 Z" />
-              <circle class="splat" cx="140" cy="200" r="26" />
-              <circle class="splat" cx="610" cy="210" r="18" />
-              <path class="zig" d="M90,228 l22,-14 l22,14 l22,-14 l22,14 l22,-14 l22,14 l22,-14 l22,14" />
-              <text x="250" y="222" class="tag" textLength="330" lengthAdjust="spacingAndGlyphs">MOOD</text>
-            </g>
-
-            <!-- windows -->
-            <g class="windows">
-              <rect x="88"  y="82" width="74" height="58" rx="8" />
-              <rect x="172" y="82" width="74" height="58" rx="8" />
-              <rect x="256" y="82" width="74" height="58" rx="8" />
-              <rect x="340" y="82" width="74" height="58" rx="8" />
-              <rect x="424" y="82" width="74" height="58" rx="8" />
-              <rect x="508" y="82" width="74" height="58" rx="8" />
-              <rect x="592" y="82" width="74" height="58" rx="8" />
-              <path d="M680,82 L712,82 Q722,82 728,92 L752,140 L680,140 Z" />
-            </g>
-            <!-- window shine -->
-            <g class="shine">
-              <path d="M96,132 L130,88" /><path d="M264,132 L298,88" /><path d="M432,132 L466,88" /><path d="M600,132 L634,88" />
-            </g>
-
-            <!-- roof LED strip -->
-            <path class="led-strip" d="M96,62 L684,62" filter="url(#glow)" />
-            <!-- side LED -->
-            <path class="led-side" d="M64,150 L780,150" />
-
-            <!-- headlight / tail light -->
-            <rect class="headlight" x="770" y="196" width="16" height="14" rx="4" filter="url(#glow)" />
-            <rect class="taillight" x="56" y="196" width="10" height="20" rx="3" filter="url(#glow)" />
-
-            <!-- wheel arches -->
-            <circle class="arch" cx="180" cy="242" r="48" />
-            <circle class="arch" cx="660" cy="242" r="48" />
-          </g>
-
-          <!-- wheels -->
-          <g class="wheel" transform="translate(180 242)">
-            <circle r="38" class="tyre" />
-            <g class="rim">
-              <circle r="22" class="rim-ring" />
-              <path d="M0,-22 L0,22 M-22,0 L22,0 M-15.5,-15.5 L15.5,15.5 M-15.5,15.5 L15.5,-15.5" />
-              <circle r="6" class="hub" />
-            </g>
-          </g>
-          <g class="wheel" transform="translate(660 242)">
-            <circle r="38" class="tyre" />
-            <g class="rim">
-              <circle r="22" class="rim-ring" />
-              <path d="M0,-22 L0,22 M-22,0 L22,0 M-15.5,-15.5 L15.5,15.5 M-15.5,15.5 L15.5,-15.5" />
-              <circle r="6" class="hub" />
-            </g>
-          </g>
-
-          <!-- road -->
-          <line class="road" x1="0" y1="292" x2="820" y2="292" />
-          <line class="road-dash" x1="0" y1="306" x2="820" y2="306" />
-        </svg>
-
-        <!-- equaliser bars -->
+        <figure class="hero-photo">
+          <img src="assets/gallery/mood-front.webp" width="1206" height="1367"
+               alt="Front of the MOOD matatu: purple body, roof lights, windshield art reading 'MOOD — No risk, no story', a 'TRY ME' plate and MOOD number plate" />
+        </figure>
+        <span class="sticker sticker-motto" aria-hidden="true">NO RISK,<br/>NO STORY</span>
+        <span class="sticker sticker-class" aria-hidden="true"><span>FIRST<br/>CLASS</span></span>
+        <svg class="sticker sticker-smiley" aria-hidden="true"><use href="#smiley" /></svg>
         <div class="eq" aria-hidden="true">
           <span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span>
         </div>
@@ -179,63 +100,155 @@
     <!-- ============ TICKER ============ -->
     <div class="ticker" aria-hidden="true">
       <div class="ticker-track">
-        <span>NGANYA</span><span>★</span><span>GRAFFITI</span><span>★</span><span>BASS</span><span>★</span><span>LEDs</span><span>★</span><span>MANYANGA</span><span>★</span><span>VIBES</span><span>★</span><span>STAGE TO STAGE</span><span>★</span>
-        <span>NGANYA</span><span>★</span><span>GRAFFITI</span><span>★</span><span>BASS</span><span>★</span><span>LEDs</span><span>★</span><span>MANYANGA</span><span>★</span><span>VIBES</span><span>★</span><span>STAGE TO STAGE</span><span>★</span>
+        <span>NO RISK, NO STORY</span><span>☻</span><span>TRY ME</span><span>☻</span><span>ATMOSPHERE</span><span>☻</span><span>FIRST CLASS</span><span>☻</span><span>NGANYA</span><span>☻</span>
+        <span>NO RISK, NO STORY</span><span>☻</span><span>TRY ME</span><span>☻</span><span>ATMOSPHERE</span><span>☻</span><span>FIRST CLASS</span><span>☻</span><span>NGANYA</span><span>☻</span>
       </div>
     </div>
 
-    <!-- ============ THE RIDE ============ -->
-    <section class="section" id="ride" aria-labelledby="ride-title">
+    <!-- ============ SPOT THE DETAILS ============ -->
+    <section class="section" id="details" aria-labelledby="details-title">
       <header class="section-head">
-        <p class="eyebrow">Inside the Mood</p>
+        <p class="eyebrow">Spot the details</p>
+        <h2 id="details-title">Every inch <span class="hl">says something</span>.</h2>
+        <p class="lede">Tap the numbers to explore Mood, front and back.</p>
+      </header>
+
+      <div class="tabs" role="tablist" aria-label="Choose a view">
+        <button type="button" role="tab" id="tab-front" aria-controls="explorer" aria-selected="true"  data-view="front">Front · TRY ME</button>
+        <button type="button" role="tab" id="tab-back"  aria-controls="explorer" aria-selected="false" data-view="back">Back · ATMOSPHERE</button>
+      </div>
+
+      <div class="explorer" id="explorer" role="tabpanel" aria-labelledby="tab-front">
+        <figure class="explorer-photo">
+          <img id="explorer-img" src="assets/gallery/mood-front.webp" width="1206" height="1367" alt="" loading="lazy" />
+          <div class="hotspots" id="hotspots"></div>
+        </figure>
+        <div class="explorer-info">
+          <div class="detail-card" id="detail-card" aria-live="polite"></div>
+          <ol class="detail-list" id="detail-list"></ol>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ THE RIDE ============ -->
+    <section class="section section-alt" id="ride" aria-labelledby="ride-title">
+      <header class="section-head">
+        <p class="eyebrow">The Ride</p>
         <h2 id="ride-title">Built to be <span class="hl">felt</span>, not just seen.</h2>
-        <p class="lede">Every detail on this nganya is intentional, from the artwork on the panels to the bass under the seats. Matatu culture is Nairobi's moving art gallery, and Mood is a headline act.</p>
+        <p class="lede">Matatu culture is Nairobi's moving art gallery, and Mood is a headline act. Every panel, light and slogan is a choice.</p>
       </header>
 
       <div class="cards">
         <article class="card reveal">
-          <div class="card-icon" aria-hidden="true">🔊</div>
-          <h3>The Sound</h3>
-          <p>A system tuned to shake the stage. Gengetone, Arbantone, amapiano, dancehall: if it's hot, it's playing.</p>
+          <div class="card-icon" aria-hidden="true">💜</div>
+          <h3>The Look</h3>
+          <p>Head-to-toe purple with a custom body kit: a slatted grille, a sculpted bumper and a race-style rear diffuser.</p>
         </article>
         <article class="card reveal">
-          <div class="card-icon" aria-hidden="true">💡</div>
+          <div class="card-icon" aria-hidden="true">🚨</div>
           <h3>The Lights</h3>
-          <p>Neon underglow, LED strips and interior lighting that flips the vibe from day ride to night club.</p>
+          <p>A roof crowned with beacon lamps and a light bar, sharp LED headlights, and red LED tail lights framing the art.</p>
         </article>
         <article class="card reveal">
           <div class="card-icon" aria-hidden="true">🎨</div>
           <h3>The Art</h3>
-          <p>Hand-done graffiti by Kenyan artists. Every panel tells a story, so take a photo before it pulls off.</p>
+          <p>Airbrushed portraits, hazard signs, a screaming Lady Liberty and drippy smileys everywhere. <em>School kills artists</em>; the road makes them.</p>
         </article>
         <article class="card reveal">
-          <div class="card-icon" aria-hidden="true">📺</div>
-          <h3>The Screens</h3>
-          <p>Music videos on screens inside, so the ride home feels like a concert.</p>
+          <div class="card-icon" aria-hidden="true">🔊</div>
+          <h3>The Sound</h3>
+          <p>Gengetone, Arbantone, amapiano, dancehall. If it's hot, it's playing, and you'll feel it before you hear it.</p>
         </article>
         <article class="card reveal">
-          <div class="card-icon" aria-hidden="true">🛋️</div>
-          <h3>The Comfort</h3>
-          <p>Custom seats and a clean interior. Ride in style, not just on time.</p>
+          <div class="card-icon" aria-hidden="true">🎟️</div>
+          <h3>First Class</h3>
+          <p>It says so right on the front. Ride in style, not just on time.</p>
         </article>
         <article class="card reveal">
           <div class="card-icon" aria-hidden="true">🛡️</div>
           <h3>The Respect</h3>
-          <p>Vibes and safety go together: a licensed crew and a well-kept ride, with every passenger treated like VIP.</p>
+          <p>No risk, no story, but never at your expense. A responsible crew and every passenger treated like VIP.</p>
         </article>
       </div>
 
-      <!-- Stats (edit numbers in index.html) -->
-      <dl class="stats">
-        <div class="stat reveal"><dt>Bass</dt><dd><span class="count" data-to="100">0</span>%</dd></div>
-        <div class="stat reveal"><dt>Paint layers</dt><dd><span class="count" data-to="12">0</span>+</dd></div>
-        <div class="stat reveal"><dt>Boring rides</dt><dd><span class="count" data-to="0">0</span></dd></div>
-        <div class="stat reveal"><dt>Vibe level</dt><dd>MAX</dd></div>
+      <dl class="codes">
+        <div class="code reveal"><dt>Windshield</dt><dd>No risk, no story</dd></div>
+        <div class="code reveal"><dt>Dashboard</dt><dd>Try me</dd></div>
+        <div class="code reveal"><dt>Tailgate</dt><dd>Atmosphere</dd></div>
+        <div class="code reveal"><dt>Class</dt><dd>First</dd></div>
       </dl>
     </section>
 
+    <!-- ============ DRIVE-BY ============ -->
+    <div class="driveby" aria-hidden="true">
+      <svg class="matatu" viewBox="0 0 820 320">
+        <defs>
+          <linearGradient id="bodyGrad" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0%"   class="stop-a1" />
+            <stop offset="60%"  class="stop-a1b" />
+            <stop offset="100%" class="stop-a2" />
+          </linearGradient>
+          <linearGradient id="glassGrad" x1="0" y1="0" x2="0" y2="1">
+            <stop offset="0%" stop-color="#1b1f3a" />
+            <stop offset="100%" stop-color="#05060d" />
+          </linearGradient>
+          <filter id="glow" x="-50%" y="-50%" width="200%" height="200%">
+            <feGaussianBlur stdDeviation="6" result="b" />
+            <feMerge><feMergeNode in="b" /><feMergeNode in="SourceGraphic" /></feMerge>
+          </filter>
+          <filter id="softglow" x="-50%" y="-200%" width="200%" height="500%">
+            <feGaussianBlur stdDeviation="14" />
+          </filter>
+          <clipPath id="bodyClip">
+            <path d="M60,240 L60,96 Q60,64 94,64 L686,64 Q724,64 740,96 L780,178 Q786,190 786,206 L786,240 Z" />
+          </clipPath>
+        </defs>
+        <ellipse class="underglow" cx="420" cy="276" rx="360" ry="16" filter="url(#softglow)" />
+        <path class="beam" d="M786,200 L820,170 L820,250 Z" />
+        <g class="bus">
+          <!-- roof beacons -->
+          <g class="beacons">
+            <rect x="110" y="44" width="22" height="18" rx="6" /><rect x="170" y="44" width="22" height="18" rx="6" />
+            <rect x="230" y="44" width="22" height="18" rx="6" /><rect x="290" y="44" width="22" height="18" rx="6" />
+            <rect x="350" y="44" width="22" height="18" rx="6" /><rect x="410" y="44" width="22" height="18" rx="6" />
+            <rect x="470" y="44" width="22" height="18" rx="6" /><rect x="530" y="44" width="22" height="18" rx="6" />
+            <rect x="590" y="44" width="22" height="18" rx="6" /><rect x="650" y="44" width="22" height="18" rx="6" />
+          </g>
+          <path class="body" d="M60,240 L60,96 Q60,64 94,64 L686,64 Q724,64 740,96 L780,178 Q786,190 786,206 L786,240 Z" fill="url(#bodyGrad)" />
+          <g clip-path="url(#bodyClip)" class="graffiti">
+            <path class="drip" d="M60,150 C160,120 220,190 330,150 S520,120 600,160 S740,190 800,150 L800,240 L60,240 Z" />
+            <use href="#smiley" x="100" y="160" width="56" height="64" />
+            <use href="#smiley" x="600" y="168" width="44" height="50" />
+            <text x="250" y="222" class="tag" textLength="330" lengthAdjust="spacingAndGlyphs">MOOD</text>
+          </g>
+          <g class="windows">
+            <rect x="88"  y="82" width="74" height="58" rx="8" /><rect x="172" y="82" width="74" height="58" rx="8" />
+            <rect x="256" y="82" width="74" height="58" rx="8" /><rect x="340" y="82" width="74" height="58" rx="8" />
+            <rect x="424" y="82" width="74" height="58" rx="8" /><rect x="508" y="82" width="74" height="58" rx="8" />
+            <rect x="592" y="82" width="74" height="58" rx="8" />
+            <path d="M680,82 L712,82 Q722,82 728,92 L752,140 L680,140 Z" />
+          </g>
+          <g class="shine"><path d="M96,132 L130,88" /><path d="M264,132 L298,88" /><path d="M432,132 L466,88" /><path d="M600,132 L634,88" /></g>
+          <path class="led-side" d="M64,150 L780,150" />
+          <rect class="headlight" x="770" y="196" width="16" height="14" rx="4" filter="url(#glow)" />
+          <rect class="taillight" x="56" y="196" width="10" height="20" rx="3" filter="url(#glow)" />
+          <circle class="arch" cx="180" cy="242" r="48" />
+          <circle class="arch" cx="660" cy="242" r="48" />
+        </g>
+        <g class="wheel" transform="translate(180 242)">
+          <circle r="38" class="tyre" />
+          <g class="rim"><circle r="22" class="rim-ring" /><path d="M0,-22 L0,22 M-22,0 L22,0 M-15.5,-15.5 L15.5,15.5 M-15.5,15.5 L15.5,-15.5" /><circle r="6" class="hub" /></g>
+        </g>
+        <g class="wheel" transform="translate(660 242)">
+          <circle r="38" class="tyre" />
+          <g class="rim"><circle r="22" class="rim-ring" /><path d="M0,-22 L0,22 M-22,0 L22,0 M-15.5,-15.5 L15.5,15.5 M-15.5,15.5 L15.5,-15.5" /><circle r="6" class="hub" /></g>
+        </g>
+      </svg>
+      <div class="road"></div>
+    </div>
+
     <!-- ============ GALLERY ============ -->
-    <section class="section section-alt" id="gallery" aria-labelledby="gallery-title">
+    <section class="section" id="gallery" aria-labelledby="gallery-title">
       <header class="section-head">
         <p class="eyebrow">Gallery</p>
         <h2 id="gallery-title">Catch the <span class="hl">Mood</span>.</h2>
@@ -247,7 +260,7 @@
     </section>
 
     <!-- ============ ROUTE ============ -->
-    <section class="section" id="route" aria-labelledby="route-title">
+    <section class="section section-alt" id="route" aria-labelledby="route-title">
       <header class="section-head">
         <p class="eyebrow">Route</p>
         <h2 id="route-title">Stage to stage, <span class="hl">all vibes</span>.</h2>
@@ -259,7 +272,7 @@
     </section>
 
     <!-- ============ CREW ============ -->
-    <section class="section section-alt" id="crew" aria-labelledby="crew-title">
+    <section class="section" id="crew" aria-labelledby="crew-title">
       <header class="section-head">
         <p class="eyebrow">The Crew</p>
         <h2 id="crew-title">The people behind the <span class="hl">Mood</span>.</h2>
@@ -270,11 +283,11 @@
     </section>
 
     <!-- ============ HIRE ============ -->
-    <section class="section hire" id="hire" aria-labelledby="hire-title">
+    <section class="section section-alt hire" id="hire" aria-labelledby="hire-title">
       <div class="hire-copy">
         <p class="eyebrow">Hire the Mood</p>
         <h2 id="hire-title">Make your event <span class="hl">unforgettable</span>.</h2>
-        <p class="lede">Weddings, birthdays, music videos, school trips, brand activations, campus events. Pull up in the nganya everyone is talking about.</p>
+        <p class="lede">Weddings, birthdays, music videos, school trips, brand activations, campus events. Pull up in the nganya everyone stops to photograph.</p>
         <ul class="ticks">
           <li>Music video &amp; photo shoots</li>
           <li>Weddings &amp; ruracio convoys</li>
@@ -320,16 +333,23 @@
     </section>
   </main>
 
+  <!-- ============ LIGHTBOX ============ -->
+  <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
+    <form method="dialog"><button class="lightbox-close" aria-label="Close">✕</button></form>
+    <img id="lightbox-img" alt="" />
+    <p id="lightbox-caption"></p>
+  </dialog>
+
   <!-- ============ FOOTER ============ -->
   <footer class="site-footer">
     <div class="footer-inner">
       <div>
         <span class="logo-word neon">MOOD</span>
-        <p class="muted">Nganya ya vibes. Ride loud, ride safe, respect the stage.</p>
+        <p class="muted">No risk, no story. Ride loud, ride safe, respect the stage.</p>
       </div>
       <ul class="socials" id="socials"></ul>
     </div>
-    <p class="muted small">© <span id="year"></span> MOOD Matatu. Made with bass in Nairobi 🇰🇪</p>
+    <p class="muted small">© <span id="year"></span> MOOD Matatu · Photos: <span id="photo-credit"></span> · Made with bass in Nairobi 🇰🇪</p>
   </footer>
 
   <script src="js/main.js" defer></script>
