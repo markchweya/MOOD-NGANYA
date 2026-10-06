@@ -54,6 +54,8 @@ export default tseslint.config(
       "@typescript-eslint/restrict-template-expressions": ["error", { allowNumber: true }],
       "@typescript-eslint/consistent-type-imports": "error",
       "vue/multi-word-component-names": "off",
+      // Optional props are typed `T | undefined` by TypeScript; no runtime default needed.
+      "vue/require-default-prop": "off",
     },
   },
   prettier,
