@@ -1,0 +1,13 @@
+/* Self-hosted fonts (no third-party requests). */
+@import "@fontsource/bungee/400.css";
+@import "@fontsource/permanent-marker/400.css";
+@import "@fontsource-variable/space-grotesk/index.css";
+
+@theme {
+  --font-display: "Bungee", "Impact", system-ui, sans-serif;
+  --font-hand: "Permanent Marker", cursive;
+  --font-sans: "Space Grotesk Variable", system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+
+  --text-mega: clamp(4rem, 13vw, 10rem);
+  --text-mega--line-height: 0.9;
+}

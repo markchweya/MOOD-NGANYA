@@ -1,0 +1,35 @@
+/*
+ * Brand palette — every value measured from photos of the matatu.
+ * See src/content/palette.ts for where each colour lives on the nganya.
+ */
+@theme {
+  /* Paint */
+  --color-mood-purple: #8b1bab;
+  --color-purple-glow: #ae2ec9;
+  --color-purple-night: #280633;
+  --color-cloud-violet: #4c44ac;
+  --color-drip-lilac: #a07eb4;
+  --color-sun-strip: #0b0491;
+
+  /* Stickers */
+  --color-smiley: #d1af4a;
+  --color-tryme-gold: #e4a83c;
+  --color-tryme-magenta: #ac24a1;
+  --color-first-class: #cc8f33;
+  --color-plate-yellow: #c07d2c;
+
+  /* Lights */
+  --color-tail-red: #e2332e;
+  --color-beacon-red: #b32827;
+  --color-beacon-purple: #6c1f67;
+  --color-led-ice: #73b5db;
+
+  /* Night */
+  --color-neon-pink: #c9329c;
+  --color-led-violet: #7e20ca;
+
+  /* Art */
+  --color-liberty-teal: #489e97;
+  --color-atmos-white: #f4f1f8;
+  --color-ink: #262322;
+}

@@ -1,0 +1,56 @@
+@layer base {
+  html {
+    -webkit-text-size-adjust: 100%;
+    overflow-x: clip;
+  }
+
+  body {
+    @apply grain bg-bg font-sans text-fg antialiased;
+    transition:
+      background-color 500ms ease,
+      color 500ms ease;
+  }
+
+  ::selection {
+    @apply bg-smiley text-ink;
+  }
+
+  :focus-visible {
+    @apply rounded-md outline-3 outline-offset-3 outline-accent;
+  }
+
+  h1,
+  h2,
+  h3 {
+    @apply font-display font-normal;
+  }
+
+  img,
+  video,
+  svg {
+    @apply block max-w-full;
+  }
+
+  /* Anchor targets clear the floating header. */
+  [id] {
+    scroll-margin-top: 6rem;
+  }
+}
+
+/* Theme switch: the JS reveal drives the clip-path; disable the default crossfade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
