@@ -1,5 +1,5 @@
 import { AnimatePresence, motion } from "motion/react";
-import { useId, useState, type ReactNode } from "react";
+import { useId, useState, type MouseEvent, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
 import { useMagnetic } from "@/hooks/useMagnetic";
 import { spring } from "@/lib/motion";
@@ -20,7 +20,12 @@ interface BaseProps {
 type IconButtonProps = BaseProps &
   (
     | { href: string; external?: boolean; onClick?: never; pressed?: never }
-    | { href?: never; external?: never; onClick: () => void; pressed?: boolean }
+    | {
+        href?: never;
+        external?: never;
+        onClick: (event: MouseEvent<HTMLButtonElement>) => void;
+        pressed?: boolean;
+      }
   );
 
 const tones: Record<Tone, string> = {
