@@ -7,6 +7,7 @@ import { IconButton } from "@/components/ui/IconButton";
 import { brand } from "@/content/brand";
 import { useHorn } from "@/hooks/useHorn";
 import { fadeUp, popIn, stagger } from "@/lib/motion";
+import { HeroGlow } from "./HeroGlow";
 import { HeroPhoto } from "./HeroPhoto";
 import { HeroStickers } from "./HeroStickers";
 
@@ -26,6 +27,7 @@ export function Hero() {
       aria-labelledby="hero-title"
       className="relative isolate min-h-svh overflow-hidden"
     >
+      <HeroGlow />
       <HeroPhoto y={photoY} scale={photoScale} />
       <HeroStickers />
       <div
