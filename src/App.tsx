@@ -1,7 +1,15 @@
+import { Dock } from "@/components/layout/Dock";
+import { Header } from "@/components/layout/Header";
+import { Hero } from "@/sections/hero/Hero";
+
 export function App() {
   return (
-    <main className="grid min-h-svh place-items-center">
-      <h1 className="text-mega">MOOD</h1>
-    </main>
+    <>
+      <Header />
+      <main>
+        <Hero />
+      </main>
+      <Dock />
+    </>
   );
 }

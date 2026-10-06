@@ -52,4 +52,10 @@ export const photos: Readonly<Record<PhotoId, Photo>> = {
 };
 
 /** Gallery order: two hero shots, then the rest. */
-export const galleryOrder: readonly PhotoId[] = ["headOn", "fullSun", "night", "threeQuarter", "back"];
+export const galleryOrder: readonly PhotoId[] = [
+  "headOn",
+  "fullSun",
+  "night",
+  "threeQuarter",
+  "back",
+];
