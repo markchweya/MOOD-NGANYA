@@ -1,4 +1,5 @@
 import { Dock } from "@/components/layout/Dock";
+import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
 import { DetailsSection } from "@/sections/details/DetailsSection";
 import { FamilySection } from "@/sections/family/FamilySection";
@@ -23,6 +24,7 @@ export function App() {
         <GallerySection />
         <FamilySection />
       </main>
+      <Footer />
       <Dock />
     </>
   );
