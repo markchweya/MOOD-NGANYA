@@ -2,19 +2,19 @@
   "name": "mood-nganya",
   "private": true,
   "version": "1.0.0",
-  "description": "MOOD — Nairobi's purple nganya. No risk, no story.",
+  "description": "MOOD \u2014 Nairobi's purple nganya. No risk, no story.",
   "type": "module",
   "engines": {
     "node": ">=20"
   },
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "vue-tsc -b && vite build",
     "preview": "vite preview",
     "format": "prettier --write .",
     "format:check": "prettier --check .",
     "lint": "eslint .",
-    "typecheck": "tsc -b",
+    "typecheck": "vue-tsc -b",
     "test": "vitest run",
     "test:watch": "vitest"
   },
