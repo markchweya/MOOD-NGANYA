@@ -13,6 +13,8 @@ const CONFIG = {
 
 // credit: photographer for each shot. TODO confirm who shot the head-on photo.
 const PHOTOS = {
+  crisp:  { src: "assets/gallery/mood-headon-crisp.webp", w: 1206, h: 1541, credit: "",
+            alt: "MOOD straight on: light bar over tiers of purple and red beacon domes, the MOOD windshield banner, blue sun-strip, TRY ME sticker, LED grille and MOOD plate" },
   headon: { src: "assets/gallery/mood-headon.webp", w: 1206, h: 1438, credit: "",
             alt: "MOOD head-on in the sun: purple body kit, purple and red roof beacons, windshield art, the TRY ME sticker and FIRST CLASS sign" },
   front:  { src: "assets/gallery/mood-front.webp",  w: 1206, h: 1367, credit: "Mziziani Photography",
@@ -30,21 +32,26 @@ const VIDEOS = [
     caption: "Pull up, smiley mirrors, handshake", credit: "@mood_family33 with @lenny_mmoja_ & @matrix_family33" },
 ];
 
+// Which photo each "Spot the details" view uses.
+const VIEW_PHOTO = { headon: "crisp", front: "front", back: "back" };
+
 // "Spot the details" hotspots. x / y are percentages of the photo's width / height.
 const DETAILS = {
   headon: [
-    { x: 48, y: 23, title: "The crown",            text: "A full-width light bar over a row of beacon domes that alternate purple and red." },
-    { x: 46, y: 31, title: "The MOOD banner",      text: "MOOD in white graffiti letters with two faces set into the O's, over a lilac wash full of melting mustard smileys." },
-    { x: 57, y: 37, title: "No risk, no story",    text: "The motto across the bottom of the banner. It's the first line of the Instagram bio too." },
-    { x: 71, y: 33, title: "School kills Artists", text: "Signed off in hand lettering on the passenger side of the windshield." },
-    { x: 25, y: 40, title: "Sun-strip",            text: "A deep blue band across the windshield that separates the banner from the TRY ME sticker." },
-    { x: 46, y: 47, title: "Thou Shall Not TRY ME", text: "Gold and magenta, with a white die-cut edge. A key on the left, flowers on the right, and the script that turns TRY ME into a commandment." },
-    { x: 6,  y: 43, title: "Smiley mirrors",       text: "Both mirror housings are wrapped in purple with mustard drippy smileys." },
-    { x: 46, y: 54, title: "LED bar",              text: "Six square LED pods under the windscreen." },
-    { x: 68, y: 61, title: "First Class",          text: "An amber sign hung off the grille." },
-    { x: 45, y: 63, title: "Custom grille",        text: "Five purple slats with small red accent lights." },
-    { x: 24, y: 70, title: "Headlights",           text: "Angular LED headlights with ice-blue accents." },
-    { x: 52, y: 86, title: "Plate & fog lights",   text: "The white MOOD plate over a row of four square fog lights." },
+    { x: 51, y: 7,  title: "Light bar",            text: "Sixteen square lamps glowing red across the very top." },
+    { x: 35, y: 12, title: "Beacon tiers",         text: "Rows of beacon domes stacked under the light bar, alternating purple and red." },
+    { x: 46, y: 22, title: "The MOOD banner",      text: "MOOD in white graffiti letters with two faces set into the O's, on a lilac wash full of melting mustard smileys." },
+    { x: 52, y: 30, title: "No risk, no story",    text: "The motto across the bottom of the banner. It's the first line of the Instagram bio too." },
+    { x: 78, y: 27, title: "School kills Artists", text: "Signed off in red hand lettering on the passenger side." },
+    { x: 72, y: 37, title: "Sun-strip & credits",  text: "The blue sun-strip carries shout-outs to Sticker Hub and POOLMAN." },
+    { x: 45, y: 40, title: "Thou Shall Not TRY ME", text: "Gold and purple, with a white die-cut edge. A key on the left, flowers on the right, and the script that turns TRY ME into a commandment." },
+    { x: 4,  y: 36, title: "Smiley mirrors",       text: "Both mirror housings are wrapped in purple with mustard drippy smileys and little MOOD tags." },
+    { x: 49, y: 49, title: "LED pods",             text: "Six LED pods in a bar under the windscreen." },
+    { x: 50, y: 57, title: "Custom grille",        text: "Purple slats with small red accent lights." },
+    { x: 25, y: 66, title: "Headlights",           text: "Angular LED headlights with ice-blue accent strips." },
+    { x: 18, y: 76, title: "Bumper pods",          text: "Clusters of small round lamps set into the sculpted bumper." },
+    { x: 49, y: 75, title: "The plate",            text: "The white MOOD plate." },
+    { x: 49, y: 82, title: "Fog lights",           text: "Four square lamps with red cores along the bottom of the bumper." },
   ],
   front: [
     { x: 41, y: 20, title: "The crown",          text: "Seen from the side, the roof is lined end to end with beacon lamps." },
@@ -291,7 +298,8 @@ function initExplorer() {
 
   const show = (v) => {
     view = v;
-    Object.assign(img, { src: PHOTOS[v].src, width: PHOTOS[v].w, height: PHOTOS[v].h, alt: PHOTOS[v].alt });
+    const photo = PHOTOS[VIEW_PHOTO[v]];
+    Object.assign(img, { src: photo.src, width: photo.w, height: photo.h, alt: photo.alt });
     tabs.forEach((t) => {
       const on = t.dataset.view === v;
       t.setAttribute("aria-selected", String(on));
@@ -433,7 +441,8 @@ function initStickerWall() {
 /* ---------- Gallery + lightbox ---------- */
 function renderGallery() {
   const items = [
-    { ...PHOTOS.headon, caption: "Head-on" },
+    { ...PHOTOS.crisp,  caption: "Straight on" },
+    { ...PHOTOS.headon, caption: "Full sun" },
     { ...PHOTOS.night,  caption: "After dark" },
     { ...PHOTOS.front,  caption: "Front · TRY ME" },
     { ...PHOTOS.back,   caption: "Back · ATMOSPHERE" },
