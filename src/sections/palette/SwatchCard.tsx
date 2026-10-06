@@ -4,6 +4,7 @@ import { chipUrl } from "@/content/palette";
 import type { Swatch } from "@/content/types";
 import { useToast } from "@/features/toast/useToast";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
+import { useTilt } from "@/hooks/useTilt";
 import { fadeUp, spring } from "@/lib/motion";
 
 /** A measured colour: tap to copy its hex. The chip shows where it lives on Mood. */
@@ -11,6 +12,7 @@ export function SwatchCard({ swatch }: { swatch: Swatch }) {
   const copy = useCopyToClipboard();
   const toast = useToast();
   const chip = chipUrl(swatch.chip);
+  const tilt = useTilt();
 
   const onCopy = async () => {
     const ok = await copy(swatch.hex);
@@ -21,6 +23,9 @@ export function SwatchCard({ swatch }: { swatch: Swatch }) {
     <motion.button
       type="button"
       variants={fadeUp}
+      style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 700 }}
+      onPointerMove={tilt.onPointerMove}
+      onPointerLeave={tilt.onPointerLeave}
       whileHover={{ y: -6, boxShadow: `8px 8px 0 ${swatch.hex}` }}
       whileTap={{ scale: 0.97 }}
       transition={spring}
@@ -28,7 +33,7 @@ export function SwatchCard({ swatch }: { swatch: Swatch }) {
         void onCopy();
       }}
       aria-label={`${swatch.name}, ${swatch.hex}. Copy hex`}
-      className="group flex flex-col overflow-hidden rounded-3xl border-[3px] border-ink bg-surface text-left"
+      className="group relative flex flex-col overflow-hidden rounded-3xl border-[3px] border-ink bg-surface text-left"
     >
       <span
         className="relative block h-28 border-b-[3px] border-ink"
@@ -54,6 +59,11 @@ export function SwatchCard({ swatch }: { swatch: Swatch }) {
           Measured: {swatch.measuredFrom}
         </span>
       </span>
+      <motion.span
+        aria-hidden
+        style={{ background: tilt.glare }}
+        className="pointer-events-none absolute inset-0 opacity-0 mix-blend-soft-light transition-opacity duration-300 group-hover:opacity-100"
+      />
     </motion.button>
   );
 }
