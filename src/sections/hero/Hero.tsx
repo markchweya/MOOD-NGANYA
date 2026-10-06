@@ -11,7 +11,8 @@ import { HeroGlow } from "./HeroGlow";
 import { HeroPhoto } from "./HeroPhoto";
 import { HeroStickers } from "./HeroStickers";
 
-export function Hero() {
+/** `ready` holds the entrance until the intro curtain has lifted. */
+export function Hero({ ready = true }: { ready?: boolean }) {
   const ref = useRef<HTMLElement>(null);
   const hoot = useHorn();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
@@ -29,7 +30,7 @@ export function Hero() {
     >
       <HeroGlow />
       <HeroPhoto y={photoY} scale={photoScale} />
-      <HeroStickers />
+      {ready && <HeroStickers />}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_20%_70%,color-mix(in_srgb,var(--color-mood-purple)_35%,transparent),transparent)]"
@@ -39,7 +40,7 @@ export function Hero() {
         style={{ y: copyY, opacity: copyOpacity }}
         variants={stagger(0.12, 0.55)}
         initial="hidden"
-        animate="show"
+        animate={ready ? "show" : "hidden"}
         className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[36svh] pb-32 md:justify-center md:px-8 md:pt-24 md:pb-28"
       >
         <motion.p
@@ -49,7 +50,7 @@ export function Hero() {
           {brand.eyebrow}
         </motion.p>
         <h1 id="hero-title" className="text-mega">
-          <Wordmark animated />
+          <Wordmark animated play={ready} />
         </h1>
         <motion.div variants={popIn} className="mt-6 w-[min(22rem,85%)] -rotate-2">
           <NoRiskSticker

@@ -7,14 +7,16 @@ interface WordmarkProps {
   className?: string;
   /** Play the slap-on entrance. */
   animated?: boolean;
+  /** With `animated`, hold the entrance until this turns true. */
+  play?: boolean;
 }
 
 /**
  * MOOD spelled the way the mirror tags spell it: the O's are the nganya's drippy smileys.
  */
-export function Wordmark({ className, animated = false }: WordmarkProps) {
+export function Wordmark({ className, animated = false, play = true }: WordmarkProps) {
   const motionProps = animated
-    ? { variants: stagger(0.09, 0.15), initial: "hidden", animate: "show" }
+    ? { variants: stagger(0.09, 0.15), initial: "hidden", animate: play ? "show" : "hidden" }
     : {};
   const piece = animated ? { variants: popIn } : {};
 

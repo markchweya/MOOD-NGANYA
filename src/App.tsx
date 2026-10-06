@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Dock } from "@/components/layout/Dock";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -5,6 +6,8 @@ import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { DetailsSection } from "@/sections/details/DetailsSection";
 import { FamilySection } from "@/sections/family/FamilySection";
 import { GallerySection } from "@/sections/gallery/GallerySection";
+import { Intro } from "@/features/intro/Intro";
+import { shouldPlayIntro } from "@/features/intro/intro";
 import { Hero } from "@/sections/hero/Hero";
 import { PaletteSection } from "@/sections/palette/PaletteSection";
 import { StickersSection } from "@/sections/stickers/StickersSection";
@@ -12,6 +15,8 @@ import { Ticker } from "@/sections/ticker/Ticker";
 import { VideosSection } from "@/sections/videos/VideosSection";
 
 export function App() {
+  const [ready, setReady] = useState(() => !shouldPlayIntro());
+
   return (
     <>
       <a
@@ -23,7 +28,7 @@ export function App() {
       <ScrollProgress />
       <Header />
       <main id="main">
-        <Hero />
+        <Hero ready={ready} />
         <Ticker />
         <VideosSection />
         <DetailsSection />
@@ -34,6 +39,13 @@ export function App() {
       </main>
       <Footer />
       <Dock />
+      {!ready && (
+        <Intro
+          onDone={() => {
+            setReady(true);
+          }}
+        />
+      )}
     </>
   );
 }
