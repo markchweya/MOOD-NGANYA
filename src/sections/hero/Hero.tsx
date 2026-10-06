@@ -34,7 +34,7 @@ export function Hero() {
         variants={stagger(0.12, 0.55)}
         initial="hidden"
         animate="show"
-        className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[58svh] pb-28 md:justify-center md:px-8 md:pt-24"
+        className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[44svh] pb-36 md:justify-center md:px-8 md:pt-24 md:pb-28"
       >
         <motion.p
           variants={fadeUp}

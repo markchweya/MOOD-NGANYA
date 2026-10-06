@@ -18,7 +18,7 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
   return (
     <motion.div
       style={{ y, scale }}
-      className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_55%,transparent)] md:left-[38%] md:[mask-image:linear-gradient(to_right,transparent,black_28%)]"
+      className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_40%,transparent_78%)] md:left-[44%] md:[mask-image:linear-gradient(to_right,transparent,black_30%)]"
     >
       <AnimatePresence initial={false}>
         <motion.img
