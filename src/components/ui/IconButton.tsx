@@ -1,6 +1,7 @@
 import { AnimatePresence, motion } from "motion/react";
 import { useId, useState, type ReactNode } from "react";
 import { cn } from "@/lib/cn";
+import { useMagnetic } from "@/hooks/useMagnetic";
 import { spring } from "@/lib/motion";
 
 type Tone = "default" | "primary" | "ghost";
@@ -37,6 +38,7 @@ const sizes: Record<Size, string> = {
 export function IconButton(props: IconButtonProps) {
   const { label, icon, tone = "default", size = "md", tooltip = "bottom", className } = props;
   const [showTip, setShowTip] = useState(false);
+  const magnetic = useMagnetic();
   const tipId = useId();
 
   const shared = {
@@ -48,7 +50,10 @@ export function IconButton(props: IconButtonProps) {
       sizes[size],
       className,
     ),
-    whileHover: { y: -3, scale: 1.04 },
+    style: { x: magnetic.x, y: magnetic.y },
+    onPointerMove: magnetic.onPointerMove,
+    onPointerLeave: magnetic.onPointerLeave,
+    whileHover: { scale: 1.06 },
     whileTap: { scale: 0.92 },
     transition: spring,
     onHoverStart: () => {
