@@ -18,7 +18,7 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
   return (
     <motion.div
       style={{ y, scale }}
-      className="pointer-events-none absolute inset-x-0 top-[9svh] flex h-[34svh] justify-center px-6 md:inset-y-0 md:top-0 md:right-[2%] md:left-auto md:h-auto md:w-[52%] md:items-center md:px-0"
+      className="pointer-events-none absolute inset-x-0 top-[8svh] flex h-[29svh] justify-center px-6 md:inset-y-0 md:top-0 md:right-[2%] md:left-auto md:h-auto md:w-[52%] md:items-center md:px-0"
     >
       <div className="relative flex h-full max-w-full items-end md:h-[78svh]">
         <div
