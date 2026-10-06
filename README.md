@@ -4,6 +4,10 @@ A showcase website for **MOOD**, Nairobi's purple nganya. Front says *TRY ME*, b
 
 A static site with no build step and no dependencies. Open `index.html` in a browser and it works.
 
+## Design
+- **Light and dark mode**: follows the device setting by default, with a sun/moon toggle in the header that remembers the visitor's choice. The hero shows Mood by day in light mode and at night in dark mode.
+- **Icon-only buttons**: a Lucide-style line-icon sprite at the top of `index.html` (`#i-…` symbols). Every icon button has an `aria-label` for screen readers and a `data-tip` tooltip on hover. On phones the nav becomes a floating icon bar at the bottom.
+
 ## Sections
 - **Hero**: the front photo dressed in Mood's own stickers, plus a Hoot! horn button.
 - **Mood in Motion**: vertical reels that autoplay silently in view, with tap to pause and a sound toggle.
@@ -75,4 +79,4 @@ python3 -m http.server 8000   # open http://localhost:8000
 - **Netlify / Vercel**: import the repo. It needs no build command, and the output directory is the root.
 
 ## Photo credits
-The three-quarter front and back photos are by **Mziziani Photography**. The photographer of the head-on photo is still to be confirmed (`PHOTOS.headon.credit` in `js/main.js`). Get permission before publishing, and keep the credits.
+The three-quarter front and back photos are by **Mziziani Photography**. The night photo is by **@poolman_edits** (POOLMAN). The photographer of the head-on photo is still to be confirmed (`PHOTOS.headon.credit` in `js/main.js`). Get permission before publishing, and keep the credits.

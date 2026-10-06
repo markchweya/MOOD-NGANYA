@@ -6,8 +6,8 @@
 const CONFIG = {
   // Mood's socials. Leave url empty to hide a link.
   socials: [
-    { label: "Instagram · @mood_family33", url: "https://www.instagram.com/mood_family33/" },
-    { label: "TikTok", url: "" }, // TODO confirm the exact TikTok handle (bio shows tiktok.com/@mood_fami…)
+    { label: "Instagram · @mood_family33", icon: "i-instagram", url: "https://www.instagram.com/mood_family33/" },
+    { label: "TikTok", icon: "i-tiktok", url: "" }, // TODO confirm the exact TikTok handle (bio shows tiktok.com/@mood_fami…)
   ],
 };
 
@@ -17,6 +17,8 @@ const PHOTOS = {
             alt: "MOOD head-on in the sun: purple body kit, purple and red roof beacons, windshield art, the TRY ME sticker and FIRST CLASS sign" },
   front:  { src: "assets/gallery/mood-front.webp",  w: 1206, h: 1367, credit: "Mziziani Photography",
             alt: "MOOD from the three-quarter front: roof lights, Lady Liberty side art and the TRY ME sticker" },
+  night:  { src: "assets/gallery/mood-night.webp",  w: 1206, h: 1232, credit: "@poolman_edits",
+            alt: "MOOD at night: the windshield outlined in pink neon, MOOD spelled in violet LED dots, roof beacons glowing over a crowd" },
   back:   { src: "assets/gallery/mood-rear.webp",   w: 1206, h: 1437, credit: "Mziziani Photography",
             alt: "Back of the MOOD matatu: airbrushed portraits, red LED tail lights and ATMOSPHERE lettering" },
 };
@@ -88,6 +90,10 @@ const PALETTE = [
     { name: "Beacon Purple",  hex: "#6C1F67", from: "Head-on, full sun", chip: "beaconpurple", where: "Purple roof beacon domes" },
     { name: "LED Ice",        hex: "#73B5DB", from: "Three-quarter",     chip: "ice",          where: "Headlight LEDs" },
   ]},
+  { group: "Night", colours: [
+    { name: "Neon Pink",  hex: "#C9329C", from: "Night", chip: "neon", where: "The neon tube outlining the windshield" },
+    { name: "LED Violet", hex: "#7E20CA", from: "Night", chip: "led",  where: "MOOD spelled in LED dots across the windshield" },
+  ]},
   { group: "Art", colours: [
     { name: "Liberty Teal",     hex: "#489E97", from: "Three-quarter",     chip: "teal",  where: "Lady Liberty on the side panel" },
     { name: "Atmosphere White", hex: "#F4F1F8", from: "Back",              chip: "white", where: "ATMOSPHERE letters, MOOD logo, die-cut edges" },
@@ -132,14 +138,39 @@ function toast(msg) {
   toastTimer = setTimeout(() => t.classList.remove("show"), 1800);
 }
 
-/* ---------- Mobile menu ---------- */
-function initMenu() {
-  const toggle = $(".menu-toggle");
-  const nav = $("#nav");
-  const close = () => { nav.classList.remove("open"); toggle.setAttribute("aria-expanded", "false"); };
-  toggle.addEventListener("click", () => toggle.setAttribute("aria-expanded", String(nav.classList.toggle("open"))));
-  $$("a", nav).forEach((a) => a.addEventListener("click", close));
-  document.addEventListener("keydown", (e) => e.key === "Escape" && close());
+/* ---------- Light / dark theme ---------- */
+function initTheme() {
+  const btn = $("#theme-toggle");
+  const root = document.documentElement;
+  const label = () => {
+    const next = root.dataset.theme === "dark" ? "light" : "dark";
+    btn.setAttribute("aria-label", `Switch to ${next} mode`);
+    btn.dataset.tip = next === "light" ? "Light mode" : "Dark mode";
+  };
+  btn.addEventListener("click", () => {
+    root.dataset.theme = root.dataset.theme === "dark" ? "light" : "dark";
+    try { localStorage.setItem("theme", root.dataset.theme); } catch { /* private mode */ }
+    label();
+  });
+  // Follow the device setting live, unless the visitor picked a theme themselves.
+  matchMedia("(prefers-color-scheme: light)").addEventListener("change", (e) => {
+    let saved = null;
+    try { saved = localStorage.getItem("theme"); } catch { /* ignore */ }
+    if (!saved) { root.dataset.theme = e.matches ? "light" : "dark"; label(); }
+  });
+  label();
+}
+
+/* ---------- Highlight the nav icon for the section on screen ---------- */
+function initScrollSpy() {
+  const links = $$("#nav a");
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      if (!e.isIntersecting) return;
+      links.forEach((a) => a.setAttribute("aria-current", String(a.getAttribute("href") === `#${e.target.id}`)));
+    });
+  }, { rootMargin: "-45% 0px -50% 0px" });
+  links.forEach((a) => { const sec = $(a.getAttribute("href")); if (sec) io.observe(sec); });
 }
 
 /* ---------- Hoot! (Web Audio matatu horn, no audio files) ---------- */
@@ -186,8 +217,10 @@ function initReels() {
           <source src="${escapeHTML(v.src)}.mp4" type="video/mp4" />
           <source src="${escapeHTML(v.src)}.webm" type="video/webm" />
         </video>
-        <button type="button" class="reel-play" aria-label="Play">▶</button>
-        <button type="button" class="reel-sound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
+        <button type="button" class="reel-play" aria-label="Play"><svg class="icon"><use href="#i-play" /></svg></button>
+        <button type="button" class="reel-sound" aria-label="Turn sound on" aria-pressed="false">
+          <svg class="icon icon-off"><use href="#i-volume-off" /></svg><svg class="icon icon-on"><use href="#i-volume-on" /></svg>
+        </button>
         <div class="reel-progress" aria-hidden="true"><span></span></div>
       </div>
       <figcaption>${escapeHTML(v.caption)}${v.credit ? `<small>${escapeHTML(v.credit)}</small>` : ""}</figcaption>
@@ -212,10 +245,13 @@ function initReels() {
     sound.addEventListener("click", () => {
       const on = r.video.muted;
       // only one reel plays sound at a time
-      reels.forEach((o) => { o.video.muted = true; $(".reel-sound", o.el).textContent = "🔇"; $(".reel-sound", o.el).setAttribute("aria-pressed", "false"); $(".reel-sound", o.el).setAttribute("aria-label", "Turn sound on"); });
+      reels.forEach((o) => {
+        o.video.muted = true;
+        $(".reel-sound", o.el).setAttribute("aria-pressed", "false");
+        $(".reel-sound", o.el).setAttribute("aria-label", "Turn sound on");
+      });
       if (on) {
         r.video.muted = false;
-        sound.textContent = "🔊";
         sound.setAttribute("aria-pressed", "true");
         sound.setAttribute("aria-label", "Turn sound off");
         r.userPaused = false;
@@ -297,6 +333,7 @@ function renderPalette() {
           <button type="button" class="swatch" style="--sw:${c.hex}" data-hex="${c.hex}"
                   aria-label="${escapeHTML(c.name)} ${c.hex}. Copy hex">
             <span class="swatch-color">
+              <span class="swatch-copy" aria-hidden="true"><svg class="icon"><use href="#i-copy" /></svg></span>
               <img class="swatch-chip" src="assets/chips/${c.chip}.webp" alt="" loading="lazy" width="64" height="64" />
             </span>
             <span class="swatch-body">
@@ -397,6 +434,7 @@ function initStickerWall() {
 function renderGallery() {
   const items = [
     { ...PHOTOS.headon, caption: "Head-on" },
+    { ...PHOTOS.night,  caption: "After dark" },
     { ...PHOTOS.front,  caption: "Front · TRY ME" },
     { ...PHOTOS.back,   caption: "Back · ATMOSPHERE" },
   ];
@@ -426,11 +464,13 @@ function renderLinks() {
   const credits = [...new Set(Object.values(PHOTOS).map((p) => p.credit).filter(Boolean))];
   $("#photo-credit").textContent = credits.join(", ");
   $("#family-links").innerHTML = CONFIG.socials.filter((l) => l.url).map((l, i) =>
-    `<a class="btn ${i ? "btn-ghost" : "btn-primary"}" href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.label)}</a>`).join("");
+    `<a class="icon-btn icon-btn-lg ${i ? "" : "icon-btn-primary"}" href="${escapeHTML(l.url)}" target="_blank" rel="noopener"
+        aria-label="${escapeHTML(l.label)}" data-tip="${escapeHTML(l.label)}"><svg class="icon"><use href="#${l.icon}" /></svg></a>`).join("");
 }
 
 /* ---------- Boot ---------- */
-initMenu();
+initTheme();
+initScrollSpy();
 initReels();
 initExplorer();
 renderPalette();

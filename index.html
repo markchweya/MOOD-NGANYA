@@ -5,7 +5,18 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>MOOD — No Risk, No Story</title>
   <meta name="description" content="MOOD, Nairobi's purple nganya. Front says TRY ME, back says ATMOSPHERE. Explore every detail, colour and sticker." />
-  <meta name="theme-color" content="#8B1BAB" />
+  <meta name="color-scheme" content="dark light" />
+  <meta name="theme-color" content="#150620" media="(prefers-color-scheme: dark)" />
+  <meta name="theme-color" content="#F6F1FA" media="(prefers-color-scheme: light)" />
+  <script>
+    // Apply the saved theme (or the device setting) before first paint.
+    (function () {
+      var t = null;
+      try { t = localStorage.getItem("theme"); } catch (e) {}
+      if (t !== "light" && t !== "dark") t = matchMedia("(prefers-color-scheme: light)").matches ? "light" : "dark";
+      document.documentElement.dataset.theme = t;
+    })();
+  </script>
 
   <meta property="og:title" content="MOOD — No Risk, No Story" />
   <meta property="og:description" content="Nairobi's purple nganya. Front says TRY ME. Back says ATMOSPHERE." />
@@ -18,8 +29,7 @@
   <link rel="icon" href="assets/icons/favicon-16.png" type="image/png" sizes="16x16" />
   <link rel="apple-touch-icon" href="assets/icons/apple-touch-icon.png" />
   <link rel="manifest" href="site.webmanifest" />
-  <link rel="preload" as="image" href="assets/gallery/mood-headon.webp" />
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Permanent+Marker&family=Space+Grotesk:wght@400;500;700&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="css/styles.css" />
@@ -30,6 +40,25 @@
        Each <symbol> is reused across the page with <use>.
        ========================================================= -->
   <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+    <!-- UI icons: 24px line icons, drawn with currentColor -->
+    <symbol id="i-film" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><path d="M7 3v18M17 3v18M3 7.5h4M3 12h18M3 16.5h4M17 7.5h4M17 16.5h4" /></symbol>
+    <symbol id="i-scan" viewBox="0 0 24 24"><path d="M3 7V5a2 2 0 0 1 2-2h2M17 3h2a2 2 0 0 1 2 2v2M21 17v2a2 2 0 0 1-2 2h-2M7 21H5a2 2 0 0 1-2-2v-2" /><circle cx="12" cy="12" r="1" /><path d="M18.9 12.3a1 1 0 0 0 0-.6 7.5 7.5 0 0 0-13.8 0 1 1 0 0 0 0 .6 7.5 7.5 0 0 0 13.8 0" /></symbol>
+    <symbol id="i-palette" viewBox="0 0 24 24"><path d="M12 2C6.5 2 2 6.5 2 12s4.5 10 10 10c.93 0 1.65-.75 1.65-1.69 0-.44-.18-.84-.44-1.13-.29-.29-.44-.65-.44-1.13a1.64 1.64 0 0 1 1.67-1.67h2c3.05 0 5.55-2.5 5.55-5.55C21.97 6.01 17.46 2 12 2z" /><circle cx="13.5" cy="6.5" r="1.2" fill="currentColor" stroke="none" /><circle cx="17.5" cy="10.5" r="1.2" fill="currentColor" stroke="none" /><circle cx="8.5" cy="7.5" r="1.2" fill="currentColor" stroke="none" /><circle cx="6.5" cy="12.5" r="1.2" fill="currentColor" stroke="none" /></symbol>
+    <symbol id="i-sticker" viewBox="0 0 24 24"><path d="M15.5 3H5a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h14a2 2 0 0 0 2-2V8.5L15.5 3Z" /><path d="M15 3v4a2 2 0 0 0 2 2h4M8 13h.01M16 13h.01M10 16s.8 1 2 1 2-1 2-1" /></symbol>
+    <symbol id="i-images" viewBox="0 0 24 24"><rect x="3" y="3" width="18" height="18" rx="2" /><circle cx="9" cy="9" r="2" /><path d="m21 15-3.09-3.09a2 2 0 0 0-2.82 0L6 21" /></symbol>
+    <symbol id="i-users" viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75" /></symbol>
+    <symbol id="i-sun" viewBox="0 0 24 24"><circle cx="12" cy="12" r="4" /><path d="M12 2v2M12 20v2M4.93 4.93l1.41 1.41M17.66 17.66l1.41 1.41M2 12h2M20 12h2M6.34 17.66l-1.41 1.41M19.07 4.93l-1.41 1.41" /></symbol>
+    <symbol id="i-moon" viewBox="0 0 24 24"><path d="M12 3a6 6 0 0 0 9 9 9 9 0 1 1-9-9Z" /></symbol>
+    <symbol id="i-horn" viewBox="0 0 24 24"><path d="m3 11 18-5v12L3 14v-3z" /><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6" /></symbol>
+    <symbol id="i-shuffle" viewBox="0 0 24 24"><path d="m18 14 4 4-4 4M18 2l4 4-4 4" /><path d="M2 18h1.97a4 4 0 0 0 3.3-1.7l5.45-8.6a4 4 0 0 1 3.3-1.7H22M2 6h1.97a4 4 0 0 1 3.6 2.2M22 18h-6.04a4 4 0 0 1-3.3-1.8l-.36-.45" /></symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24"><rect x="2" y="2" width="20" height="20" rx="5" /><path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z" /><path d="M17.5 6.5h.01" /></symbol>
+    <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15a1 1 0 0 0 1.5.86l12.5-7.5a1 1 0 0 0 0-1.72L8.5 3.64A1 1 0 0 0 7 4.5z" fill="currentColor" /></symbol>
+    <symbol id="i-volume-off" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z" /><path d="m22 9-6 6M16 9l6 6" /></symbol>
+    <symbol id="i-volume-on" viewBox="0 0 24 24"><path d="M11 5 6 9H2v6h4l5 4V5z" /><path d="M15.54 8.46a5 5 0 0 1 0 7.07M19.07 4.93a10 10 0 0 1 0 14.14" /></symbol>
+    <symbol id="i-tiktok" viewBox="0 0 24 24"><path d="M9 12a4 4 0 1 0 4 4V3c.5 2.5 2.5 4.5 5 5" /></symbol>
+    <symbol id="i-x" viewBox="0 0 24 24"><path d="M18 6 6 18M6 6l12 12" /></symbol>
+    <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8" y="8" width="14" height="14" rx="2" /><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2" /></symbol>
+
     <!-- Drippy smiley (windshield, mirrors, rear) -->
     <symbol id="s-smiley" viewBox="0 0 64 72">
       <path fill="#D1AF4A" stroke="#262322" stroke-width="2" d="M32 4a26 26 0 0 0-26 26c0 9.4 5 17.6 12.4 22.2V62a4 4 0 0 0 8 0v-6.4a26 26 0 0 0 5.6.4V68a4 4 0 0 0 8 0V55.2A26 26 0 0 0 32 4z" />
@@ -144,15 +173,16 @@
       <span class="logo-word" aria-hidden="true">M<svg class="devil"><use href="#s-devil" /></svg><svg class="devil"><use href="#s-devil" /></svg>D</span>
     </a>
     <nav class="nav" id="nav" aria-label="Main">
-      <a href="#motion">Videos</a>
-      <a href="#details">Details</a>
-      <a href="#colours">Colours</a>
-      <a href="#stickers">Stickers</a>
-      <a href="#gallery">Gallery</a>
-      <a href="#family">Family</a>
+      <a href="#motion"   class="icon-btn" aria-label="Videos"   data-tip="Videos"><svg class="icon"><use href="#i-film" /></svg></a>
+      <a href="#details"  class="icon-btn" aria-label="Details"  data-tip="Details"><svg class="icon"><use href="#i-scan" /></svg></a>
+      <a href="#colours"  class="icon-btn" aria-label="Colours"  data-tip="Colours"><svg class="icon"><use href="#i-palette" /></svg></a>
+      <a href="#stickers" class="icon-btn" aria-label="Stickers" data-tip="Stickers"><svg class="icon"><use href="#i-sticker" /></svg></a>
+      <a href="#gallery"  class="icon-btn" aria-label="Gallery"  data-tip="Gallery"><svg class="icon"><use href="#i-images" /></svg></a>
+      <a href="#family"   class="icon-btn" aria-label="Mood Family" data-tip="Family"><svg class="icon"><use href="#i-users" /></svg></a>
     </nav>
-    <button class="menu-toggle" aria-expanded="false" aria-controls="nav" aria-label="Open menu">
-      <span></span><span></span><span></span>
+    <button type="button" class="icon-btn theme-toggle" id="theme-toggle" aria-label="Switch to light mode" data-tip="Light mode">
+      <svg class="icon icon-sun"><use href="#i-sun" /></svg>
+      <svg class="icon icon-moon"><use href="#i-moon" /></svg>
     </button>
   </header>
 
@@ -165,15 +195,19 @@
         <svg class="hero-motto" viewBox="0 0 320 64" role="img" aria-label="No risk, no story"><use href="#s-norisk" /></svg>
         <p class="hero-sub">A roof crowned in lights. Graffiti that stares right back at you. The front says <b class="t-gold">TRY ME</b>, the back says <b class="t-white">ATMOSPHERE</b>, and everything in between is pure vibe.</p>
         <div class="hero-actions">
-          <a href="#details" class="btn btn-primary">Spot the details</a>
-          <button type="button" class="btn btn-ghost" id="hoot"><span aria-hidden="true">📯</span> Hoot!</button>
+          <a href="#details" class="icon-btn icon-btn-lg icon-btn-primary" aria-label="Spot the details" data-tip="Spot the details"><svg class="icon"><use href="#i-scan" /></svg></a>
+          <a href="#motion" class="icon-btn icon-btn-lg" aria-label="Watch the videos" data-tip="Watch"><svg class="icon"><use href="#i-play" /></svg></a>
+          <button type="button" class="icon-btn icon-btn-lg" id="hoot" aria-label="Hoot the horn" data-tip="Hoot!"><svg class="icon"><use href="#i-horn" /></svg></button>
         </div>
       </div>
 
       <div class="hero-art">
         <figure class="hero-photo">
-          <img src="assets/gallery/mood-headon.webp" width="1206" height="1438"
+          <!-- Day photo in light mode, night photo in dark mode -->
+          <img class="photo-day" src="assets/gallery/mood-headon.webp" width="1206" height="1438" loading="lazy"
                alt="MOOD head-on in the sun: purple body kit, purple and red roof beacons, windshield art reading 'MOOD — No risk, no story', a 'Thou Shall Not TRY ME' sticker and a FIRST CLASS sign" />
+          <img class="photo-night" src="assets/gallery/mood-night.webp" width="1206" height="1232" loading="lazy"
+               alt="MOOD at night: the windshield outlined in pink neon, MOOD spelled in violet LED dots, roof beacons glowing over a crowd" />
         </figure>
         <svg class="hs hs-smiley"     aria-hidden="true"><use href="#s-smiley" /></svg>
         <svg class="hs hs-firstclass" aria-hidden="true" viewBox="0 0 150 150"><use href="#s-firstclass" /></svg>
@@ -196,7 +230,7 @@
         <p class="eyebrow">Mood in motion</p>
         <h2 id="motion-title">Photos don't do it <span class="hl">justice</span>.</h2>
         <p class="lede">Lights, art, bass and the people. Turn the sound on.</p>
-        <a class="btn btn-ghost motion-more" href="https://www.instagram.com/mood_family33/reels/" target="_blank" rel="noopener">More on Instagram</a>
+        <a class="icon-btn icon-btn-lg motion-more" href="https://www.instagram.com/mood_family33/reels/" target="_blank" rel="noopener" aria-label="More videos on Instagram" data-tip="More on Instagram"><svg class="icon"><use href="#i-instagram" /></svg></a>
       </header>
       <!-- Rendered from VIDEOS in js/main.js -->
       <div class="reels" id="reels"></div>
@@ -210,9 +244,9 @@
         <p class="lede">Tap the numbers to explore Mood from every angle.</p>
       </header>
       <div class="tabs" role="tablist" aria-label="Choose a view">
-        <button type="button" role="tab" id="tab-headon" aria-controls="explorer" aria-selected="true"  data-view="headon">Head-on</button>
-        <button type="button" role="tab" id="tab-front"  aria-controls="explorer" aria-selected="false" data-view="front">Three-quarter</button>
-        <button type="button" role="tab" id="tab-back"   aria-controls="explorer" aria-selected="false" data-view="back">Back · ATMOSPHERE</button>
+        <button type="button" role="tab" id="tab-headon" aria-controls="explorer" aria-selected="true"  data-view="headon" aria-label="Head-on view" data-tip="Head-on"><img src="assets/gallery/mood-headon.webp" alt="" /></button>
+        <button type="button" role="tab" id="tab-front"  aria-controls="explorer" aria-selected="false" data-view="front"  aria-label="Three-quarter view" data-tip="Three-quarter"><img src="assets/gallery/mood-front.webp" alt="" /></button>
+        <button type="button" role="tab" id="tab-back"   aria-controls="explorer" aria-selected="false" data-view="back"   aria-label="Back view" data-tip="Back"><img src="assets/gallery/mood-rear.webp" alt="" /></button>
       </div>
       <div class="explorer" id="explorer" role="tabpanel" aria-labelledby="tab-headon">
         <figure class="explorer-photo">
@@ -245,7 +279,7 @@
         <p class="lede">Every sticker on Mood, redrawn. Drag them around and make your own panel.</p>
       </header>
       <div class="wall" id="wall">
-        <button type="button" class="btn btn-ghost wall-shuffle" id="shuffle">Shuffle</button>
+        <button type="button" class="icon-btn icon-btn-lg wall-shuffle" id="shuffle" aria-label="Shuffle stickers" data-tip="Shuffle"><svg class="icon"><use href="#i-shuffle" /></svg></button>
       </div>
     </section>
 
@@ -273,7 +307,7 @@
 
   <!-- ============ LIGHTBOX ============ -->
   <dialog class="lightbox" id="lightbox" aria-label="Photo viewer">
-    <form method="dialog"><button class="lightbox-close" aria-label="Close">✕</button></form>
+    <form method="dialog"><button class="icon-btn lightbox-close" aria-label="Close"><svg class="icon"><use href="#i-x" /></svg></button></form>
     <img id="lightbox-img" alt="" />
     <p id="lightbox-caption"></p>
   </dialog>
