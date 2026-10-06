@@ -17,24 +17,27 @@ out_dir="$(dirname "$0")/../public/video"
 mkdir -p "$out_dir"
 
 crop="crop=iw:ih-${top}-${bottom}:0:${top}"
-scale="scale=720:-2:flags=lanczos"
+# Keep the source's full resolution (never upscale), capped at 1080 wide for vertical phone clips.
+scale="scale='min(1080,iw)':-2:flags=lanczos"
+# Light sharpening and a touch of saturation/contrast for an OLED-style punch.
+grade="unsharp=5:5:0.6:5:5:0.0,eq=contrast=1.05:saturation=1.12"
 
 # H.264 + AAC plays in every browser; +faststart lets it start before fully downloaded.
 ffmpeg -v error -y -i "$in" \
-  -vf "${crop},${scale},format=yuv420p" \
-  -c:v libx264 -preset slow -crf 24 -profile:v high -movflags +faststart \
-  -c:a aac -b:a 128k -ac 2 \
+  -vf "${crop},${scale},${grade},format=yuv420p" \
+  -c:v libx264 -preset slow -crf 19 -profile:v high -movflags +faststart \
+  -c:a aac -b:a 192k -ac 2 \
   "$out_dir/$name.mp4"
 
 # VP9 + Opus WebM fallback for browsers built without H.264.
 ffmpeg -v error -y -i "$in" \
-  -vf "${crop},${scale},format=yuv420p" \
-  -c:v libvpx-vp9 -b:v 0 -crf 36 -row-mt 1 -deadline good -cpu-used 2 \
-  -c:a libopus -b:a 96k -ac 2 \
+  -vf "${crop},${scale},${grade},format=yuv420p" \
+  -c:v libvpx-vp9 -b:v 0 -crf 30 -row-mt 1 -deadline good -cpu-used 2 \
+  -c:a libopus -b:a 128k -ac 2 \
   "$out_dir/$name.webm"
 
 ffmpeg -v error -y -ss "$poster_at" -i "$in" -frames:v 1 \
-  -vf "${crop},${scale}" -c:v libwebp -quality 80 \
+  -vf "${crop},${scale},${grade}" -c:v libwebp -quality 88 \
   "$out_dir/$name.webp"
 
 ffprobe -v error -select_streams v:0 -show_entries stream=width,height:format=duration \

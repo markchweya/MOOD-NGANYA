@@ -18,6 +18,21 @@ describe("palette", () => {
     expect(new Set(swatches.map((s) => s.name)).size).toBe(swatches.length);
   });
 
+  it("pins bus spots inside the cutout", () => {
+    for (const swatch of swatches) {
+      if (!swatch.spot) continue;
+      expect(swatch.spot.x, swatch.name).toBeGreaterThanOrEqual(0);
+      expect(swatch.spot.x, swatch.name).toBeLessThanOrEqual(100);
+      expect(swatch.spot.y, swatch.name).toBeGreaterThanOrEqual(0);
+      expect(swatch.spot.y, swatch.name).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it("puts most colours on the bus itself", () => {
+    const onBus = swatches.filter((s) => s.spot).length;
+    expect(onBus / swatches.length).toBeGreaterThan(0.6);
+  });
+
   it("has a photo chip for every colour", () => {
     for (const swatch of swatches) expect(chipUrl(swatch.chip), swatch.name).toBeTruthy();
   });

@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, type MotionValue } from "motion/react";
-import { photos } from "@/content/photos";
+import { cutouts } from "@/content/cutouts";
 import { useTheme } from "@/features/theme/useTheme";
+import { BusLights } from "./BusLights";
 
 interface HeroPhotoProps {
   y: MotionValue<string>;
@@ -8,33 +9,46 @@ interface HeroPhotoProps {
 }
 
 /**
- * Mood by night in dark mode, by day in light mode. The photo crossfades with
- * the theme and drifts slower than the page for depth.
+ * Just the matatu, cut out of its photo, standing on a soft glow with a floor
+ * shadow. Daylight shot in light mode, the crisp head-on shot at night.
  */
 export function HeroPhoto({ y, scale }: HeroPhotoProps) {
   const { theme } = useTheme();
-  const photo = theme === "dark" ? photos.night : photos.fullSun;
+  const bus = theme === "dark" ? cutouts.frontCrisp : cutouts.frontSun;
 
   return (
     <motion.div
       style={{ y, scale }}
-      className="absolute inset-0 [mask-image:linear-gradient(to_bottom,black_22%,transparent_56%)] md:left-[44%] md:[mask-image:linear-gradient(to_right,transparent,black_30%)]"
+      className="pointer-events-none absolute inset-x-0 top-[8svh] flex h-[29svh] justify-center px-6 md:inset-y-0 md:top-0 md:right-[2%] md:left-auto md:h-auto md:w-[52%] md:items-center md:px-0"
     >
-      <AnimatePresence initial={false}>
-        <motion.img
-          key={photo.id}
-          src={photo.src}
-          width={photo.width}
-          height={photo.height}
-          alt={photo.alt}
-          fetchPriority="high"
-          initial={{ opacity: 0, scale: 1.06 }}
-          animate={{ opacity: 1, scale: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 1.1, ease: [0.16, 1, 0.3, 1] }}
-          className="absolute inset-0 size-full object-cover object-[50%_35%]"
+      <div className="relative flex h-full max-w-full items-end md:h-[78svh]">
+        <div
+          aria-hidden
+          className="absolute inset-[8%] -z-10 rounded-full bg-mood-purple/35 blur-[90px] dark:bg-neon-pink/30"
         />
-      </AnimatePresence>
+        <div
+          aria-hidden
+          className="absolute -bottom-[3%] left-1/2 h-[7%] w-[86%] -translate-x-1/2 rounded-[100%] bg-ink/45 blur-xl dark:bg-black/70"
+        />
+        <AnimatePresence initial={false} mode="popLayout">
+          <motion.img
+            key={bus.src}
+            src={bus.src}
+            srcSet={bus.srcSet}
+            sizes="(min-width: 768px) 50vw, 90vw"
+            width={bus.width}
+            height={bus.height}
+            alt={bus.alt}
+            fetchPriority="high"
+            initial={{ opacity: 0, y: 30, scale: 0.96 }}
+            animate={{ opacity: 1, y: 0, scale: 1 }}
+            exit={{ opacity: 0, scale: 1.02 }}
+            transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
+            className="relative h-full max-w-full object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.35)] transition-[filter] duration-700 dark:brightness-[0.62] dark:saturate-[1.35]"
+          />
+        </AnimatePresence>
+        {theme === "dark" && <BusLights />}
+      </div>
     </motion.div>
   );
 }

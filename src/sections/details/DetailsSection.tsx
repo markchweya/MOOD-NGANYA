@@ -1,5 +1,5 @@
 import { Highlight, SectionHeading } from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/Reveal";
+import { Construct } from "@/components/scroll/Construct";
 import { Explorer } from "./Explorer";
 
 export function DetailsSection() {
@@ -19,9 +19,9 @@ export function DetailsSection() {
         }
         lede="Pick an angle, then tap the numbers."
       />
-      <Reveal amount={0.1}>
+      <Construct>
         <Explorer />
-      </Reveal>
+      </Construct>
     </section>
   );
 }

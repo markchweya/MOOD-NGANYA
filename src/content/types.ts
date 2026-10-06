@@ -5,6 +5,8 @@ export type PhotoId = "headOn" | "fullSun" | "threeQuarter" | "back" | "night";
 export interface Photo {
   id: PhotoId;
   src: string;
+  /** Smaller renditions for grids and phones, generated at build time. */
+  srcSet: string;
   width: number;
   height: number;
   alt: string;
@@ -33,6 +35,15 @@ export interface ExplorerView {
 
 export type MeasuredFrom = "Head-on, full sun" | "Three-quarter" | "Back" | "Night";
 
+export type BusFace = "front" | "back";
+
+/** Where a colour sits on the 3D bus, as percentages of that face's cutout. */
+export interface BusSpot {
+  face: BusFace;
+  x: number;
+  y: number;
+}
+
 export interface Swatch {
   name: string;
   hex: Hex;
@@ -40,6 +51,8 @@ export interface Swatch {
   measuredFrom: MeasuredFrom;
   /** File name (without extension) of the photo crop in src/assets/chips. */
   chip: string;
+  /** Where to pin it on the 3D bus; colours not visible on the cutouts have none. */
+  spot?: BusSpot;
 }
 
 export interface PaletteGroup {

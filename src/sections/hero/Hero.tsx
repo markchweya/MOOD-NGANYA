@@ -9,7 +9,6 @@ import { useHorn } from "@/hooks/useHorn";
 import { fadeUp, popIn, stagger } from "@/lib/motion";
 import { HeroGlow } from "./HeroGlow";
 import { HeroPhoto } from "./HeroPhoto";
-import { HeroStickers } from "./HeroStickers";
 
 /** `ready` holds the entrance until the intro curtain has lifted. */
 export function Hero({ ready = true }: { ready?: boolean }) {
@@ -30,7 +29,6 @@ export function Hero({ ready = true }: { ready?: boolean }) {
     >
       <HeroGlow />
       <HeroPhoto y={photoY} scale={photoScale} />
-      {ready && <HeroStickers />}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_20%_70%,color-mix(in_srgb,var(--color-mood-purple)_35%,transparent),transparent)]"
@@ -41,7 +39,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         variants={stagger(0.12, 0.55)}
         initial="hidden"
         animate={ready ? "show" : "hidden"}
-        className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[36svh] pb-32 md:justify-center md:px-8 md:pt-24 md:pb-28"
+        className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[39svh] pb-28 md:justify-center md:px-8 md:pt-24 md:pb-28"
       >
         <motion.p
           variants={fadeUp}
@@ -61,7 +59,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         </motion.div>
         <motion.p
           variants={fadeUp}
-          className="mt-6 max-w-[44ch] text-lg text-pretty text-fg-muted md:text-xl"
+          className="mt-5 max-w-[44ch] text-base text-pretty text-fg-muted md:mt-6 md:text-xl"
         >
           {brand.intro}
         </motion.p>

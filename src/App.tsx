@@ -11,8 +11,8 @@ import { Intro } from "@/features/intro/Intro";
 import { shouldPlayIntro } from "@/features/intro/intro";
 import { Hero } from "@/sections/hero/Hero";
 import { PaletteSection } from "@/sections/palette/PaletteSection";
+import { PhotoReel } from "@/sections/reel/PhotoReel";
 import { StickersSection } from "@/sections/stickers/StickersSection";
-import { Ticker } from "@/sections/ticker/Ticker";
 import { VideosSection } from "@/sections/videos/VideosSection";
 
 export function App() {
@@ -30,7 +30,7 @@ export function App() {
       <Header />
       <main id="main">
         <Hero ready={ready} />
-        <Ticker />
+        <PhotoReel />
         <VideosSection />
         <DetailsSection />
         <PaletteSection />

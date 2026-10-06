@@ -2,7 +2,7 @@
   "name": "mood-nganya",
   "private": true,
   "version": "1.0.0",
-  "description": "MOOD \u2014 Nairobi's purple nganya. No risk, no story.",
+  "description": "MOOD — Nairobi's purple nganya. No risk, no story.",
   "type": "module",
   "engines": {
     "node": ">=20"
@@ -54,6 +54,7 @@
     "typescript": "~5.9",
     "typescript-eslint": "^8.71.1",
     "vite": "^8.3.3",
-    "vitest": "^3.2.7"
+    "vite-imagetools": "^12.0.1",
+    "vitest": "^5.0.3"
   }
 }

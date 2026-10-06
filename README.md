@@ -43,9 +43,10 @@ src/
   app/           Providers (theme, toast, Motion config, Lenis) and section links
   components/
     brand/       Smiley, Wordmark and every sticker as typed SVG components
-    layout/      Header, Dock, Footer, ThemeToggle
+    layout/      Header, Dock, Footer, ThemeToggle, CursorFollower, ScrollProgress
+    scroll/      Scroll-linked entrances: Rise, JoinSides, Construct, Puzzle
     ui/          IconButton, Modal, Reveal, SectionHeading
-  content/       All copy and data, typed: photos, palette, hotspots, videos, stickers
+  content/       All copy and data, typed: photos, cutouts, palette, hotspots, videos, stickers
   features/      Theme and toast state (context + hooks)
   hooks/         useActiveSection, useHorn, useCopyToClipboard, useElementWidth
   lib/           cn(), Motion presets, helpers
@@ -63,6 +64,9 @@ plus the tests in `src/content/content.test.ts` catch mistakes.
 - **Photos:** add the `.webp` to `src/assets/photos/` and register it in `photos.ts`.
 - **Hotspots:** `details.ts`. `x` and `y` are percentages of the photo's size.
 - **Colours:** `palette.ts`, plus a crop in `src/assets/chips/` showing where the colour lives.
+  `spot` pins a colour to the 3D bus (`face`, then `x`/`y` as percentages of that cutout).
+- **Cutouts:** background-free PNG/WebP versions of the bus in `src/assets/cutouts/`, registered
+  in `cutouts.ts`. They drive the hero and the 3D bus in the Colours section.
 - **Copy and socials:** `brand.ts`.
 
 ### Adding a video
@@ -84,8 +88,18 @@ Then add it to `src/content/videos.ts` with the width and height the script prin
 - **Measured palette.** Every colour was sampled from photos of the matatu (see the Colours section).
 - **The nganya's own smileys.** The wordmark spells MOOD with the dead-eyed and melting smileys
   painted on the mirrors and windshield.
-- **Motion with restraint.** Fade-ins, pop-ups and springs throughout, all disabled for visitors
-  who ask for reduced motion.
+- **Scroll entrances with character.** Each section arrives differently, all scroll-linked so they
+  play forwards and backwards with the scrollbar: the videos **join** from opposite sides, Spot the
+  Details is **constructed** block by block, the colour chips assemble like a **puzzle**, and the
+  sticker wall and gallery photos **rise** into place.
+- **The bus in 3D.** The Colours section shows the matatu as a front/back pair you can drag to
+  spin; every colour is a dot on the bus itself.
+- **Night mode lights.** In dark mode the hero bus dims and its beacons, headlights and fog lamps
+  glow.
+- **Image quality.** Photos and cutouts are upscaled 2x with EDSR super-resolution and graded for
+  deep blacks and rich colour. Video is served at the source's full 1080p.
+- **Accessible motion.** Every animation is disabled for visitors who ask for reduced motion, and
+  the custom cursor only replaces the pointer on mouse and trackpad.
 
 ## Deployment
 

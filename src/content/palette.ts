@@ -21,6 +21,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "purple",
         where: "The main body paint: grille, bumpers, body kit",
+        spot: { face: "front", x: 50, y: 62 },
       },
       {
         name: "Purple Glow",
@@ -28,6 +29,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "glow",
         where: "Sunlit curves of the body kit",
+        spot: { face: "front", x: 14, y: 60 },
       },
       {
         name: "Purple Night",
@@ -35,6 +37,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "night",
         where: "Shadows and the underside",
+        spot: { face: "front", x: 50, y: 94 },
       },
       {
         name: "Cloud Violet",
@@ -49,6 +52,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "lilac",
         where: "The windshield banner wash",
+        spot: { face: "front", x: 22, y: 23 },
       },
       {
         name: "Sun-strip Blue",
@@ -56,6 +60,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "sunstrip",
         where: "The band across the windshield",
+        spot: { face: "front", x: 40, y: 35 },
       },
     ],
   },
@@ -68,6 +73,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "smiley",
         where: "Drippy smileys on the windshield and mirrors",
+        spot: { face: "front", x: 19, y: 28 },
       },
       {
         name: "Try-Me Gold",
@@ -75,6 +81,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "gold",
         where: "TRY ME lettering and badge",
+        spot: { face: "front", x: 31, y: 44 },
       },
       {
         name: "Try-Me Magenta",
@@ -82,6 +89,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "magenta",
         where: "TRY ME outlines, line art and flowers",
+        spot: { face: "front", x: 72, y: 45 },
       },
       {
         name: "First-Class Amber",
@@ -96,6 +104,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Back",
         chip: "plate",
         where: "The rear MOOD number plate",
+        spot: { face: "back", x: 51, y: 75 },
       },
     ],
   },
@@ -108,6 +117,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Back",
         chip: "tail",
         where: "LED tail lights and the red warning sign",
+        spot: { face: "back", x: 12, y: 30 },
       },
       {
         name: "Beacon Red",
@@ -115,6 +125,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Three-quarter",
         chip: "beacon",
         where: "Red roof beacon domes",
+        spot: { face: "front", x: 40, y: 6 },
       },
       {
         name: "Beacon Purple",
@@ -122,6 +133,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "beaconpurple",
         where: "Purple roof beacon domes",
+        spot: { face: "front", x: 45, y: 9.5 },
       },
       {
         name: "LED Ice",
@@ -129,6 +141,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Three-quarter",
         chip: "ice",
         where: "Headlight LEDs",
+        spot: { face: "front", x: 18, y: 72 },
       },
     ],
   },
@@ -167,6 +180,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Back",
         chip: "white",
         where: "ATMOSPHERE letters and die-cut edges",
+        spot: { face: "back", x: 20, y: 74 },
       },
       {
         name: "Ink",
@@ -174,6 +188,7 @@ export const palette: readonly PaletteGroup[] = [
         measuredFrom: "Head-on, full sun",
         chip: "ink",
         where: "Outlines, trims and the LED bar housing",
+        spot: { face: "front", x: 50, y: 53 },
       },
     ],
   },
