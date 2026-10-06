@@ -1,6 +1,7 @@
 import { AnimatePresence, motion, type MotionValue } from "motion/react";
 import { cutouts } from "@/content/cutouts";
 import { useTheme } from "@/features/theme/useTheme";
+import { BusLights } from "./BusLights";
 
 interface HeroPhotoProps {
   y: MotionValue<string>;
@@ -44,6 +45,7 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
             className="relative h-full max-w-full object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.35)]"
           />
         </AnimatePresence>
+        {theme === "dark" && <BusLights />}
       </div>
     </motion.div>
   );
