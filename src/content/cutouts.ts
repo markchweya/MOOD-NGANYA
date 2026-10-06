@@ -19,8 +19,8 @@ export const cutouts = {
   },
   frontCrisp: {
     src: frontCrisp,
-    width: 1164,
-    height: 1251,
+    width: 2328,
+    height: 2502,
     alt: "MOOD head-on: light bar, beacon tiers, the MOOD windshield banner, TRY ME sticker, LED grille and MOOD plate",
   },
   back: {
