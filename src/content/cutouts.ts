@@ -13,8 +13,8 @@ export interface Cutout {
 export const cutouts = {
   frontSun: {
     src: frontSun,
-    width: 968,
-    height: 998,
+    width: 1936,
+    height: 1996,
     alt: "MOOD head-on in daylight: purple body kit, roof beacons, windshield art and the TRY ME sticker",
   },
   frontCrisp: {
