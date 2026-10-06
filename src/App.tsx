@@ -1,6 +1,7 @@
 import { Dock } from "@/components/layout/Dock";
 import { Header } from "@/components/layout/Header";
 import { DetailsSection } from "@/sections/details/DetailsSection";
+import { GallerySection } from "@/sections/gallery/GallerySection";
 import { Hero } from "@/sections/hero/Hero";
 import { PaletteSection } from "@/sections/palette/PaletteSection";
 import { StickersSection } from "@/sections/stickers/StickersSection";
@@ -18,6 +19,7 @@ export function App() {
         <DetailsSection />
         <PaletteSection />
         <StickersSection />
+        <GallerySection />
       </main>
       <Dock />
     </>
