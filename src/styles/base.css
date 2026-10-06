@@ -54,3 +54,12 @@
     scroll-behavior: auto !important;
   }
 }
+
+/* The custom cursor replaces the system pointer; text fields keep their caret cursor. */
+.custom-cursor,
+.custom-cursor * {
+  cursor: none !important;
+}
+.custom-cursor :is(input, textarea, [contenteditable="true"]) {
+  cursor: text !important;
+}
