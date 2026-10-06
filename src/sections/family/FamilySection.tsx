@@ -1,6 +1,7 @@
 import { motion } from "motion/react";
 import { Smiley } from "@/components/brand/Smiley";
 import { InstagramIcon } from "@/components/icons/InstagramIcon";
+import { JoinSides } from "@/components/scroll/JoinSides";
 import { IconButton } from "@/components/ui/IconButton";
 import { Highlight, SectionHeading } from "@/components/ui/SectionHeading";
 import { manifesto, socials } from "@/content/brand";
@@ -54,9 +55,16 @@ export function FamilySection() {
         id="family-title"
         eyebrow="The Mood Family"
         title={
-          <>
-            Too rare to be <Highlight>compared</Highlight>.
-          </>
+          <JoinSides
+            inline
+            className="inline-flex flex-wrap justify-center gap-x-[0.28em]"
+            left="Too rare to be"
+            right={
+              <>
+                <Highlight>compared</Highlight>.
+              </>
+            }
+          />
         }
         align="center"
       />
