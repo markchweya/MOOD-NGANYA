@@ -14,7 +14,7 @@ export const cutouts = {
   frontSun: {
     src: frontSun,
     width: 968,
-    height: 1068,
+    height: 998,
     alt: "MOOD head-on in daylight: purple body kit, roof beacons, windshield art and the TRY ME sticker",
   },
   frontCrisp: {

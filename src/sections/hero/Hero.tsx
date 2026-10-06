@@ -39,7 +39,7 @@ export function Hero({ ready = true }: { ready?: boolean }) {
         variants={stagger(0.12, 0.55)}
         initial="hidden"
         animate={ready ? "show" : "hidden"}
-        className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[36svh] pb-32 md:justify-center md:px-8 md:pt-24 md:pb-28"
+        className="relative mx-auto flex min-h-svh max-w-6xl flex-col justify-end px-5 pt-[46svh] pb-32 md:justify-center md:px-8 md:pt-24 md:pb-28"
       >
         <motion.p
           variants={fadeUp}

@@ -18,9 +18,9 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
   return (
     <motion.div
       style={{ y, scale }}
-      className="pointer-events-none absolute inset-x-0 top-[7svh] flex h-[46svh] justify-center md:inset-y-0 md:right-[2%] md:left-auto md:h-auto md:w-[52%] md:items-center"
+      className="pointer-events-none absolute inset-x-0 top-[9svh] flex h-[34svh] justify-center px-6 md:inset-y-0 md:top-0 md:right-[2%] md:left-auto md:h-auto md:w-[52%] md:items-center md:px-0"
     >
-      <div className="relative h-full max-h-[78svh] md:h-[78svh]">
+      <div className="relative flex h-full max-w-full items-end md:h-[78svh]">
         <div
           aria-hidden
           className="absolute inset-[8%] -z-10 rounded-full bg-mood-purple/35 blur-[90px] dark:bg-neon-pink/30"
@@ -41,7 +41,7 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full w-auto object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.35)]"
+            className="relative h-full max-w-full object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.35)]"
           />
         </AnimatePresence>
       </div>
