@@ -1,5 +1,5 @@
 import { Highlight, SectionHeading } from "@/components/ui/SectionHeading";
-import { Reveal } from "@/components/ui/Reveal";
+import { Rise } from "@/components/scroll/Rise";
 import { StickerWall } from "./StickerWall";
 
 export function StickersSection() {
@@ -19,9 +19,9 @@ export function StickersSection() {
         }
         lede="Every sticker on Mood, redrawn. Drag them around and make your own panel."
       />
-      <Reveal amount={0.15}>
+      <Rise>
         <StickerWall />
-      </Reveal>
+      </Rise>
     </section>
   );
 }
