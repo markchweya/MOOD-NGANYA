@@ -21,6 +21,13 @@ const PHOTOS = {
             alt: "Back of the MOOD matatu: airbrushed portraits, red LED tail lights and ATMOSPHERE lettering" },
 };
 
+// Videos for "Mood in motion". Convert new clips with scripts/add-video.sh, then add them here.
+// src = path without extension (the script makes .mp4 + .webm); w / h = size printed by the script.
+const VIDEOS = [
+  { src: "assets/video/pull-up", poster: "assets/video/pull-up.webp", w: 720, h: 1086,
+    caption: "Pull up, smiley mirrors, handshake", credit: "@mood_family33 with @lenny_mmoja_ & @matrix_family33" },
+];
+
 // "Spot the details" hotspots. x / y are percentages of the photo's width / height.
 const DETAILS = {
   headon: [
@@ -165,6 +172,68 @@ function hoot() {
   art.classList.remove("honk");
   void art.offsetWidth;
   art.classList.add("honk");
+}
+
+/* ---------- Mood in motion (videos) ---------- */
+function initReels() {
+  const root = $("#reels");
+  const reduceMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  root.innerHTML = VIDEOS.map((v) => `
+    <figure class="reel paused">
+      <div class="reel-frame" style="--ar:${v.w} / ${v.h}">
+        <video poster="${escapeHTML(v.poster)}" width="${v.w}" height="${v.h}"
+               muted loop playsinline preload="none" aria-label="${escapeHTML(v.caption)}">
+          <source src="${escapeHTML(v.src)}.mp4" type="video/mp4" />
+          <source src="${escapeHTML(v.src)}.webm" type="video/webm" />
+        </video>
+        <button type="button" class="reel-play" aria-label="Play">▶</button>
+        <button type="button" class="reel-sound" aria-label="Turn sound on" aria-pressed="false">🔇</button>
+        <div class="reel-progress" aria-hidden="true"><span></span></div>
+      </div>
+      <figcaption>${escapeHTML(v.caption)}${v.credit ? `<small>${escapeHTML(v.credit)}</small>` : ""}</figcaption>
+    </figure>`).join("");
+
+  const reels = $$(".reel", root).map((el) => ({ el, video: $("video", el), userPaused: false }));
+
+  const play = (r) => r.video.play().then(() => r.el.classList.remove("paused")).catch(() => r.el.classList.add("paused"));
+  const pause = (r) => { r.video.pause(); r.el.classList.add("paused"); };
+
+  reels.forEach((r) => {
+    const sound = $(".reel-sound", r.el);
+    const bar = $(".reel-progress span", r.el);
+    const toggle = () => {
+      if (r.video.paused) { r.userPaused = false; play(r); } else { r.userPaused = true; pause(r); }
+    };
+    r.video.addEventListener("click", toggle);
+    $(".reel-play", r.el).addEventListener("click", toggle);
+    r.video.addEventListener("timeupdate", () => {
+      bar.style.width = `${(r.video.currentTime / r.video.duration) * 100 || 0}%`;
+    });
+    sound.addEventListener("click", () => {
+      const on = r.video.muted;
+      // only one reel plays sound at a time
+      reels.forEach((o) => { o.video.muted = true; $(".reel-sound", o.el).textContent = "🔇"; $(".reel-sound", o.el).setAttribute("aria-pressed", "false"); $(".reel-sound", o.el).setAttribute("aria-label", "Turn sound on"); });
+      if (on) {
+        r.video.muted = false;
+        sound.textContent = "🔊";
+        sound.setAttribute("aria-pressed", "true");
+        sound.setAttribute("aria-label", "Turn sound off");
+        r.userPaused = false;
+        play(r);
+      }
+    });
+  });
+
+  // Autoplay (muted) while a reel is mostly on screen; pause when it leaves.
+  if (reduceMotion || !("IntersectionObserver" in window)) return;
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach((e) => {
+      const r = reels.find((x) => x.el === e.target);
+      if (e.isIntersecting && !r.userPaused) play(r);
+      else if (!e.isIntersecting) pause(r);
+    });
+  }, { threshold: 0.6 });
+  reels.forEach((r) => io.observe(r.el));
 }
 
 /* ---------- Spot the details ---------- */
@@ -362,6 +431,7 @@ function renderLinks() {
 
 /* ---------- Boot ---------- */
 initMenu();
+initReels();
 initExplorer();
 renderPalette();
 initStickerWall();

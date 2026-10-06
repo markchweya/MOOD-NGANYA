@@ -6,6 +6,7 @@ A static site with no build step and no dependencies. Open `index.html` in a bro
 
 ## Sections
 - **Hero**: the front photo dressed in Mood's own stickers, plus a Hoot! horn button.
+- **Mood in Motion**: vertical reels that autoplay silently in view, with tap to pause and a sound toggle.
 - **Spot the Details**: tap numbered hotspots on the front and back photos.
 - **The Palette**: every colour sampled from the matatu, each with a photo chip showing where it lives. Tap a swatch to copy its hex.
 - **Sticker Wall**: every sticker on Mood, redrawn as SVG. Drag them around, or hit Shuffle.
@@ -46,6 +47,23 @@ All stickers are SVG `<symbol>`s at the top of `index.html` (`#s-devil`, `#s-moo
 
 ## Editing content
 At the top of `js/main.js`: `DETAILS` (hotspots), `PALETTE`, `STICKERS` (wall layout), `CONFIG.photoCredit`.
+
+## Adding a video
+Needs `ffmpeg`. Convert the phone video (iPhone `.mov`/HEVC is fine) into web-ready MP4 + WebM files and a poster image:
+
+```bash
+scripts/add-video.sh path/to/clip.mov my-clip            # whole frame
+scripts/add-video.sh path/to/story.mov my-clip 250 40    # cut 250px off the top, 40px off the bottom
+```
+
+For screen-recorded Instagram Stories, `250 40` removes the username overlay and rounded corners. Then add the clip to `VIDEOS` in `js/main.js`, using the width and height the script prints:
+
+```js
+{ src: "assets/video/my-clip", poster: "assets/video/my-clip.webp", w: 720, h: 1280,
+  caption: "What happens in it", credit: "@mood_family33" },
+```
+
+Videos are encoded at 720px wide (about 1.5 MB per 6 seconds). They load only when someone scrolls to them, play muted on a loop while on screen, and pause when off screen.
 
 ## Run locally
 ```bash

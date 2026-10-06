@@ -204,6 +204,35 @@ main [id] { scroll-margin-top: 84px; }
 }
 .section-head { margin-bottom: clamp(36px, 5vw, 56px); }
 
+/* ---------- Mood in motion (videos) ---------- */
+.motion { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.25fr); gap: clamp(28px, 5vw, 64px); align-items: center; }
+.motion-more { margin-top: 26px; }
+.reels {
+  display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory;
+  padding: 6px 18px 26px 6px; scrollbar-width: thin; scrollbar-color: var(--mood-purple) transparent;
+}
+.reels:has(.reel:only-child) { justify-content: center; }
+.reel { flex: 0 0 min(320px, 78vw); scroll-snap-align: center; margin: 0; }
+.reel-frame {
+  position: relative; border-radius: 26px; overflow: hidden; background: var(--ink);
+  border: 4px solid var(--ink); box-shadow: 10px 10px 0 var(--mood-purple), 20px 20px 0 var(--purple-night);
+  aspect-ratio: var(--ar, 9 / 16);
+}
+.reel video { width: 100%; height: 100%; object-fit: cover; display: block; cursor: pointer; }
+.reel-sound, .reel-play {
+  position: absolute; z-index: 2; display: grid; place-items: center; cursor: pointer;
+  border: 2px solid var(--ink); color: var(--ink); background: var(--smiley);
+  transition: transform .2s var(--ease), opacity .25s;
+}
+.reel-sound { right: 12px; bottom: 18px; width: 44px; height: 44px; border-radius: 50%; font-size: 1.1rem; }
+.reel-sound:hover, .reel-play:hover { transform: scale(1.08); }
+.reel-play { left: 50%; top: 50%; width: 72px; height: 72px; border-radius: 50%; translate: -50% -50%; font-size: 1.6rem; opacity: 0; pointer-events: none; }
+.reel.paused .reel-play { opacity: 1; pointer-events: auto; }
+.reel-progress { position: absolute; left: 0; right: 0; bottom: 0; height: 5px; background: rgba(0,0,0,.35); z-index: 2; }
+.reel-progress span { display: block; height: 100%; width: 0; background: var(--smiley); }
+.reel figcaption { margin-top: 18px; font-weight: 600; }
+.reel figcaption small { display: block; color: var(--muted); font-weight: 400; margin-top: 2px; }
+
 /* ---------- Spot the details ---------- */
 .tabs { display: inline-flex; gap: 6px; padding: 6px; border-radius: 999px; background: var(--surface); border: 1px solid var(--line); margin-bottom: 26px; flex-wrap: wrap; }
 .tabs button {
@@ -361,6 +390,7 @@ main [id] { scroll-margin-top: 84px; }
 
 /* ---------- Responsive ---------- */
 @media (max-width: 960px) {
+  .motion { grid-template-columns: 1fr; }
   .hero { grid-template-columns: 1fr; }
   .hero-art { order: -1; max-width: 420px; }
   .explorer { grid-template-columns: 1fr; }
