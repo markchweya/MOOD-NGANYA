@@ -11,10 +11,6 @@ export const fadeUp: Variants = {
   show: { opacity: 1, y: 0, filter: "blur(0px)", transition: { duration: 0.8, ease: easeOut } },
 };
 
-export const fadeIn: Variants = {
-  hidden: { opacity: 0 },
-  show: { opacity: 1, transition: { duration: 0.6, ease: easeOut } },
-};
 
 /** Stickers slap on: scale up past full size and settle with a twist. */
 export const popIn: Variants = {
