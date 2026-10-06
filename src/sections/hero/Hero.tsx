@@ -8,6 +8,7 @@ import { brand } from "@/content/brand";
 import { useHorn } from "@/hooks/useHorn";
 import { fadeUp, popIn, stagger } from "@/lib/motion";
 import { HeroPhoto } from "./HeroPhoto";
+import { HeroStickers } from "./HeroStickers";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
@@ -26,6 +27,7 @@ export function Hero() {
       className="relative isolate min-h-svh overflow-hidden"
     >
       <HeroPhoto y={photoY} scale={photoScale} />
+      <HeroStickers />
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_20%_70%,color-mix(in_srgb,var(--color-mood-purple)_35%,transparent),transparent)]"
