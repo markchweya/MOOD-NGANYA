@@ -1,6 +1,7 @@
 import { Dock } from "@/components/layout/Dock";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
+import { ScrollProgress } from "@/components/layout/ScrollProgress";
 import { DetailsSection } from "@/sections/details/DetailsSection";
 import { FamilySection } from "@/sections/family/FamilySection";
 import { GallerySection } from "@/sections/gallery/GallerySection";
@@ -19,6 +20,7 @@ export function App() {
       >
         Skip to content
       </a>
+      <ScrollProgress />
       <Header />
       <main id="main">
         <Hero />
