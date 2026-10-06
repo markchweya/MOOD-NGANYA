@@ -5,7 +5,7 @@ import type { Swatch } from "@/content/types";
 import { useToast } from "@/features/toast/useToast";
 import { useCopyToClipboard } from "@/hooks/useCopyToClipboard";
 import { useTilt } from "@/hooks/useTilt";
-import { fadeUp, spring } from "@/lib/motion";
+import { spring } from "@/lib/motion";
 
 /** A measured colour: tap to copy its hex. The chip shows where it lives on Mood. */
 export function SwatchCard({ swatch }: { swatch: Swatch }) {
@@ -22,7 +22,6 @@ export function SwatchCard({ swatch }: { swatch: Swatch }) {
   return (
     <motion.button
       type="button"
-      variants={fadeUp}
       style={{ rotateX: tilt.rotateX, rotateY: tilt.rotateY, transformPerspective: 700 }}
       onPointerMove={tilt.onPointerMove}
       onPointerLeave={tilt.onPointerLeave}
