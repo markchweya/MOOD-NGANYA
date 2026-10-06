@@ -32,6 +32,13 @@ export default tseslint.config(
     },
   },
   {
+    // Vue composables follow Vue's rules, not React's.
+    files: ["src/composables/**/*.ts", "src/sections/**/rotation.ts"],
+    rules: Object.fromEntries(
+      Object.keys(reactHooks.configs.recommended.rules).map((rule) => [rule, "off"]),
+    ),
+  },
+  {
     files: ["**/*.vue"],
     extends: [
       js.configs.recommended,
