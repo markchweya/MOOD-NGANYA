@@ -55,6 +55,6 @@
     "typescript-eslint": "^8.71.1",
     "vite": "^8.3.3",
     "vite-imagetools": "^12.0.1",
-    "vitest": "^3.2.7"
+    "vitest": "^5.0.3"
   }
 }
