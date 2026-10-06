@@ -38,7 +38,7 @@ function CoverBlock({ block, progress }: { block: Block; progress: MotionValue<n
         width: `${String(100 / COLS)}%`,
         height: `${String(100 / ROWS)}%`,
       }}
-      className="absolute bg-bg outline outline-1 outline-mood-purple/30"
+      className="absolute border border-smiley/40 bg-bg bg-[repeating-linear-gradient(135deg,transparent_0_14px,color-mix(in_srgb,var(--color-smiley)_14%,transparent)_14px_22px)]"
     />
   );
 }
