@@ -1,15 +1,17 @@
-import { ScanEye, Play } from "lucide-react";
+import { Megaphone, Play, ScanEye } from "lucide-react";
 import { motion, useScroll, useTransform } from "motion/react";
 import { useRef } from "react";
 import { Wordmark } from "@/components/brand/Wordmark";
 import { NoRiskSticker } from "@/components/brand/stickers/NoRiskSticker";
 import { IconButton } from "@/components/ui/IconButton";
 import { brand } from "@/content/brand";
+import { useHorn } from "@/hooks/useHorn";
 import { fadeUp, popIn, stagger } from "@/lib/motion";
 import { HeroPhoto } from "./HeroPhoto";
 
 export function Hero() {
   const ref = useRef<HTMLElement>(null);
+  const hoot = useHorn();
   const { scrollYProgress } = useScroll({ target: ref, offset: ["start start", "end start"] });
   const photoY = useTransform(scrollYProgress, [0, 1], ["0%", "18%"]);
   const photoScale = useTransform(scrollYProgress, [0, 1], [1, 1.08]);
@@ -67,6 +69,7 @@ export function Hero() {
             icon={<ScanEye />}
           />
           <IconButton href="#videos" label="Watch the videos" size="lg" icon={<Play />} />
+          <IconButton onClick={hoot} label="Hoot the horn" size="lg" icon={<Megaphone />} />
         </motion.div>
       </motion.div>
     </section>
