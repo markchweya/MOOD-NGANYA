@@ -34,8 +34,8 @@ export const photos: Readonly<Record<PhotoId, Photo>> = {
   threeQuarter: {
     id: "threeQuarter",
     src: threeQuarter,
-    width: 1206,
-    height: 1367,
+    width: 2412,
+    height: 2734,
     caption: "Front · TRY ME",
     credit: "Mziziani Photography",
     alt: "MOOD from the three-quarter front: roof lights, Lady Liberty side art and the TRY ME sticker",
