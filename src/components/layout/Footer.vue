@@ -12,7 +12,7 @@ const year = new Date().getFullYear();
 
 <template>
   <footer class="overflow-x-clip border-t-4 border-mood-purple px-5 pt-16 pb-32 text-center">
-    <JoinSides class="mx-auto grid max-w-md justify-items-center gap-5">
+    <JoinSides end-at="in-view" class="mx-auto grid max-w-md justify-items-center gap-5">
       <template #left>
         <WindshieldSticker
           role="img"

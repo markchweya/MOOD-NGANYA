@@ -7,13 +7,15 @@ import { useEntranceProgress } from "@/composables/useEntranceProgress";
  * Two halves (the `left` and `right` slots) slide in from opposite edges and
  * lock together, with a slight overshoot in rotation as they meet.
  */
-const { inline } = defineProps<{
+const { inline, endAt = 0.4 } = defineProps<{
   /** Render spans instead of divs, for use inside headings and other phrasing content. */
   inline?: boolean;
+  /** Where the halves lock together; see useEntranceProgress. */
+  endAt?: number | "in-view";
 }>();
 
 const anchor = ref<HTMLElement | null>(null);
-const { progress, reduced } = useEntranceProgress(anchor, 0.4);
+const { progress, reduced } = useEntranceProgress(anchor, endAt);
 
 function side(sign: 1 | -1) {
   return {
