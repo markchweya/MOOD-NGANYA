@@ -1,82 +1,98 @@
-# MOOD — No Risk, No Story 💜
+# MOOD — No Risk, No Story
 
-A showcase website for **MOOD**, Nairobi's purple nganya. Front says *TRY ME*, back says *ATMOSPHERE*.
+A showcase site for **MOOD**, Nairobi's purple nganya ([@mood_family33](https://www.instagram.com/mood_family33/)).
+Front says _TRY ME_, back says _ATMOSPHERE_.
 
-A static site with no build step and no dependencies. Open `index.html` in a browser and it works.
+**Live:** https://markchweya.github.io/MOOD-NGANYA/
 
-## Design
-- **Light and dark mode**: follows the device setting by default, with a sun/moon toggle in the header that remembers the visitor's choice. The hero shows Mood by day in light mode and at night in dark mode.
-- **Icon-only buttons**: a Lucide-style line-icon sprite at the top of `index.html` (`#i-…` symbols). Every icon button has an `aria-label` for screen readers and a `data-tip` tooltip on hover. On phones the nav becomes a floating icon bar at the bottom.
+## Stack
 
-## Sections
-- **Hero**: the front photo dressed in Mood's own stickers, plus a Hoot! horn button.
-- **Mood in Motion**: vertical reels that autoplay silently in view, with tap to pause and a sound toggle.
-- **Spot the Details**: tap numbered hotspots on the front and back photos.
-- **The Palette**: every colour sampled from the matatu, each with a photo chip showing where it lives. Tap a swatch to copy its hex.
-- **Sticker Wall**: every sticker on Mood, redrawn as SVG. Drag them around, or hit Shuffle.
-- **Gallery** with a full-screen photo viewer.
-- **Mood Family**: the Instagram bio as a manifesto, with a link to @mood_family33.
+| Concern   | Choice                                                                 |
+| --------- | ---------------------------------------------------------------------- |
+| UI        | React 19 + TypeScript (strict, `noUncheckedIndexedAccess`)             |
+| Build     | Vite 8                                                                 |
+| Styling   | Tailwind CSS v4 with design tokens in `src/styles`                     |
+| Motion    | Motion (Framer Motion): reveals, shared layout, springs, drag physics  |
+| Scrolling | Lenis smooth scrolling (off when the visitor prefers reduced motion)   |
+| Icons     | Lucide                                                                 |
+| Fonts     | Self-hosted via Fontsource (Bungee, Permanent Marker, Space Grotesk)   |
+| Quality   | ESLint (type-checked, hooks, jsx-a11y), Prettier, Vitest + Testing Lib |
+| CI/CD     | GitHub Actions: verify on every PR, deploy to GitHub Pages from `main` |
 
-## Brand
-- **Name mark:** M😈😈D. The two O's are purple devils, as on Instagram (`#s-devil`).
-- **Voice:** No risk, no story · Redefining greatness daily · We don't follow trends, we start them · Too rare to be compared
-- **Instagram:** [@mood_family33](https://www.instagram.com/mood_family33/)
+## Getting started
 
-## Brand colours
-Every colour was measured from photos of the matatu, mostly the head-on shot in full sun. They're defined as CSS variables at the top of `css/styles.css`.
+```bash
+npm ci
+npm run dev        # http://localhost:5173
+```
 
-| Group | Name | Hex | Where | Measured from |
-|---|---|---|---|---|
-| Paint | Mood Purple | `#8B1BAB` | Main body paint | Head-on, sun |
-| | Purple Glow | `#AE2EC9` | Sunlit curves | Head-on, sun |
-| | Purple Night | `#280633` | Shadows | Head-on, sun |
-| | Cloud Violet | `#4C44AC` | Side-panel clouds | Three-quarter |
-| | Drip Lilac | `#A07EB4` | Windshield banner wash | Head-on, sun |
-| | Sun-strip Blue | `#0B0491` | Windshield sun-strip | Head-on, sun |
-| Stickers | Smiley Mustard | `#D1AF4A` | Drippy smileys | Head-on, sun |
-| | Try-Me Gold | `#E4A83C` | TRY ME fill | Head-on, sun |
-| | Try-Me Magenta | `#AC24A1` | TRY ME outline & art | Head-on, sun |
-| | First-Class Amber | `#CC8F33` | FIRST CLASS sign | Head-on, sun |
-| | Plate Yellow | `#C07D2C` | Rear plate | Back |
-| Lights | Tail-Light Red | `#E2332E` | LED tail lights | Back |
-| | Beacon Red | `#B32827` | Red roof beacons | Three-quarter |
-| | Beacon Purple | `#6C1F67` | Purple roof beacons | Head-on, sun |
-| | LED Ice | `#73B5DB` | Headlight LEDs | Three-quarter |
-| Art | Liberty Teal | `#489E97` | Lady Liberty | Three-quarter |
-| | Atmosphere White | `#F4F1F8` | ATMOSPHERE, die-cut edges | Back |
-| | Ink | `#262322` | Outlines & trims | Head-on, sun |
+| Script              | What it does                          |
+| ------------------- | ------------------------------------- |
+| `npm run dev`       | Dev server with hot reload            |
+| `npm run build`     | Type-check and build to `dist/`       |
+| `npm run preview`   | Serve the production build            |
+| `npm run lint`      | ESLint                                |
+| `npm run typecheck` | TypeScript project build              |
+| `npm test`          | Vitest (unit, content and component)  |
+| `npm run format`    | Prettier (sorts Tailwind classes too) |
 
-## Stickers
-All stickers are SVG `<symbol>`s at the top of `index.html` (`#s-devil`, `#s-mood`, `#s-norisk`, `#s-tryme`, `#s-firstclass`, `#s-plate-front`, `#s-plate-rear`, `#s-hazard`, `#s-warning`, `#s-atmosphere`, `#s-school`, `#s-smiley`). Reuse one anywhere with `<svg viewBox="…"><use href="#s-tryme" /></svg>`.
+## Project structure
+
+```
+src/
+  app/           Providers (theme, toast, Motion config, Lenis) and section links
+  components/
+    brand/       Smiley, Wordmark and every sticker as typed SVG components
+    layout/      Header, Dock, Footer, ThemeToggle
+    ui/          IconButton, Modal, Reveal, SectionHeading
+  content/       All copy and data, typed: photos, palette, hotspots, videos, stickers
+  features/      Theme and toast state (context + hooks)
+  hooks/         useActiveSection, useHorn, useCopyToClipboard, useElementWidth
+  lib/           cn(), Motion presets, helpers
+  sections/      One folder per page section
+  styles/        Tailwind entry, brand tokens, night/day theme, utilities
+public/          Video clips, favicons, manifest, social image
+scripts/         add-video.sh
+```
 
 ## Editing content
-At the top of `js/main.js`: `DETAILS` (hotspots), `PALETTE`, `STICKERS` (wall layout), `CONFIG.photoCredit`.
 
-## Adding a video
-Needs `ffmpeg`. Convert the phone video (iPhone `.mov`/HEVC is fine) into web-ready MP4 + WebM files and a poster image:
+Everything on the page comes from typed modules in `src/content/`. Edit them, and TypeScript
+plus the tests in `src/content/content.test.ts` catch mistakes.
+
+- **Photos:** add the `.webp` to `src/assets/photos/` and register it in `photos.ts`.
+- **Hotspots:** `details.ts`. `x` and `y` are percentages of the photo's size.
+- **Colours:** `palette.ts`, plus a crop in `src/assets/chips/` showing where the colour lives.
+- **Copy and socials:** `brand.ts`.
+
+### Adding a video
+
+Needs `ffmpeg`. The script converts phone video (iPhone HEVC `.mov` is fine) to H.264 MP4 plus a
+VP9 WebM fallback and a poster:
 
 ```bash
 scripts/add-video.sh path/to/clip.mov my-clip            # whole frame
-scripts/add-video.sh path/to/story.mov my-clip 250 40    # cut 250px off the top, 40px off the bottom
+scripts/add-video.sh path/to/story.mov my-clip 250 40    # crop an Instagram Story overlay
 ```
 
-For screen-recorded Instagram Stories, `250 40` removes the username overlay and rounded corners. Then add the clip to `VIDEOS` in `js/main.js`, using the width and height the script prints:
+Then add it to `src/content/videos.ts` with the width and height the script prints.
 
-```js
-{ src: "assets/video/my-clip", poster: "assets/video/my-clip.webp", w: 720, h: 1280,
-  caption: "What happens in it", credit: "@mood_family33" },
-```
+## Design
 
-Videos are encoded at 720px wide (about 1.5 MB per 6 seconds). They load only when someone scrolls to them, play muted on a loop while on screen, and pause when off screen.
+- **Night and day.** The site follows the device setting, with a toggle that remembers the
+  choice. Dark mode shows Mood at night; light mode shows it in the sun.
+- **Measured palette.** Every colour was sampled from photos of the matatu (see the Colours section).
+- **The nganya's own smileys.** The wordmark spells MOOD with the dead-eyed and melting smileys
+  painted on the mirrors and windshield.
+- **Motion with restraint.** Fade-ins, pop-ups and springs throughout, all disabled for visitors
+  who ask for reduced motion.
 
-## Run locally
-```bash
-python3 -m http.server 8000   # open http://localhost:8000
-```
+## Deployment
 
-## Deploy (free)
-- **GitHub Pages**: Settings → Pages → Deploy from branch → `main` / root.
-- **Netlify / Vercel**: import the repo. It needs no build command, and the output directory is the root.
+Every push to `main` runs `.github/workflows/deploy.yml`, which builds with the right base path
+and publishes to GitHub Pages. One-time setup: **Settings → Pages → Source: GitHub Actions**.
 
-## Photo credits
-The three-quarter front and back photos are by **Mziziani Photography**. The night photo is by **@poolman_edits** (POOLMAN). The photographer of the head-on photo is still to be confirmed (`PHOTOS.headon.credit` in `js/main.js`). Get permission before publishing, and keep the credits.
+## Credits
+
+Photos by **Mziziani Photography** and **@poolman_edits**. Video by @mood_family33 with
+@lenny_mmoja\_ and @matrix_family33.
