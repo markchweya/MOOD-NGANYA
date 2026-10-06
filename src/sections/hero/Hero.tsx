@@ -9,7 +9,6 @@ import { useHorn } from "@/hooks/useHorn";
 import { fadeUp, popIn, stagger } from "@/lib/motion";
 import { HeroGlow } from "./HeroGlow";
 import { HeroPhoto } from "./HeroPhoto";
-import { HeroStickers } from "./HeroStickers";
 
 /** `ready` holds the entrance until the intro curtain has lifted. */
 export function Hero({ ready = true }: { ready?: boolean }) {
@@ -30,7 +29,6 @@ export function Hero({ ready = true }: { ready?: boolean }) {
     >
       <HeroGlow />
       <HeroPhoto y={photoY} scale={photoScale} />
-      {ready && <HeroStickers />}
       <div
         aria-hidden
         className="absolute inset-0 -z-10 bg-[radial-gradient(60%_50%_at_20%_70%,color-mix(in_srgb,var(--color-mood-purple)_35%,transparent),transparent)]"
