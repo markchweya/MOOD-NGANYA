@@ -10,33 +10,39 @@ A static site with no build step and no dependencies. Open `index.html` in a bro
 - **The Palette**: every colour sampled from the matatu, each with a photo chip showing where it lives. Tap a swatch to copy its hex.
 - **Sticker Wall**: every sticker on Mood, redrawn as SVG. Drag them around, or hit Shuffle.
 - **Gallery** with a full-screen photo viewer.
+- **Mood Family**: the Instagram bio as a manifesto, with a link to @mood_family33.
+
+## Brand
+- **Name mark:** M😈😈D. The two O's are purple devils, as on Instagram (`#s-devil`).
+- **Voice:** No risk, no story · Redefining greatness daily · We don't follow trends, we start them · Too rare to be compared
+- **Instagram:** [@mood_family33](https://www.instagram.com/mood_family33/)
 
 ## Brand colours
-Defined as CSS variables at the top of `css/styles.css`:
+Every colour was measured from photos of the matatu, mostly the head-on shot in full sun. They're defined as CSS variables at the top of `css/styles.css`.
 
-| Group | Name | Hex | Where |
-|---|---|---|---|
-| Paint | Mood Purple | `#7817A3` | Main body paint |
-| | Purple Glow | `#9B3FD0` | Sunlit panels |
-| | Purple Night | `#2E0A3D` | Shadows, arches |
-| | Cloud Violet | `#4C44AC` | Side-panel clouds |
-| | Drip Lilac | `#C4C2E6` | Windshield wash |
-| Stickers | Smiley Yellow | `#F9D133` | Drippy smileys, FIRST CLASS, hazard sign |
-| | Try-Me Gold | `#F2AE3A` | TRY ME lettering |
-| | Try-Me Orange | `#DD983C` | TRY ME badge |
-| | Try-Me Maroon | `#8C221F` | TRY ME outlines |
-| | Plate Yellow | `#E9A23B` | Rear plate |
-| Lights | Tail-Light Red | `#E2332E` | LED tail lights |
-| | Beacon Red | `#B32827` | Roof beacons |
-| | LED Ice | `#73B5DB` | Headlights |
-| Art | Liberty Teal | `#489E97` | Lady Liberty |
-| | Atmosphere White | `#F4F1F8` | ATMOSPHERE, MOOD logo |
-| | Ink | `#121016` | Outlines & trims |
-
-Colours were measured from the photos. The overcast light dulled the yellows and one purple, so those were lifted back to true sticker brightness. The raw photo values are listed in `PALETTE` in `js/main.js`.
+| Group | Name | Hex | Where | Measured from |
+|---|---|---|---|---|
+| Paint | Mood Purple | `#8B1BAB` | Main body paint | Head-on, sun |
+| | Purple Glow | `#AE2EC9` | Sunlit curves | Head-on, sun |
+| | Purple Night | `#280633` | Shadows | Head-on, sun |
+| | Cloud Violet | `#4C44AC` | Side-panel clouds | Three-quarter |
+| | Drip Lilac | `#A07EB4` | Windshield banner wash | Head-on, sun |
+| | Sun-strip Blue | `#0B0491` | Windshield sun-strip | Head-on, sun |
+| Stickers | Smiley Mustard | `#D1AF4A` | Drippy smileys | Head-on, sun |
+| | Try-Me Gold | `#E4A83C` | TRY ME fill | Head-on, sun |
+| | Try-Me Magenta | `#AC24A1` | TRY ME outline & art | Head-on, sun |
+| | First-Class Amber | `#CC8F33` | FIRST CLASS sign | Head-on, sun |
+| | Plate Yellow | `#C07D2C` | Rear plate | Back |
+| Lights | Tail-Light Red | `#E2332E` | LED tail lights | Back |
+| | Beacon Red | `#B32827` | Red roof beacons | Three-quarter |
+| | Beacon Purple | `#6C1F67` | Purple roof beacons | Head-on, sun |
+| | LED Ice | `#73B5DB` | Headlight LEDs | Three-quarter |
+| Art | Liberty Teal | `#489E97` | Lady Liberty | Three-quarter |
+| | Atmosphere White | `#F4F1F8` | ATMOSPHERE, die-cut edges | Back |
+| | Ink | `#262322` | Outlines & trims | Head-on, sun |
 
 ## Stickers
-All stickers are SVG `<symbol>`s at the top of `index.html` (`#s-mood`, `#s-norisk`, `#s-tryme`, `#s-firstclass`, `#s-plate-front`, `#s-plate-rear`, `#s-hazard`, `#s-warning`, `#s-atmosphere`, `#s-school`, `#s-smiley`). Reuse one anywhere with `<svg viewBox="…"><use href="#s-tryme" /></svg>`.
+All stickers are SVG `<symbol>`s at the top of `index.html` (`#s-devil`, `#s-mood`, `#s-norisk`, `#s-tryme`, `#s-firstclass`, `#s-plate-front`, `#s-plate-rear`, `#s-hazard`, `#s-warning`, `#s-atmosphere`, `#s-school`, `#s-smiley`). Reuse one anywhere with `<svg viewBox="…"><use href="#s-tryme" /></svg>`.
 
 ## Editing content
 At the top of `js/main.js`: `DETAILS` (hotspots), `PALETTE`, `STICKERS` (wall layout), `CONFIG.photoCredit`.
@@ -51,4 +57,4 @@ python3 -m http.server 8000   # open http://localhost:8000
 - **Netlify / Vercel**: import the repo. It needs no build command, and the output directory is the root.
 
 ## Photo credits
-The front and back photos are by **Mziziani Photography**. Get the photographer's permission before publishing, and keep the credit.
+The three-quarter front and back photos are by **Mziziani Photography**. The photographer of the head-on photo is still to be confirmed (`PHOTOS.headon.credit` in `js/main.js`). Get permission before publishing, and keep the credits.

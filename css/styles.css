@@ -4,29 +4,32 @@
    ========================================================= */
 
 :root {
+  /* Measured from photos of the matatu (head-on shot in full sun unless noted). */
   /* ---- Paint ---- */
-  --mood-purple:  #7817A3;  /* main body paint */
-  --purple-glow:  #9B3FD0;  /* sunlit panels */
-  --purple-night: #2E0A3D;  /* shadows & wheel arches */
-  --cloud-violet: #4C44AC;  /* side-panel clouds */
-  --drip-lilac:   #C4C2E6;  /* windshield wash */
+  --mood-purple:  #8B1BAB;  /* main body paint */
+  --purple-glow:  #AE2EC9;  /* sunlit panels */
+  --purple-night: #280633;  /* shadows & wheel arches */
+  --cloud-violet: #4C44AC;  /* side-panel clouds (three-quarter shot) */
+  --drip-lilac:   #A07EB4;  /* windshield banner wash */
+  --sun-strip:    #0B0491;  /* blue windshield sun-strip */
 
   /* ---- Stickers ---- */
-  --smiley:       #F9D133;  /* drippy smileys, FIRST CLASS, hazard sign */
-  --tryme-gold:   #F2AE3A;  /* TRY ME plate */
-  --tryme-orange: #DD983C;  /* TRY ME badge body */
-  --tryme-maroon: #8C221F;  /* TRY ME outline */
-  --plate-yellow: #E9A23B;  /* rear number plate */
+  --smiley:        #D1AF4A; /* drippy smileys (mustard) */
+  --tryme-gold:    #E4A83C; /* TRY ME fill */
+  --tryme-magenta: #AC24A1; /* TRY ME outline & art */
+  --first-class:   #CC8F33; /* FIRST CLASS sign */
+  --plate-yellow:  #C07D2C; /* rear number plate (back shot) */
 
   /* ---- Lights ---- */
-  --tail-red:     #E2332E;  /* LED tail lights, red hazard sign */
-  --beacon-red:   #B32827;  /* roof beacon lamps */
-  --led-ice:      #73B5DB;  /* headlight LEDs */
+  --tail-red:      #E2332E; /* LED tail lights (back shot) */
+  --beacon-red:    #B32827; /* red roof beacons */
+  --beacon-purple: #6C1F67; /* purple roof beacons */
+  --led-ice:       #73B5DB; /* headlight LEDs */
 
   /* ---- Art ---- */
   --liberty-teal: #489E97;  /* Lady Liberty side art */
-  --atmos-white:  #F4F1F8;  /* ATMOSPHERE lettering */
-  --ink:          #121016;  /* outlines & trims */
+  --atmos-white:  #F4F1F8;  /* ATMOSPHERE lettering, die-cut edges */
+  --ink:          #262322;  /* outlines & trims */
 
   /* ---- UI ---- */
   --bg: #150620;
@@ -84,6 +87,7 @@ main [id] { scroll-margin-top: 84px; }
 .t-white { color: var(--atmos-white); }
 .t-smiley { color: var(--smiley); }
 .t-red { color: var(--tail-red); }
+.t-magenta { color: #D04BC4; }  /* TRY ME magenta, lifted for text contrast on dark */
 
 /* ---------- Buttons ---------- */
 .btn {
@@ -142,7 +146,8 @@ main [id] { scroll-margin-top: 84px; }
     radial-gradient(35% 45% at 10% 80%, color-mix(in srgb, var(--cloud-violet) 40%, transparent), transparent 70%);
 }
 .hero-title {
-  font-size: clamp(5rem, 15vw, 10.5rem); line-height: .95; letter-spacing: .02em;
+  white-space: nowrap;
+  font-size: clamp(3.6rem, 13vw, 8.6rem); line-height: .95; letter-spacing: .02em;
   font-family: var(--font-display);
   color: var(--atmos-white);
   -webkit-text-stroke: .04em var(--ink);
@@ -166,11 +171,11 @@ main [id] { scroll-margin-top: 84px; }
   transition: transform .5s var(--ease);
 }
 .hero-photo:hover { transform: rotate(0deg); }
-.hero-photo img { width: 100%; height: auto; aspect-ratio: 1206 / 1367; object-fit: cover; }
+.hero-photo img { width: 100%; height: auto; aspect-ratio: 1206 / 1438; object-fit: cover; }
 .hs { position: absolute; z-index: 2; pointer-events: none; filter: drop-shadow(3px 5px 6px rgba(0,0,0,.45)); }
 .hs-smiley     { width: 80px; height: 90px; top: -30px; right: -18px; animation: wobble 3.4s ease-in-out infinite; }
 .hs-firstclass { width: 120px; height: 120px; right: -40px; top: 52%; animation: float 5s ease-in-out infinite; }
-.hs-tryme      { width: 210px; height: 98px; left: -50px; bottom: 16%; transform: rotate(-9deg); }
+.hs-tryme      { width: 220px; height: 110px; left: -50px; bottom: 16%; transform: rotate(-9deg); }
 .hs-plate      { width: 170px; height: 49px; right: 12%; bottom: -26px; transform: rotate(4deg); }
 .hero-art.honk .hero-photo { animation: honk .35s ease-in-out 2; }
 
@@ -259,7 +264,7 @@ main [id] { scroll-margin-top: 84px; }
 /* ---------- Palette ---------- */
 .palette-group + .palette-group { margin-top: 44px; }
 .palette-group h3 { font-size: 1rem; letter-spacing: .14em; color: var(--muted); margin-bottom: 16px; }
-.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+.swatches { display: grid; grid-template-columns: repeat(auto-fill, minmax(165px, 1fr)); gap: 16px; }
 .swatch {
   position: relative; display: flex; flex-direction: column; justify-content: flex-start; width: 100%; padding: 0; text-align: left; cursor: pointer;
   border-radius: var(--radius); overflow: hidden;
@@ -275,8 +280,8 @@ main [id] { scroll-margin-top: 84px; }
   object-fit: cover; background: var(--ink);
 }
 .swatch span { display: block; }
-.swatch-body { padding: 14px 16px 16px; }
-.swatch-name { font-family: var(--font-display); font-size: 1rem; padding-right: 72px; }
+.swatch-body { padding: 34px 16px 16px; }
+.swatch-name { font-family: var(--font-display); font-size: 1rem; }
 .swatch-hex { font: 700 .95rem/1 ui-monospace, SFMono-Regular, Menlo, monospace; margin-top: 6px; letter-spacing: .04em; }
 .swatch-where { color: var(--muted); font-size: .86rem; margin-top: 6px; line-height: 1.4; }
 .swatch-sample { color: var(--muted); font-size: .75rem; margin-top: 6px; opacity: .8; }
@@ -305,7 +310,7 @@ main [id] { scroll-margin-top: 84px; }
 .wall-shuffle { position: absolute; right: 16px; top: 16px; z-index: 999; }
 
 /* ---------- Gallery ---------- */
-.gallery { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
+.gallery { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
 .tile { position: relative; margin: 0; border-radius: var(--radius); overflow: hidden; border: 4px solid var(--ink); }
 .tile img { width: 100%; height: 100%; object-fit: cover; aspect-ratio: 1206 / 1400; transition: transform .6s var(--ease); }
 .tile:hover img { transform: scale(1.04); }
@@ -378,7 +383,7 @@ main [id] { scroll-margin-top: 84px; }
 }
 @media (max-width: 520px) {
   body { font-size: 16px; }
-  .hs-tryme { width: 150px; height: 70px; left: -8px; }
+  .hs-tryme { width: 156px; height: 78px; left: -8px; }
   .hs-firstclass { width: 88px; height: 88px; right: -10px; }
   .hs-smiley { width: 60px; height: 68px; right: -4px; }
   .hs-plate { width: 130px; height: 38px; }
@@ -396,3 +401,19 @@ main [id] { scroll-margin-top: 84px; }
 @media (prefers-reduced-motion: reduce) {
   *, *::before, *::after { animation: none !important; transition: none !important; scroll-behavior: auto !important; }
 }
+
+/* ---------- M😈😈D lettering ---------- */
+.devil { display: inline-block; width: .82em; height: .82em; margin: 0 .02em; vertical-align: -.06em; }
+.hero-title .devil { filter: drop-shadow(.05em .05em 0 var(--mood-purple)) drop-shadow(.05em .05em 0 var(--purple-night)); animation: devilBob 3s ease-in-out infinite; }
+.hero-title .devil + .devil { animation-delay: -1.5s; }
+.logo-word .devil { width: .8em; height: .8em; filter: drop-shadow(2px 2px 0 var(--purple-night)); }
+@keyframes devilBob { 0%,100% { transform: translateY(0) rotate(-4deg); } 50% { transform: translateY(-.04em) rotate(4deg); } }
+
+/* ---------- Mood Family ---------- */
+.family { text-align: center; display: grid; justify-items: center; }
+.family-devil { width: 96px; height: 96px; margin-bottom: 18px; animation: devilBob 3s ease-in-out infinite; }
+.manifesto { list-style: none; padding: 0; margin: 28px 0 34px; display: grid; gap: 10px; }
+.manifesto li { font-family: var(--font-hand); font-size: clamp(1.4rem, 3.4vw, 2.2rem); line-height: 1.2; }
+.manifesto li:nth-child(odd) { transform: rotate(-1.5deg); }
+.manifesto li:nth-child(even) { transform: rotate(1.5deg); }
+.family-links { display: flex; flex-wrap: wrap; gap: 14px; justify-content: center; }

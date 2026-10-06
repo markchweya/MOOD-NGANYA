@@ -4,27 +4,45 @@
    ========================================================= */
 
 const CONFIG = {
-  photoCredit: { name: "Mziziani Photography", url: "" }, // TODO add their Instagram link
+  // Mood's socials. Leave url empty to hide a link.
+  socials: [
+    { label: "Instagram · @mood_family33", url: "https://www.instagram.com/mood_family33/" },
+    { label: "TikTok", url: "" }, // TODO confirm the exact TikTok handle (bio shows tiktok.com/@mood_fami…)
+  ],
 };
 
+// credit: photographer for each shot. TODO confirm who shot the head-on photo.
 const PHOTOS = {
-  front: { src: "assets/gallery/mood-front.webp", w: 1206, h: 1367,
-           alt: "Front of the MOOD matatu: purple body kit, roof lights and windshield art" },
-  back:  { src: "assets/gallery/mood-rear.webp",  w: 1206, h: 1437,
-           alt: "Back of the MOOD matatu: airbrushed portraits, red LED tail lights and ATMOSPHERE lettering" },
+  headon: { src: "assets/gallery/mood-headon.webp", w: 1206, h: 1438, credit: "",
+            alt: "MOOD head-on in the sun: purple body kit, purple and red roof beacons, windshield art, the TRY ME sticker and FIRST CLASS sign" },
+  front:  { src: "assets/gallery/mood-front.webp",  w: 1206, h: 1367, credit: "Mziziani Photography",
+            alt: "MOOD from the three-quarter front: roof lights, Lady Liberty side art and the TRY ME sticker" },
+  back:   { src: "assets/gallery/mood-rear.webp",   w: 1206, h: 1437, credit: "Mziziani Photography",
+            alt: "Back of the MOOD matatu: airbrushed portraits, red LED tail lights and ATMOSPHERE lettering" },
 };
 
 // "Spot the details" hotspots. x / y are percentages of the photo's width / height.
 const DETAILS = {
+  headon: [
+    { x: 48, y: 23, title: "The crown",            text: "A full-width light bar over a row of beacon domes that alternate purple and red." },
+    { x: 46, y: 31, title: "The MOOD banner",      text: "MOOD in white graffiti letters with two faces set into the O's, over a lilac wash full of melting mustard smileys." },
+    { x: 57, y: 37, title: "No risk, no story",    text: "The motto across the bottom of the banner. It's the first line of the Instagram bio too." },
+    { x: 71, y: 33, title: "School kills Artists", text: "Signed off in hand lettering on the passenger side of the windshield." },
+    { x: 25, y: 40, title: "Sun-strip",            text: "A deep blue band across the windshield that separates the banner from the TRY ME sticker." },
+    { x: 46, y: 47, title: "Thou Shall Not TRY ME", text: "Gold and magenta, with a white die-cut edge. A key on the left, flowers on the right, and the script that turns TRY ME into a commandment." },
+    { x: 6,  y: 43, title: "Smiley mirrors",       text: "Both mirror housings are wrapped in purple with mustard drippy smileys." },
+    { x: 46, y: 54, title: "LED bar",              text: "Six square LED pods under the windscreen." },
+    { x: 68, y: 61, title: "First Class",          text: "An amber sign hung off the grille." },
+    { x: 45, y: 63, title: "Custom grille",        text: "Five purple slats with small red accent lights." },
+    { x: 24, y: 70, title: "Headlights",           text: "Angular LED headlights with ice-blue accents." },
+    { x: 52, y: 86, title: "Plate & fog lights",   text: "The white MOOD plate over a row of four square fog lights." },
+  ],
   front: [
-    { x: 41, y: 20, title: "The crown",          text: "A roof lined with red beacon lamps and a full-width amber light bar on top. You see Mood long before you hear it." },
-    { x: 55, y: 37, title: "No risk, no story",  text: "The windshield banner: MOOD in white graffiti letters over a lilac wash, melting smileys and the motto that sums it all up. Signed off in red: “School kills Artists”." },
-    { x: 58, y: 52, title: "TRY ME",             text: "The dashboard plate in gold and orange with a maroon outline. A friendly dare to every other nganya on the road." },
-    { x: 43, y: 73, title: "LED headlights",     text: "Ice-blue LED headlights with a light bar under the windscreen." },
-    { x: 62, y: 67, title: "Custom grille",      text: "A slatted purple grille with red accent lights, all part of the custom body kit." },
-    { x: 80, y: 63, title: "First Class",        text: "A yellow diamond sign that says it all." },
-    { x: 65, y: 85, title: "The plate",          text: "Personalised MOOD plates: white on the front, yellow on the back." },
+    { x: 41, y: 20, title: "The crown",          text: "Seen from the side, the roof is lined end to end with beacon lamps." },
+    { x: 58, y: 52, title: "TRY ME",             text: "The dashboard sticker, from the side." },
+    { x: 80, y: 63, title: "First Class",        text: "The amber FIRST CLASS sign." },
     { x: 5,  y: 64, title: "Lady Liberty",       text: "A screaming teal Lady Liberty on the side panel. The art keeps going all the way down the body." },
+    { x: 26, y: 70, title: "Side clouds",        text: "Violet clouds painted over the purple body." },
     { x: 16, y: 88, title: "The rims",           text: "Black multi-spoke alloys to finish the look." },
   ],
   back: [
@@ -34,38 +52,39 @@ const DETAILS = {
     { x: 61, y: 47, title: "Hazard zone",        text: "A yellow hazard sign, a red warning triangle, chain-link fence and the drippy smiley hidden in the mix." },
     { x: 36, y: 54, title: "Tail lights",        text: "Sculpted red LED tail lights wrap around the art like a frame." },
     { x: 22, y: 70, title: "ATMOSPHERE",         text: "White cracked lettering across the tailgate. One word for what Mood brings." },
-    { x: 52, y: 70, title: "The plate",          text: "The yellow rear MOOD plate, in case you missed the front." },
+    { x: 52, y: 70, title: "The plate",          text: "The yellow rear MOOD plate." },
     { x: 50, y: 86, title: "Rear diffuser",      text: "A race-style purple diffuser. Pure nganya engineering." },
   ],
 };
 
-// The palette. `hex` is the brand colour; `sample` is the raw value measured in
-// the photo (overcast light dulls some colours, so those were lifted back to
-// their true sticker/paint brightness). `chip` is a crop showing where it lives.
+// The palette. Every hex is measured from the photos; `from` says which shot.
+// `chip` is a crop from that photo showing where the colour lives.
 const PALETTE = [
   { group: "Paint", colours: [
-    { name: "Mood Purple",   hex: "#7817A3", sample: "#7817A3", chip: "purple", where: "The main body paint: grille, bumpers, body kit" },
-    { name: "Purple Glow",   hex: "#9B3FD0", sample: "#8F34B1", chip: "glow",   where: "Sunlit panels and curves" },
-    { name: "Purple Night",  hex: "#2E0A3D", sample: "#310A3F", chip: "night",  where: "Shadows, arches and the underside" },
-    { name: "Cloud Violet",  hex: "#4C44AC", sample: "#4C44AC", chip: "violet", where: "The cloud art on the side panels" },
-    { name: "Drip Lilac",    hex: "#C4C2E6", sample: "#C2C3E3", chip: "lilac",  where: "The windshield banner wash" },
+    { name: "Mood Purple",   hex: "#8B1BAB", from: "Head-on, full sun", chip: "purple",   where: "The main body paint: grille, bumpers, body kit" },
+    { name: "Purple Glow",   hex: "#AE2EC9", from: "Head-on, full sun", chip: "glow",     where: "Sunlit curves of the body kit" },
+    { name: "Purple Night",  hex: "#280633", from: "Head-on, full sun", chip: "night",    where: "Shadows and the underside" },
+    { name: "Cloud Violet",  hex: "#4C44AC", from: "Three-quarter",     chip: "violet",   where: "The cloud art on the side panels" },
+    { name: "Drip Lilac",    hex: "#A07EB4", from: "Head-on, full sun", chip: "lilac",    where: "The windshield banner wash" },
+    { name: "Sun-strip Blue", hex: "#0B0491", from: "Head-on, full sun", chip: "sunstrip", where: "The blue band across the windshield" },
   ]},
   { group: "Stickers", colours: [
-    { name: "Smiley Yellow", hex: "#F9D133", sample: "#C5A335", chip: "smiley", where: "Drippy smileys, FIRST CLASS sign, hazard sign" },
-    { name: "Try-Me Gold",   hex: "#F2AE3A", sample: "#E1A637", chip: "gold",   where: "TRY ME lettering" },
-    { name: "Try-Me Orange", hex: "#DD983C", sample: "#DD983C", chip: "gold",   where: "TRY ME badge body" },
-    { name: "Try-Me Maroon", hex: "#8C221F", sample: "#8C221F", chip: "maroon", where: "TRY ME outlines" },
-    { name: "Plate Yellow",  hex: "#E9A23B", sample: "#C07D2C", chip: "plate",  where: "The rear MOOD number plate" },
+    { name: "Smiley Mustard", hex: "#D1AF4A", from: "Head-on, full sun", chip: "smiley",     where: "Drippy smileys on the windshield and mirrors" },
+    { name: "Try-Me Gold",    hex: "#E4A83C", from: "Head-on, full sun", chip: "gold",       where: "TRY ME lettering and badge" },
+    { name: "Try-Me Magenta", hex: "#AC24A1", from: "Head-on, full sun", chip: "magenta",    where: "TRY ME outlines, line art and flowers" },
+    { name: "First-Class Amber", hex: "#CC8F33", from: "Head-on, full sun", chip: "firstclass", where: "The FIRST CLASS sign" },
+    { name: "Plate Yellow",   hex: "#C07D2C", from: "Back",              chip: "plate",      where: "The rear MOOD number plate" },
   ]},
   { group: "Lights", colours: [
-    { name: "Tail-Light Red", hex: "#E2332E", sample: "#E2332E", chip: "tail",   where: "LED tail lights and the red warning sign" },
-    { name: "Beacon Red",     hex: "#B32827", sample: "#B32827", chip: "beacon", where: "Roof beacon lamps" },
-    { name: "LED Ice",        hex: "#73B5DB", sample: "#73B5DB", chip: "ice",    where: "Headlight LEDs" },
+    { name: "Tail-Light Red", hex: "#E2332E", from: "Back",              chip: "tail",         where: "LED tail lights and the red warning sign" },
+    { name: "Beacon Red",     hex: "#B32827", from: "Three-quarter",     chip: "beacon",       where: "Red roof beacon domes" },
+    { name: "Beacon Purple",  hex: "#6C1F67", from: "Head-on, full sun", chip: "beaconpurple", where: "Purple roof beacon domes" },
+    { name: "LED Ice",        hex: "#73B5DB", from: "Three-quarter",     chip: "ice",          where: "Headlight LEDs" },
   ]},
   { group: "Art", colours: [
-    { name: "Liberty Teal",     hex: "#489E97", sample: "#489E97", chip: "teal",  where: "Lady Liberty on the side panel" },
-    { name: "Atmosphere White", hex: "#F4F1F8", sample: "#F4F1F8", chip: "white", where: "ATMOSPHERE letters, MOOD logo, front plate" },
-    { name: "Ink",              hex: "#121016", sample: "#121016", chip: "ink",   where: "Outlines, trims and the light bar" },
+    { name: "Liberty Teal",     hex: "#489E97", from: "Three-quarter",     chip: "teal",  where: "Lady Liberty on the side panel" },
+    { name: "Atmosphere White", hex: "#F4F1F8", from: "Back",              chip: "white", where: "ATMOSPHERE letters, MOOD logo, die-cut edges" },
+    { name: "Ink",              hex: "#262322", from: "Head-on, full sun", chip: "ink",   where: "Outlines, trims and the LED bar housing" },
   ]},
 ];
 
@@ -73,17 +92,18 @@ const PALETTE = [
 const STICKERS = [
   { id: "s-mood",        vb: [380, 140], w: 320, x: 6,  y: 8,  r: -4,  label: "MOOD windshield logo" },
   { id: "s-norisk",      vb: [320, 64],  w: 300, x: 50, y: 6,  r: 3,   label: "No risk, no story" },
-  { id: "s-tryme",       vb: [300, 140], w: 260, x: 8,  y: 46, r: -8,  label: "TRY ME" },
+  { id: "s-tryme",       vb: [320, 160], w: 270, x: 6,  y: 44, r: -6,  label: "Thou Shall Not TRY ME" },
   { id: "s-firstclass",  vb: [150, 150], w: 150, x: 74, y: 30, r: 0,   label: "FIRST CLASS" },
-  { id: "s-atmosphere",  vb: [440, 90],  w: 380, x: 38, y: 72, r: -2,  label: "ATMOSPHERE" },
+  { id: "s-atmosphere",  vb: [440, 90],  w: 380, x: 38, y: 74, r: -2,  label: "ATMOSPHERE" },
   { id: "s-school",      vb: [180, 120], w: 170, x: 46, y: 34, r: -10, label: "School kills Artists" },
-  { id: "s-plate-front", vb: [280, 80],  w: 190, x: 4,  y: 80, r: 4,   label: "Front MOOD plate" },
-  { id: "s-plate-rear",  vb: [280, 80],  w: 190, x: 70, y: 56, r: -5,  label: "Rear MOOD plate" },
-  { id: "s-hazard",      vb: [120, 108], w: 110, x: 38, y: 50, r: 8,   label: "Hazard sign" },
-  { id: "s-warning",     vb: [120, 108], w: 110, x: 60, y: 46, r: -12, label: "Warning sign" },
-  { id: "s-smiley",      vb: [64, 72],   w: 90,  x: 86, y: 6,  r: 10,  label: "Drippy smiley" },
-  { id: "s-smiley",      vb: [64, 72],   w: 70,  x: 30, y: 30, r: -14, label: "Drippy smiley" },
-  { id: "s-smiley",      vb: [64, 72],   w: 60,  x: 88, y: 76, r: 6,   label: "Drippy smiley" },
+  { id: "s-plate-front", vb: [280, 80],  w: 190, x: 4,  y: 82, r: 4,   label: "Front MOOD plate" },
+  { id: "s-plate-rear",  vb: [280, 80],  w: 190, x: 70, y: 58, r: -5,  label: "Rear MOOD plate" },
+  { id: "s-hazard",      vb: [120, 108], w: 110, x: 38, y: 52, r: 8,   label: "Hazard sign" },
+  { id: "s-warning",     vb: [120, 108], w: 110, x: 58, y: 46, r: -12, label: "Warning sign" },
+  { id: "s-devil",       vb: [64, 64],   w: 100, x: 84, y: 16,  r: 10,  label: "Purple devil" },
+  { id: "s-devil",       vb: [64, 64],   w: 70,  x: 30, y: 30, r: -12, label: "Purple devil" },
+  { id: "s-smiley",      vb: [64, 72],   w: 80,  x: 62, y: 24, r: -10, label: "Drippy smiley" },
+  { id: "s-smiley",      vb: [64, 72],   w: 60,  x: 88, y: 78, r: 6,   label: "Drippy smiley" },
 ];
 
 /* =========================================================
@@ -154,7 +174,7 @@ function initExplorer() {
   const list = $("#detail-list");
   const card = $("#detail-card");
   const tabs = $$('[role="tab"]');
-  let view = "front";
+  let view = "headon";
 
   const select = (i) => {
     const d = DETAILS[view][i];
@@ -195,7 +215,7 @@ function initExplorer() {
       show(next.dataset.view);
     });
   });
-  show("front");
+  show("headon");
 }
 
 /* ---------- Palette ---------- */
@@ -214,7 +234,7 @@ function renderPalette() {
               <span class="swatch-name">${escapeHTML(c.name)}</span>
               <span class="swatch-hex">${c.hex}</span>
               <span class="swatch-where">${escapeHTML(c.where)}</span>
-              ${c.sample !== c.hex ? `<span class="swatch-sample">In-photo: ${c.sample} (lifted for daylight)</span>` : ""}
+              <span class="swatch-sample">Measured: ${escapeHTML(c.from)}</span>
             </span>
           </button>`).join("")}
       </div>
@@ -306,17 +326,18 @@ function initStickerWall() {
 
 /* ---------- Gallery + lightbox ---------- */
 function renderGallery() {
-  const credit = escapeHTML(CONFIG.photoCredit.name);
   const items = [
-    { ...PHOTOS.front, caption: "Front · TRY ME" },
-    { ...PHOTOS.back,  caption: "Back · ATMOSPHERE" },
+    { ...PHOTOS.headon, caption: "Head-on" },
+    { ...PHOTOS.front,  caption: "Front · TRY ME" },
+    { ...PHOTOS.back,   caption: "Back · ATMOSPHERE" },
   ];
+  const cap = (p) => escapeHTML(p.caption) + (p.credit ? ` · 📸 ${escapeHTML(p.credit)}` : "");
   $("#gallery-grid").innerHTML = items.map((p) => `
     <figure class="tile">
-      <button type="button" class="tile-open" data-src="${p.src}" data-caption="${escapeHTML(p.caption)} · 📸 ${credit}" aria-label="View larger: ${escapeHTML(p.alt)}">
+      <button type="button" class="tile-open" data-src="${p.src}" data-caption="${cap(p)}" aria-label="View larger: ${escapeHTML(p.alt)}">
         <img src="${p.src}" alt="${escapeHTML(p.alt)}" width="${p.w}" height="${p.h}" loading="lazy" decoding="async" />
       </button>
-      <figcaption>${escapeHTML(p.caption)} · 📸 ${credit}</figcaption>
+      <figcaption>${cap(p)}</figcaption>
     </figure>`).join("");
 
   const dlg = $("#lightbox");
@@ -332,11 +353,11 @@ function renderGallery() {
   dlg.addEventListener("click", (e) => e.target === dlg && dlg.close());
 }
 
-function renderCredit() {
-  const { name, url } = CONFIG.photoCredit;
-  $("#photo-credit").innerHTML = url
-    ? `<a href="${escapeHTML(url)}" target="_blank" rel="noopener">${escapeHTML(name)}</a>`
-    : escapeHTML(name);
+function renderLinks() {
+  const credits = [...new Set(Object.values(PHOTOS).map((p) => p.credit).filter(Boolean))];
+  $("#photo-credit").textContent = credits.join(", ");
+  $("#family-links").innerHTML = CONFIG.socials.filter((l) => l.url).map((l, i) =>
+    `<a class="btn ${i ? "btn-ghost" : "btn-primary"}" href="${escapeHTML(l.url)}" target="_blank" rel="noopener">${escapeHTML(l.label)}</a>`).join("");
 }
 
 /* ---------- Boot ---------- */
@@ -345,6 +366,6 @@ initExplorer();
 renderPalette();
 initStickerWall();
 renderGallery();
-renderCredit();
+renderLinks();
 $("#hoot").addEventListener("click", hoot);
 $("#year").textContent = new Date().getFullYear();
