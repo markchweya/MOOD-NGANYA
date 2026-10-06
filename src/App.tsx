@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { CursorFollower } from "@/components/layout/CursorFollower";
 import { Dock } from "@/components/layout/Dock";
 import { Footer } from "@/components/layout/Footer";
 import { Header } from "@/components/layout/Header";
@@ -39,6 +40,7 @@ export function App() {
       </main>
       <Footer />
       <Dock />
+      <CursorFollower />
       {!ready && (
         <Intro
           onDone={() => {
