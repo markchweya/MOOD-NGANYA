@@ -25,8 +25,8 @@ export const cutouts = {
   },
   back: {
     src: back,
-    width: 1082,
-    height: 1330,
+    width: 2123,
+    height: 2660,
     alt: "The back of MOOD: airbrushed portraits, red LED tail lights and ATMOSPHERE lettering",
   },
 } as const satisfies Record<string, Cutout>;
