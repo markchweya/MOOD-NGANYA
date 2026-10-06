@@ -5,6 +5,8 @@ export type PhotoId = "headOn" | "fullSun" | "threeQuarter" | "back" | "night";
 export interface Photo {
   id: PhotoId;
   src: string;
+  /** Smaller renditions for grids and phones, generated at build time. */
+  srcSet: string;
   width: number;
   height: number;
   alt: string;

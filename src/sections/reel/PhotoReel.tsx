@@ -17,6 +17,8 @@ export function PhotoReel() {
           <img
             key={`${photo.id}-${String(i)}`}
             src={photo.src}
+            srcSet={photo.srcSet}
+            sizes="176px"
             alt=""
             loading="lazy"
             className="h-44 w-36 shrink-0 rounded-2xl border border-line object-cover opacity-80 transition-opacity duration-500 hover:opacity-100 md:h-56 md:w-44"

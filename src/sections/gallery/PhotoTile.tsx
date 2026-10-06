@@ -23,6 +23,8 @@ export function PhotoTile({ photo, onOpen, className }: PhotoTileProps) {
       <motion.img
         layoutId={`photo-${photo.id}`}
         src={photo.src}
+        srcSet={photo.srcSet}
+        sizes="(min-width: 1024px) 30rem, (min-width: 768px) 33vw, 50vw"
         alt={photo.alt}
         loading="lazy"
         className="size-full object-cover transition-transform duration-700 ease-out group-hover:scale-105"

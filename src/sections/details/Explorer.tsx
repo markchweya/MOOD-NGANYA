@@ -62,6 +62,8 @@ export function Explorer() {
               )}
               <img
                 src={photos[v.photo].src}
+                srcSet={photos[v.photo].srcSet}
+                sizes="64px"
                 alt=""
                 className={cn(
                   "size-full rounded-full object-cover transition-opacity duration-300",
@@ -92,6 +94,8 @@ export function Explorer() {
               <motion.img
                 key={photo.id}
                 src={photo.src}
+                srcSet={photo.srcSet}
+                sizes="(min-width: 1024px) 36rem, 100vw"
                 width={photo.width}
                 height={photo.height}
                 alt={photo.alt}

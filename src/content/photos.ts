@@ -1,14 +1,20 @@
 import back from "@/assets/photos/mood-rear.webp";
+import backSet from "@/assets/photos/mood-rear.webp?w=480;900;1600&format=webp&quality=84&as=srcset";
 import headOn from "@/assets/photos/mood-headon-crisp.webp";
+import headOnSet from "@/assets/photos/mood-headon-crisp.webp?w=480;900;1600&format=webp&quality=84&as=srcset";
 import fullSun from "@/assets/photos/mood-headon.webp";
+import fullSunSet from "@/assets/photos/mood-headon.webp?w=480;900;1600&format=webp&quality=84&as=srcset";
 import night from "@/assets/photos/mood-night.webp";
+import nightSet from "@/assets/photos/mood-night.webp?w=480;900;1600&format=webp&quality=84&as=srcset";
 import threeQuarter from "@/assets/photos/mood-front.webp";
+import threeQuarterSet from "@/assets/photos/mood-front.webp?w=480;900;1600&format=webp&quality=84&as=srcset";
 import type { Photo, PhotoId } from "./types";
 
 export const photos: Readonly<Record<PhotoId, Photo>> = {
   headOn: {
     id: "headOn",
     src: headOn,
+    srcSet: headOnSet,
     width: 1206,
     height: 1541,
     caption: "Straight on",
@@ -17,6 +23,7 @@ export const photos: Readonly<Record<PhotoId, Photo>> = {
   fullSun: {
     id: "fullSun",
     src: fullSun,
+    srcSet: fullSunSet,
     width: 1206,
     height: 1438,
     caption: "Full sun",
@@ -25,6 +32,7 @@ export const photos: Readonly<Record<PhotoId, Photo>> = {
   night: {
     id: "night",
     src: night,
+    srcSet: nightSet,
     width: 1206,
     height: 1232,
     caption: "After dark",
@@ -34,6 +42,7 @@ export const photos: Readonly<Record<PhotoId, Photo>> = {
   threeQuarter: {
     id: "threeQuarter",
     src: threeQuarter,
+    srcSet: threeQuarterSet,
     width: 2412,
     height: 2734,
     caption: "Front · TRY ME",
@@ -43,6 +52,7 @@ export const photos: Readonly<Record<PhotoId, Photo>> = {
   back: {
     id: "back",
     src: back,
+    srcSet: backSet,
     width: 1206,
     height: 1437,
     caption: "Back · ATMOSPHERE",
