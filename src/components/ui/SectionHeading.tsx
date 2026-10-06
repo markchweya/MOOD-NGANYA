@@ -55,7 +55,29 @@ export function SectionHeading({
   );
 }
 
-/** A highlighted word inside a heading. */
+/** A highlighted word inside a heading, underlined by a stroke that paints itself in. */
 export function Highlight({ children }: { children: ReactNode }) {
-  return <span className="text-accent">{children}</span>;
+  return (
+    <span className="relative inline-block text-accent">
+      {children}
+      <svg
+        aria-hidden
+        viewBox="0 0 200 12"
+        preserveAspectRatio="none"
+        className="absolute -bottom-[0.3em] left-0 h-[0.16em] w-full overflow-visible"
+      >
+        <motion.path
+          d="M2 7 C 50 4, 100 10, 150 6 S 190 5, 198 6"
+          fill="none"
+          stroke="currentColor"
+          strokeWidth="5"
+          strokeLinecap="round"
+          initial={{ pathLength: 0, opacity: 0 }}
+          whileInView={{ pathLength: 1, opacity: 0.8 }}
+          viewport={{ once: true, amount: 1 }}
+          transition={{ duration: 0.9, delay: 0.5, ease: [0.65, 0, 0.35, 1] }}
+        />
+      </svg>
+    </span>
+  );
 }
