@@ -44,17 +44,16 @@ export function Ticker() {
   );
 
   return (
-    <div
-      aria-hidden
-      className="relative z-10 -my-6 -rotate-2 overflow-hidden border-y-4 border-ink bg-mood-purple py-4"
-    >
-      <motion.div
-        style={{ x }}
-        className="flex w-max items-center gap-8 pr-8 font-display text-2xl whitespace-nowrap text-atmos-white uppercase md:text-3xl"
-      >
-        {line}
-        {line}
-      </motion.div>
+    <div aria-hidden className="relative z-10 -my-6 overflow-x-clip py-6">
+      <div className="-mx-6 -rotate-2 overflow-hidden border-y-4 border-ink bg-mood-purple py-4">
+        <motion.div
+          style={{ x }}
+          className="flex w-max items-center gap-8 pr-8 font-display text-2xl whitespace-nowrap text-atmos-white uppercase md:text-3xl"
+        >
+          {line}
+          {line}
+        </motion.div>
+      </div>
     </div>
   );
 }
