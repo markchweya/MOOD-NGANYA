@@ -37,6 +37,13 @@
   }
 }
 
+/* Theme switch: the JS reveal drives the clip-path; disable the default crossfade. */
+::view-transition-old(root),
+::view-transition-new(root) {
+  animation: none;
+  mix-blend-mode: normal;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
