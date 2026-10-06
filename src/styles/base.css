@@ -63,3 +63,30 @@
 .custom-cursor :is(input, textarea, [contenteditable="true"]) {
   cursor: text !important;
 }
+
+/* Themed scrollbar: slim purple-to-mustard thumb on a page-coloured track. */
+html {
+  scrollbar-color: var(--color-mood-purple) var(--bg);
+  scrollbar-width: thin;
+}
+
+::-webkit-scrollbar {
+  width: 10px;
+  height: 10px;
+}
+::-webkit-scrollbar-track {
+  background: var(--bg);
+}
+::-webkit-scrollbar-thumb {
+  border: 2px solid var(--bg);
+  border-radius: 999px;
+  background: linear-gradient(
+    to bottom,
+    var(--color-mood-purple),
+    var(--color-neon-pink),
+    var(--color-smiley)
+  );
+}
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--color-purple-glow), var(--color-smiley));
+}
