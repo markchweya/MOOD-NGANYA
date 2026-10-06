@@ -1,9 +1,11 @@
 import "@testing-library/jest-dom/vitest";
 import { cleanup } from "@testing-library/react";
+import { cleanup as cleanupVue } from "@testing-library/vue";
 import { afterEach, vi } from "vitest";
 
 afterEach(() => {
   cleanup();
+  cleanupVue();
 });
 
 // jsdom lacks these browser APIs; the app only needs them to exist.
