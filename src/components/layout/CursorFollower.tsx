@@ -1,5 +1,6 @@
 import { motion, useMotionValue, useReducedMotion, useSpring } from "motion/react";
 import { useEffect, useState } from "react";
+import { useMediaQuery } from "@/hooks/useMediaQuery";
 
 const INTERACTIVE = "a, button, [role='tab'], [role='img'][aria-label]";
 
@@ -9,9 +10,7 @@ const INTERACTIVE = "a, button, [role='tab'], [role='img'][aria-label]";
  */
 export function CursorFollower() {
   const reduceMotion = useReducedMotion();
-  const [finePointer] = useState(
-    () => window.matchMedia("(hover: hover) and (pointer: fine)").matches,
-  );
+  const finePointer = useMediaQuery("(hover: hover) and (pointer: fine)");
   const enabled = finePointer && !reduceMotion;
   const [active, setActive] = useState(false);
   const x = useMotionValue(-100);
