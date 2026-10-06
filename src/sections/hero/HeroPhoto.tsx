@@ -42,7 +42,7 @@ export function HeroPhoto({ y, scale }: HeroPhotoProps) {
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, scale: 1.02 }}
             transition={{ duration: 0.9, ease: [0.16, 1, 0.3, 1] }}
-            className="relative h-full max-w-full object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.35)]"
+            className="relative h-full max-w-full object-contain drop-shadow-[0_30px_40px_rgb(0_0_0/0.35)] transition-[filter] duration-700 dark:brightness-[0.62] dark:saturate-[1.35]"
           />
         </AnimatePresence>
         {theme === "dark" && <BusLights />}
