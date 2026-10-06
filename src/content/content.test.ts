@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { stickerArt } from "@/components/brand/stickers/StickerArt";
+import { stickerRegistry } from "@/components/brand/stickers/registry";
 import { explorerViews } from "./details";
 import { chipUrl, palette } from "./palette";
 import { galleryOrder, photos } from "./photos";
@@ -71,7 +71,7 @@ describe("photos", () => {
 
 describe("stickers and videos", () => {
   it("only uses stickers that have artwork", () => {
-    for (const placement of stickerWall) expect(stickerArt[placement.sticker]).toBeDefined();
+    for (const placement of stickerWall) expect(stickerRegistry[placement.sticker]).toBeDefined();
   });
 
   it("keeps video paths relative to public/", () => {
