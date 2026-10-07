@@ -18,7 +18,7 @@ const barAngles = Array.from({ length: BARS }, (_, i) => (i / BARS) * Math.PI);
   <!-- Turned so the cylinder's axis (local y) runs along world +x. -->
   <TresGroup :position="position" :rotation="[0, 0, -Math.PI / 2]">
     <!-- Tyre -->
-    <TresMesh cast-shadow>
+    <TresMesh>
       <TresCylinderGeometry :args="[radius, radius, width, 48, 1]" />
       <TresMeshStandardMaterial color="#121014" :roughness="0.92" :metalness="0" />
     </TresMesh>

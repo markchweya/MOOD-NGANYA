@@ -79,7 +79,7 @@ const wheels = [frontAxle, rearAxle].flatMap((z) =>
 <template>
   <TresGroup>
     <!-- Body shell in clear-coated purple. -->
-    <TresMesh :position="[0, panelY, 0]" cast-shadow receive-shadow>
+    <TresMesh :position="[0, panelY, 0]">
       <TresBoxGeometry :args="[BUS.width, panelHeight, bodyLength]" />
       <TresMeshPhysicalMaterial
         :color="C.moodPurple"
@@ -98,11 +98,7 @@ const wheels = [frontAxle, rearAxle].flatMap((z) =>
 
     <!-- Side livery, clear-coated like the real paint. -->
     <template v-if="liveryRight && liveryLeft">
-      <TresMesh
-        :position="[BUS.width / 2 + 0.004, panelY, 0]"
-        :rotation="[0, Math.PI / 2, 0]"
-        receive-shadow
-      >
+      <TresMesh :position="[BUS.width / 2 + 0.004, panelY, 0]" :rotation="[0, Math.PI / 2, 0]">
         <TresPlaneGeometry :args="[BUS.length, panelHeight]" />
         <TresMeshPhysicalMaterial
           :map="liveryRight"
@@ -112,11 +108,7 @@ const wheels = [frontAxle, rearAxle].flatMap((z) =>
           :clearcoat-roughness="0.08"
         />
       </TresMesh>
-      <TresMesh
-        :position="[-(BUS.width / 2 + 0.004), panelY, 0]"
-        :rotation="[0, -Math.PI / 2, 0]"
-        receive-shadow
-      >
+      <TresMesh :position="[-(BUS.width / 2 + 0.004), panelY, 0]" :rotation="[0, -Math.PI / 2, 0]">
         <TresPlaneGeometry :args="[BUS.length, panelHeight]" />
         <TresMeshPhysicalMaterial
           :map="liveryLeft"
@@ -149,7 +141,7 @@ const wheels = [frontAxle, rearAxle].flatMap((z) =>
 
     <!-- The real front and back, cut out of their photos. Lit gently and kept
          close to the photo's own colours with an emissive copy of the map. -->
-    <TresMesh v-if="front" :position="[0, FACE_CENTRE_Y, FRONT_Z]" cast-shadow>
+    <TresMesh v-if="front" :position="[0, FACE_CENTRE_Y, FRONT_Z]">
       <TresPlaneGeometry :args="[FRONT_WIDTH, BUS.faceHeight]" />
       <TresMeshStandardMaterial
         :map="front"
@@ -160,12 +152,7 @@ const wheels = [frontAxle, rearAxle].flatMap((z) =>
         :roughness="0.45"
       />
     </TresMesh>
-    <TresMesh
-      v-if="back"
-      :position="[0, FACE_CENTRE_Y, BACK_Z]"
-      :rotation="[0, Math.PI, 0]"
-      cast-shadow
-    >
+    <TresMesh v-if="back" :position="[0, FACE_CENTRE_Y, BACK_Z]" :rotation="[0, Math.PI, 0]">
       <TresPlaneGeometry :args="[BACK_WIDTH, BUS.faceHeight]" />
       <TresMeshStandardMaterial
         :map="back"
