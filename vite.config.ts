@@ -16,7 +16,7 @@ export default defineConfig({
     rolldownOptions: {
       output: {
         // The 3D garage loads on demand; its libraries get their own long-lived chunks.
-        advancedChunks: {
+        codeSplitting: {
           // Only the matched packages, not everything they import (Vue stays in the main chunk).
           includeDependenciesRecursively: false,
           groups: [
