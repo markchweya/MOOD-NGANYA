@@ -1,4 +1,4 @@
-import { Clapperboard, Images, Palette, ScanEye, Sticker, UsersRound } from "lucide-vue-next";
+import { Clapperboard, Images, Palette, Sticker, UsersRound, Warehouse } from "lucide-vue-next";
 import type { Component } from "vue";
 
 export interface SectionLink {
@@ -10,7 +10,7 @@ export interface SectionLink {
 /** Page sections in scroll order; drives the dock and the scroll spy. */
 export const sectionLinks: readonly SectionLink[] = [
   { id: "videos", label: "Videos", icon: Clapperboard },
-  { id: "details", label: "Details", icon: ScanEye },
+  { id: "garage", label: "Garage", icon: Warehouse },
   { id: "colours", label: "Colours", icon: Palette },
   { id: "stickers", label: "Stickers", icon: Sticker },
   { id: "gallery", label: "Gallery", icon: Images },

@@ -1,6 +1,6 @@
 import { describe, expect, it } from "vitest";
 import { stickerRegistry } from "@/components/brand/stickers/registry";
-import { explorerViews } from "./details";
+import { busHotspots } from "./garage";
 import { chipUrl, palette } from "./palette";
 import { galleryOrder, photos } from "./photos";
 import { stickerWall } from "./stickers";
@@ -38,23 +38,6 @@ describe("palette", () => {
   });
 });
 
-describe("explorer", () => {
-  it("places every hotspot inside its photo", () => {
-    for (const view of explorerViews) {
-      for (const spot of view.hotspots) {
-        expect(spot.x, `${view.id}: ${spot.title}`).toBeGreaterThanOrEqual(0);
-        expect(spot.x).toBeLessThanOrEqual(100);
-        expect(spot.y).toBeGreaterThanOrEqual(0);
-        expect(spot.y).toBeLessThanOrEqual(100);
-      }
-    }
-  });
-
-  it("points every view at a known photo", () => {
-    for (const view of explorerViews) expect(photos[view.photo]).toBeDefined();
-  });
-});
-
 describe("photos", () => {
   it("gives every photo alt text and dimensions", () => {
     for (const photo of Object.values(photos)) {
@@ -79,5 +62,28 @@ describe("stickers and videos", () => {
       expect(video.src.startsWith("/")).toBe(false);
       expect(video.poster.startsWith("/")).toBe(false);
     }
+  });
+});
+
+describe("garage hotspots", () => {
+  it("sit inside their face", () => {
+    for (const spot of busHotspots) {
+      expect(spot.x).toBeGreaterThanOrEqual(0);
+      expect(spot.x).toBeLessThanOrEqual(100);
+      expect(spot.y).toBeGreaterThanOrEqual(0);
+      expect(spot.y).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it("have unique titles and something to read out", () => {
+    const titles = busHotspots.map((spot) => spot.title);
+    expect(new Set(titles).size).toBe(titles.length);
+    for (const spot of busHotspots) expect(spot.text.length).toBeGreaterThan(10);
+  });
+
+  it("cover every face of the bus", () => {
+    expect(new Set(busHotspots.map((spot) => spot.face))).toEqual(
+      new Set(["front", "back", "side"]),
+    );
   });
 });

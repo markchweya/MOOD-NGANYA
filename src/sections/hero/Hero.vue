@@ -1,5 +1,5 @@
 <script setup lang="ts">
-import { Megaphone, Play, ScanEye } from "lucide-vue-next";
+import { Megaphone, Play, Warehouse } from "lucide-vue-next";
 import { motion, useScroll, useTransform } from "motion-v";
 import { ref } from "vue";
 import Wordmark from "@/components/brand/Wordmark.vue";
@@ -71,8 +71,8 @@ const copyVariants = stagger(0.12, 0.55);
         {{ brand.intro }}
       </motion.p>
       <motion.div :variants="fadeUp" class="mt-8 flex items-center gap-3">
-        <IconButton href="#details" label="Spot the details" tone="primary" size="lg">
-          <ScanEye />
+        <IconButton href="#garage" label="Open the garage" tone="primary" size="lg">
+          <Warehouse />
         </IconButton>
         <IconButton href="#videos" label="Watch the videos" size="lg"><Play /></IconButton>
         <IconButton label="Hoot the horn" size="lg" @click="hoot"><Megaphone /></IconButton>
