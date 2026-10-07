@@ -9,7 +9,7 @@ import { spring } from "@/lib/motion";
 import { faceAnchor, facesCamera, type Vec3 } from "./busGeometry";
 
 /**
- * Numbered dots pinned to the bus. Each is an HTML button anchored to its 3D
+ * Dots pinned to the bus. Each is an HTML button anchored to its 3D
  * point, shown only while its face is turned towards the camera, so the dots
  * on the far side never float through the bus. The picked one shows its name.
  */
@@ -60,10 +60,8 @@ onBeforeRender(({ camera }) => {
             :aria-pressed="selected === i"
             :class="
               cn(
-                'relative grid size-7 place-items-center rounded-full border-2 font-sans text-xs font-bold shadow-lg transition-[transform,background-color] hover:scale-125',
-                selected === i
-                  ? 'border-atmos-white bg-tail-red text-atmos-white'
-                  : 'border-ink bg-smiley text-ink',
+                'relative grid size-4 place-items-center rounded-full border-2 shadow-lg transition-[transform,background-color] hover:scale-125 sm:size-6',
+                selected === i ? 'border-atmos-white bg-tail-red' : 'border-ink bg-smiley',
               )
             "
             data-cursor="hover"
@@ -74,7 +72,7 @@ onBeforeRender(({ camera }) => {
               aria-hidden="true"
               class="absolute inset-0 animate-ping rounded-full border-2 border-smiley opacity-60"
             />
-            {{ i + 1 }}
+            <span aria-hidden="true" class="size-1.5 rounded-full bg-ink sm:size-2" />
           </button>
           <AnimatePresence>
             <motion.span
