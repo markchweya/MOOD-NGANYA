@@ -3,9 +3,9 @@ import { useEventListener, useIntersectionObserver } from "@vueuse/core";
 import { ChevronsUp, LoaderCircle, Move3d, RotateCcw } from "lucide-vue-next";
 import { AnimatePresence, motion, useReducedMotion } from "motion-v";
 import { defineAsyncComponent, ref } from "vue";
+import Construct from "@/components/scroll/Construct.vue";
 import Highlight from "@/components/ui/Highlight.vue";
 import IconButton from "@/components/ui/IconButton.vue";
-import Reveal from "@/components/ui/Reveal.vue";
 import SectionHeading from "@/components/ui/SectionHeading.vue";
 import { cutouts } from "@/content/cutouts";
 
@@ -62,7 +62,7 @@ useEventListener(window, "keydown", (event: KeyboardEvent) => {
       Every inch <Highlight>says something</Highlight>.
     </SectionHeading>
 
-    <Reveal>
+    <Construct>
       <div
         ref="stage"
         class="relative aspect-[4/5] overflow-hidden rounded-[32px] border-4 border-ink bg-purple-night shadow-slab sm:aspect-[4/3] lg:aspect-[16/9]"
@@ -149,6 +149,6 @@ useEventListener(window, "keydown", (event: KeyboardEvent) => {
           class="mx-auto h-full w-auto object-contain p-8"
         />
       </div>
-    </Reveal>
+    </Construct>
   </section>
 </template>
