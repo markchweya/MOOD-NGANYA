@@ -1,6 +1,7 @@
 import { describe, expect, it } from "vitest";
 import { stickerRegistry } from "@/components/brand/stickers/registry";
 import { explorerViews } from "./details";
+import { busHotspots } from "./garage";
 import { chipUrl, palette } from "./palette";
 import { galleryOrder, photos } from "./photos";
 import { stickerWall } from "./stickers";
@@ -79,5 +80,28 @@ describe("stickers and videos", () => {
       expect(video.src.startsWith("/")).toBe(false);
       expect(video.poster.startsWith("/")).toBe(false);
     }
+  });
+});
+
+describe("garage hotspots", () => {
+  it("sit inside their face", () => {
+    for (const spot of busHotspots) {
+      expect(spot.x).toBeGreaterThanOrEqual(0);
+      expect(spot.x).toBeLessThanOrEqual(100);
+      expect(spot.y).toBeGreaterThanOrEqual(0);
+      expect(spot.y).toBeLessThanOrEqual(100);
+    }
+  });
+
+  it("have unique titles and something to read out", () => {
+    const titles = busHotspots.map((spot) => spot.title);
+    expect(new Set(titles).size).toBe(titles.length);
+    for (const spot of busHotspots) expect(spot.text.length).toBeGreaterThan(10);
+  });
+
+  it("cover every face of the bus", () => {
+    expect(new Set(busHotspots.map((spot) => spot.face))).toEqual(
+      new Set(["front", "back", "side"]),
+    );
   });
 });

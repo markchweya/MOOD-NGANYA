@@ -33,6 +33,20 @@ export interface ExplorerView {
   hotspots: readonly Hotspot[];
 }
 
+/** A face of the 3D bus a detail can be pinned to. */
+export type GarageFace = BusFace | "side";
+
+export interface BusHotspot {
+  face: GarageFace;
+  /** Percentage across the face. */
+  x: number;
+  /** Percentage down the face. */
+  y: number;
+  title: string;
+  /** Read out to screen readers; the garage shows the title only. */
+  text: string;
+}
+
 export type MeasuredFrom = "Head-on, full sun" | "Three-quarter" | "Back" | "Night";
 
 export type BusFace = "front" | "back";
