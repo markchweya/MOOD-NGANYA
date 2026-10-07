@@ -13,6 +13,7 @@ Front says _TRY ME_, back says _ATMOSPHERE_.
 | Build     | Vite 8, type-checked with `vue-tsc`                                        |
 | Styling   | Tailwind CSS v4 with design tokens in `src/styles`                         |
 | Motion    | Motion for Vue (`motion-v`): reveals, shared layout, springs, drag physics |
+| 3D        | Three.js via TresJS + Cientos, pmndrs postprocessing, GSAP timelines, GLSL |
 | Scrolling | Lenis smooth scrolling (off when the visitor prefers reduced motion)       |
 | Utilities | VueUse (media queries, element size, event listeners)                      |
 | Icons     | Lucide for Vue                                                             |
@@ -53,7 +54,7 @@ src/
   content/       All copy and data, typed: photos, cutouts, palette, hotspots, videos, stickers
   features/      Framework-free theme and intro logic
   lib/           cn(), Motion presets, clipboard, helpers
-  sections/      One folder per page section
+  sections/      One folder per page section; garage/ is the WebGL scene
   styles/        Tailwind entry, brand tokens, night/day theme, utilities
 public/          Video clips, favicons, manifest, social image
 scripts/         add-video.sh
@@ -65,7 +66,8 @@ Everything on the page comes from typed modules in `src/content/`. Edit them, an
 plus the tests in `src/content/content.test.ts` catch mistakes.
 
 - **Photos:** add the `.webp` to `src/assets/photos/` and register it in `photos.ts`.
-- **Hotspots:** `details.ts`. `x` and `y` are percentages of the photo's size.
+- **Garage hotspots:** `garage.ts`. Each is pinned to a `face` of the 3D bus (`front`, `back`
+  or `side`), with `x` and `y` as percentages across and down that face.
 - **Colours:** `palette.ts`, plus a crop in `src/assets/chips/` showing where the colour lives.
   `spot` pins a colour to the 3D bus (`face`, then `x`/`y` as percentages of that cutout).
 - **Cutouts:** background-free PNG/WebP versions of the bus in `src/assets/cutouts/`, registered
@@ -92,9 +94,15 @@ Then add it to `src/content/videos.ts` with the width and height the script prin
 - **The nganya's own smileys.** The wordmark spells MOOD with the dead-eyed and melting smileys
   painted on the mirrors and windshield.
 - **Scroll entrances with character.** Each section arrives differently, all scroll-linked so they
-  play forwards and backwards with the scrollbar: the videos **join** from opposite sides, Spot the
-  Details is **constructed** block by block, the colour chips assemble like a **puzzle**, and the
+  play forwards and backwards with the scrollbar: the videos **join** from opposite sides, the
+  garage is **constructed** block by block, the colour chips assemble like a **puzzle**, and the
   sticker wall and gallery photos **rise** into place.
+- **The garage.** A real-time WebGL scene. The shutter, tagged with the MOOD wordmark, rolls up;
+  the strip lights flicker on; and the camera glides in to MOOD on a turntable with a GLSL neon rim.
+  The front and back are the photo cutouts, the body between them is modelled in clear-coated
+  paint with a redrawn side livery, and its lamps bloom. Drag to walk around it, and pick a dot to
+  fly to a detail. Three.js loads only as the section approaches and renders only while on
+  screen; reflections come from a generated room, so there is no HDRI download.
 - **The bus in 3D.** The Colours section shows the matatu as a front/back pair you can drag to
   spin; every colour is a dot on the bus itself.
 - **Night mode lights.** In dark mode the hero bus dims and its beacons, headlights and fog lamps
