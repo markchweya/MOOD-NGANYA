@@ -140,7 +140,7 @@ export const busHotspots: readonly BusHotspot[] = [
     title: "ATMOSPHERE",
     text: "White cracked lettering across the tailgate. One word for what Mood brings.",
   },
-  { face: "back", x: 51.0, y: 75.6, title: "The plate", text: "The yellow rear MOOD plate." },
+  { face: "back", x: 51.0, y: 75.6, title: "Rear plate", text: "The yellow rear MOOD plate." },
   {
     face: "back",
     x: 48.7,
