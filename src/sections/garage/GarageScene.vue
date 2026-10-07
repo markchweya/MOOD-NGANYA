@@ -21,10 +21,19 @@ import {
 } from "three";
 import type { OrbitControls as OrbitControlsImpl } from "three/examples/jsm/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/examples/jsm/environments/RoomEnvironment.js";
-import { onBeforeUnmount, reactive, shallowRef, watch } from "vue";
+import { computed, onBeforeUnmount, reactive, shallowRef, watch } from "vue";
 import { busHotspots } from "@/content/garage";
 import BusHotspots from "./BusHotspots.vue";
 import { faceAnchor, type Vec3 } from "./busGeometry";
+import {
+  BUS_CENTRE,
+  DOOR_Z,
+  MAX_DISTANCE,
+  OPENING,
+  fieldOfView,
+  showroomEye,
+  streetEye,
+} from "./garageLayout";
 import { C } from "./colours";
 import MoodBus from "./bus/MoodBus.vue";
 import GarageRoom from "./room/GarageRoom.vue";
@@ -37,8 +46,10 @@ import RollerDoor from "./room/RollerDoor.vue";
  * glides the camera inside, where MOOD turns slowly on its turntable. Drag to
  * walk around it; pick a dot and the camera flies to that detail.
  */
-const { opened, selected, reducedMotion, active } = defineProps<{
+const { opened, selected, reducedMotion, active, aspect } = defineProps<{
   opened: boolean;
+  /** Width over height of the canvas; the lens and framing follow it. */
+  aspect: number;
   selected: number | null;
   reducedMotion: boolean;
   /** False while the section is off screen: rendering pauses. */
@@ -46,11 +57,14 @@ const { opened, selected, reducedMotion, active } = defineProps<{
 }>();
 const emit = defineEmits<{ ready: []; open: []; select: [index: number | null] }>();
 
-const DOOR = { width: 11.2, height: 4.9, z: 6.85 } as const;
-const STREET = { position: [0, 2.5, 15.5] as Vec3, target: [0, 2.4, DOOR.z] as Vec3 };
-const SHOWROOM = { position: [5.2, 2.8, 5.6] as Vec3, target: [0, 1.45, 0] as Vec3 };
-/** Limits that keep the orbiting camera inside the walls. */
-const ORBIT = { minDistance: 5.6, maxDistance: 7.4, minPolar: 0.55, maxPolar: 1.5 } as const;
+const street = computed(() => ({
+  position: streetEye(aspect),
+  target: [0, OPENING.height / 2, DOOR_Z] as Vec3,
+}));
+const showroom = computed(() => ({ position: showroomEye(aspect), target: BUS_CENTRE }));
+const fov = computed(() => fieldOfView(aspect));
+/** Limits that keep the orbiting camera inside the walls and above the floor. */
+const ORBIT = { minDistance: 7, maxDistance: MAX_DISTANCE, minPolar: 0.55, maxPolar: 1.5 } as const;
 const FOCUS_DISTANCE = 2.8;
 
 /** Everything the timelines animate. Reactive, so the scene follows the tweens. */
@@ -63,12 +77,12 @@ const scene = shallowRef<Scene | null>(null);
 
 /** The camera's eye and target, tweened together so every move stays smooth. */
 const rig = {
-  px: STREET.position[0],
-  py: STREET.position[1],
-  pz: STREET.position[2],
-  tx: STREET.target[0],
-  ty: STREET.target[1],
-  tz: STREET.target[2],
+  px: street.value.position[0],
+  py: street.value.position[1],
+  pz: street.value.position[2],
+  tx: street.value.target[0],
+  ty: street.value.target[1],
+  tz: street.value.target[2],
 };
 
 function applyRig() {
@@ -134,7 +148,7 @@ function flickerOn(timeline: gsap.core.Timeline, at: number) {
 function openGarage() {
   if (reducedMotion) {
     Object.assign(stage, { door: 1, power: 1 });
-    fly(SHOWROOM, 0);
+    fly(showroom.value, 0);
     return;
   }
   flight?.kill();
@@ -142,7 +156,7 @@ function openGarage() {
   timeline.to(stage, { door: 1, duration: 2.2, ease: "power2.inOut" }, 0);
   flickerOn(timeline, 0.5);
   timeline.add(() => {
-    fly(SHOWROOM, 2.6);
+    fly(showroom.value, 2.6);
   }, 1.2);
 }
 
@@ -158,7 +172,7 @@ watch(
   (index) => {
     stage.autoRotate = false;
     if (index === null) {
-      if (opened) fly(SHOWROOM, 1.6, () => (stage.autoRotate = !reducedMotion));
+      if (opened) fly(showroom.value, 1.6, () => (stage.autoRotate = !reducedMotion));
       return;
     }
     const spot = busHotspots[index];
@@ -198,6 +212,19 @@ watch(
   },
 );
 
+watch(fov, () => {
+  camera.value?.updateProjectionMatrix();
+});
+watch(street, (view) => {
+  if (stage.door > 0 || flight) return;
+  Object.assign(rig, {
+    px: view.position[0],
+    py: view.position[1],
+    pz: view.position[2],
+  });
+  applyRig();
+});
+
 function onUserOrbit() {
   stage.autoRotate = false;
   flight?.kill();
@@ -218,15 +245,15 @@ onBeforeUnmount(() => {
   >
     <TresPerspectiveCamera
       ref="camera"
-      :position="STREET.position"
-      :fov="42"
+      :position="street.position"
+      :fov="fov"
       :near="0.1"
       :far="80"
     />
     <OrbitControls
       ref="controls"
       :enabled="controlsEnabled"
-      :target="SHOWROOM.target"
+      :target="BUS_CENTRE"
       :enable-pan="false"
       :enable-damping="true"
       :damping-factor="0.06"
@@ -243,9 +270,9 @@ onBeforeUnmount(() => {
     <GarageRoom :power="stage.power" />
     <RollerDoor
       :open="stage.door"
-      :width="DOOR.width"
-      :height="DOOR.height"
-      :z="DOOR.z"
+      :width="OPENING.width"
+      :height="OPENING.height"
+      :z="DOOR_Z"
       @open="emit('open')"
     />
     <MoodBus :power="stage.power" @ready="emit('ready')" />

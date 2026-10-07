@@ -1,8 +1,8 @@
 <script setup lang="ts">
-import { useEventListener, useIntersectionObserver } from "@vueuse/core";
+import { useElementSize, useEventListener, useIntersectionObserver } from "@vueuse/core";
 import { ChevronsUp, LoaderCircle, Move3d, RotateCcw } from "lucide-vue-next";
 import { AnimatePresence, motion, useReducedMotion } from "motion-v";
-import { defineAsyncComponent, ref } from "vue";
+import { computed, defineAsyncComponent, ref } from "vue";
 import Construct from "@/components/scroll/Construct.vue";
 import Highlight from "@/components/ui/Highlight.vue";
 import IconButton from "@/components/ui/IconButton.vue";
@@ -29,6 +29,9 @@ useIntersectionObserver(
 useIntersectionObserver(stage, ([entry]) => {
   onScreen.value = entry?.isIntersecting ?? false;
 });
+
+const size = useElementSize(stage);
+const aspect = computed(() => (size.height.value ? size.width.value / size.height.value : 16 / 9));
 
 const webgl = (() => {
   try {
@@ -71,6 +74,7 @@ useEventListener(window, "keydown", (event: KeyboardEvent) => {
           <GarageScene
             v-if="near"
             :active="onScreen"
+            :aspect="aspect"
             :opened="opened"
             :selected="selected"
             :reduced-motion="reducedMotion"
