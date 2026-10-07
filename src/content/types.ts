@@ -15,24 +15,6 @@ export interface Photo {
   credit?: string;
 }
 
-export interface Hotspot {
-  /** Position as a percentage of the photo's width. */
-  x: number;
-  /** Position as a percentage of the photo's height. */
-  y: number;
-  title: string;
-  text: string;
-}
-
-export type ViewId = "head-on" | "three-quarter" | "back";
-
-export interface ExplorerView {
-  id: ViewId;
-  label: string;
-  photo: PhotoId;
-  hotspots: readonly Hotspot[];
-}
-
 /** A face of the 3D bus a detail can be pinned to. */
 export type GarageFace = BusFace | "side";
 

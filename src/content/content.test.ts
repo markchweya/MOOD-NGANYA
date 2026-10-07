@@ -1,6 +1,5 @@
 import { describe, expect, it } from "vitest";
 import { stickerRegistry } from "@/components/brand/stickers/registry";
-import { explorerViews } from "./details";
 import { busHotspots } from "./garage";
 import { chipUrl, palette } from "./palette";
 import { galleryOrder, photos } from "./photos";
@@ -36,23 +35,6 @@ describe("palette", () => {
 
   it("has a photo chip for every colour", () => {
     for (const swatch of swatches) expect(chipUrl(swatch.chip), swatch.name).toBeTruthy();
-  });
-});
-
-describe("explorer", () => {
-  it("places every hotspot inside its photo", () => {
-    for (const view of explorerViews) {
-      for (const spot of view.hotspots) {
-        expect(spot.x, `${view.id}: ${spot.title}`).toBeGreaterThanOrEqual(0);
-        expect(spot.x).toBeLessThanOrEqual(100);
-        expect(spot.y).toBeGreaterThanOrEqual(0);
-        expect(spot.y).toBeLessThanOrEqual(100);
-      }
-    }
-  });
-
-  it("points every view at a known photo", () => {
-    for (const view of explorerViews) expect(photos[view.photo]).toBeDefined();
   });
 });
 
