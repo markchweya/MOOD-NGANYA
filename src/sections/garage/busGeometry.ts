@@ -20,6 +20,21 @@ export const BUS = {
   /** The side panel hotspots are measured over, ground to the top of the beacons. */
   sideHeight: 3.2,
   wheel: { radius: 0.48, width: 0.32, track: 1.02, frontAxle: 2.5, rearAxle: -2.0 },
+  /** Side glass, as distances back from the nose: the cab door, then the saloon. */
+  windows: {
+    bottom: 2.02,
+    top: 2.74,
+    panes: [
+      [0.3, 1.15],
+      [1.55, 2.45],
+      [2.6, 3.5],
+      [3.65, 4.55],
+      [4.7, 5.6],
+      [5.75, 6.65],
+    ] as const satisfies readonly (readonly [from: number, to: number])[],
+  },
+  /** The passenger door, as a distance back from the nose. */
+  door: [1.45, 2.5] as const,
 } as const;
 
 export const FRONT_Z = BUS.length / 2;

@@ -157,7 +157,7 @@ export const busHotspots: readonly BusHotspot[] = [
   },
   {
     face: "side",
-    x: 22,
+    x: 16,
     y: 86,
     title: "The rims",
     text: "Black multi-spoke alloys to finish the look.",
