@@ -3,6 +3,7 @@ import { MeshReflectionMaterial } from "@tresjs/cientos";
 import { AdditiveBlending, Color, Object3D, SpotLight } from "three";
 import { computed, onBeforeUnmount, watchEffect } from "vue";
 import { C } from "../colours";
+import { OPENING, ROOM } from "../garageLayout";
 import { concrete, corrugated, neonSign } from "../surfaces";
 import Turntable from "./Turntable.vue";
 
@@ -13,9 +14,6 @@ import Turntable from "./Turntable.vue";
  */
 const { power } = defineProps<{ power: number }>();
 
-/** Interior size in metres; the door opening is in the front wall at z = ROOM.front. */
-const ROOM = { halfWidth: 7.5, back: -9, front: 7, height: 5.6 } as const;
-const OPENING = { width: 11.2, height: 4.9 } as const;
 const roomDepth = ROOM.front - ROOM.back;
 const roomCentreZ = (ROOM.front + ROOM.back) / 2;
 const pillarWidth = ROOM.halfWidth + 1 - OPENING.width / 2;
@@ -32,32 +30,32 @@ onBeforeUnmount(() => {
 /** Unlit colours above 1 so the tubes and neon bloom; scaled by the switch. */
 const tubeColour = computed(() => new Color("#f4f1ff").multiplyScalar(0.15 + 2.6 * power));
 const signColour = computed(() => new Color("#ffffff").multiplyScalar(0.05 + 1.8 * power));
-const tubes = [-5.5, -1.5, 2.5];
+const tubes = [-11, -6, -1, 4, 9];
 
 /** Both spotlights aim at the middle of the bus. */
 const aim = new Object3D();
 aim.position.set(0, 1.2, 0);
 
 /** The key light, warm white from the front corner. */
-const key = new SpotLight("#fff4f8", 0, 30, 0.75, 0.7, 2);
-key.position.set(5.5, ROOM.height - 0.5, 5);
+const key = new SpotLight("#fff4f8", 0, 40, 0.62, 0.7, 2);
+key.position.set(8, ROOM.height - 0.4, 8);
 key.target = aim;
 watchEffect(() => {
-  key.intensity = 260 * power;
+  key.intensity = 600 * power;
 });
-const beams = [-7, -3.5, 0, 3.5];
+const beams = [-13, -8.5, -4, 0.5, 5, 9.5];
 const tyreStacks: [x: number, z: number, count: number][] = [
-  [-6.3, -7.6, 4],
-  [-5.1, -7.9, 3],
-  [6.2, -7.5, 5],
+  [-13.4, -14.6, 4],
+  [-12.1, -14.9, 3],
+  [13.3, -14.5, 5],
 ];
 </script>
 
 <template>
   <TresGroup>
     <!-- Polished concrete with soft, blurred reflections. -->
-    <TresMesh :rotation="[-Math.PI / 2, 0, 0]" :position="[0, 0, 4]">
-      <TresPlaneGeometry :args="[40, 40]" />
+    <TresMesh :rotation="[-Math.PI / 2, 0, 0]" :position="[0, 0, 6]">
+      <TresPlaneGeometry :args="[64, 64]" />
       <MeshReflectionMaterial
         :map="floorMap"
         color="#8a8494"
@@ -93,8 +91,8 @@ const tyreStacks: [x: number, z: number, count: number][] = [
       <TresPlaneGeometry :args="[ROOM.halfWidth * 2, ROOM.height]" />
       <TresMeshStandardMaterial :map="backWall" color="#6a6274" :roughness="0.85" />
     </TresMesh>
-    <TresMesh :position="[0, 3.5, ROOM.back + 0.02]" :render-order="2">
-      <TresPlaneGeometry :args="[9, 2.8]" />
+    <TresMesh :position="[0, 4.3, ROOM.back + 0.02]" :render-order="2">
+      <TresPlaneGeometry :args="[12, 3.75]" />
       <TresMeshBasicMaterial
         :map="sign"
         :color="signColour"
@@ -105,10 +103,10 @@ const tyreStacks: [x: number, z: number, count: number][] = [
       />
     </TresMesh>
     <TresPointLight
-      :position="[0, 3.5, ROOM.back + 1.2]"
+      :position="[0, 4.3, ROOM.back + 1.5]"
       :color="C.neonPink"
-      :intensity="18 * power"
-      :distance="14"
+      :intensity="45 * power"
+      :distance="22"
     />
 
     <!-- Roof, beams and strip lights. -->
@@ -121,20 +119,20 @@ const tyreStacks: [x: number, z: number, count: number][] = [
       <TresMeshStandardMaterial color="#231d2a" :metalness="0.5" :roughness="0.6" />
     </TresMesh>
     <TresMesh v-for="z in tubes" :key="`tube-${z}`" :position="[0, ROOM.height - 0.42, z]">
-      <TresBoxGeometry :args="[7, 0.06, 0.14]" />
+      <TresBoxGeometry :args="[10, 0.07, 0.16]" />
       <TresMeshBasicMaterial :color="tubeColour" :tone-mapped="false" />
     </TresMesh>
 
     <!-- Key and fill spotlights on the turntable. -->
     <primitive :object="key" />
     <TresSpotLight
-      :position="[-6, ROOM.height - 0.5, -4]"
+      :position="[-9, ROOM.height - 0.4, -8]"
       :target="aim"
-      :intensity="140 * power"
-      :angle="0.8"
+      :intensity="380 * power"
+      :angle="0.7"
       :penumbra="0.9"
       :decay="2"
-      :distance="30"
+      :distance="40"
       :color="C.purpleGlow"
     />
     <primitive :object="aim" />
