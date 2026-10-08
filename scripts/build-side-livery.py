@@ -92,13 +92,15 @@ def cloud_paint(cab, width, height, seed):
     h, w = cab.shape[:2]
     # Below the window, clear of the door handle and the wheel arch.
     source = cab[int(h * 0.5) : int(h * 0.75), int(w * 0.2) : int(w * 0.95)].astype(np.float32)
-    base = np.median(source.reshape(-1, 3), axis=0)
+    # The body's own purple shows between the clouds; take it from the door,
+    # just below the window sill, where there is no cloud paint.
+    base = np.median(cab[int(h * 0.44) : int(h * 0.49), int(w * 0.15) : int(w * 0.45)].reshape(-1, 3), axis=0)
 
     rng = np.random.default_rng(seed)
     canvas = np.empty((height, width, 3), np.float32)
     canvas[:] = base
     sh, sw = source.shape[:2]
-    for _ in range(int(width * height / 5000)):
+    for _ in range(int(width * height / 7000)):
         ch, cw = int(rng.uniform(0.55, 0.95) * sh), int(rng.uniform(0.35, 0.7) * sw)
         y, x = rng.integers(0, sh - ch + 1), rng.integers(0, sw - cw + 1)
         stamp = source[y : y + ch, x : x + cw]
