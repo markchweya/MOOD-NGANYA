@@ -89,7 +89,7 @@ Then add it to `src/content/videos.ts` with the width and height the script prin
 ## Design
 
 - **Night and day.** The site follows the device setting, with a toggle that remembers the
-  choice. Dark mode shows Mood at night; light mode shows it in the sun.
+  choice. In dark mode the hero bus dims and its lamps light up.
 - **Measured palette.** Every colour was sampled from photos of the matatu (see the Colours section).
 - **The nganya's own smileys.** The wordmark spells MOOD with the dead-eyed and melting smileys
   painted on the mirrors and windshield.
@@ -99,8 +99,9 @@ Then add it to `src/content/videos.ts` with the width and height the script prin
   sticker wall and gallery photos **rise** into place.
 - **The garage.** A real-time WebGL scene. The shutter, tagged with the MOOD wordmark, rolls up;
   the strip lights flicker on; and the camera glides in to MOOD on a turntable with a GLSL neon rim.
-  The front and back are the photo cutouts, the body between them is modelled in clear-coated
-  paint with a redrawn side livery, and its lamps bloom. Drag to walk around it, and pick a dot to
+  The front and back are the photo cutouts and the sides are MOOD's real paintwork, unwarped from
+  the three-quarter photo by `scripts/build-side-livery.py` (the unphotographed rear of the saloon
+  is continued from the same paint), on a clear-coated body whose lamps bloom. Drag to walk around it, and pick a dot to
   fly to a detail. Three.js loads only as the section approaches and renders only while on
   screen; reflections come from a generated room, so there is no HDRI download.
 - **The bus in 3D.** The Colours section shows the matatu as a front/back pair you can drag to

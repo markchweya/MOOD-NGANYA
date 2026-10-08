@@ -2,8 +2,8 @@ import type { BusHotspot } from "./types";
 
 /**
  * Details pinned to the 3D bus in the garage. `x` and `y` are percentages
- * across and down a face: the front and back cutouts, or the side panel
- * measured from the front bumper.
+ * across and down a face: the front and back cutouts, or the photographed
+ * side panel, measured back from the front bumper and down from the roof lights.
  */
 export const busHotspots: readonly BusHotspot[] = [
   {
@@ -157,9 +157,30 @@ export const busHotspots: readonly BusHotspot[] = [
   },
   {
     face: "side",
-    x: 16,
+    x: 18,
     y: 86,
     title: "The rims",
     text: "Black multi-spoke alloys to finish the look.",
+  },
+  {
+    face: "side",
+    x: 12,
+    y: 60,
+    title: "Side clouds",
+    text: "Violet and blue clouds airbrushed over the purple cab door.",
+  },
+  {
+    face: "side",
+    x: 42,
+    y: 62,
+    title: "Lady Liberty",
+    text: "A screaming teal Lady Liberty on the side panel, hands to her face.",
+  },
+  {
+    face: "side",
+    x: 30,
+    y: 34,
+    title: "Node Runner",
+    text: "A giant key tagged NODE RUNNER hangs beside the art windows.",
   },
 ];

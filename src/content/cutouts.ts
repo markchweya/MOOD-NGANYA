@@ -2,8 +2,6 @@ import back from "@/assets/cutouts/back.webp";
 import backSet from "@/assets/cutouts/back.webp?w=640;1100;2123&format=webp&quality=86&as=srcset";
 import frontCrisp from "@/assets/cutouts/front-crisp.webp";
 import frontCrispSet from "@/assets/cutouts/front-crisp.webp?w=640;1100;2328&format=webp&quality=86&as=srcset";
-import frontSun from "@/assets/cutouts/front-sun.webp";
-import frontSunSet from "@/assets/cutouts/front-sun.webp?w=640;1100;1936&format=webp&quality=86&as=srcset";
 
 export interface Cutout {
   src: string;
@@ -16,13 +14,6 @@ export interface Cutout {
 
 /** The matatu cut out of its photos: no cars, people or trees, just Mood. */
 export const cutouts = {
-  frontSun: {
-    src: frontSun,
-    srcSet: frontSunSet,
-    width: 1936,
-    height: 1996,
-    alt: "MOOD head-on in daylight: purple body kit, roof beacons, windshield art and the TRY ME sticker",
-  },
   frontCrisp: {
     src: frontCrisp,
     srcSet: frontCrispSet,

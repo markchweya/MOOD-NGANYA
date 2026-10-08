@@ -28,6 +28,12 @@ describe("faceAnchor", () => {
     expect(nose[1]).toBeCloseTo(BUS.sideHeight);
     expect(tail[1]).toBeCloseTo(0);
   });
+
+  it("pins side details to the photographed side, which faces -x", () => {
+    const { position, normal } = faceAnchor("side", 40, 50);
+    expect(position[0]).toBeLessThan(-BUS.width / 2);
+    expect(normal).toEqual([-1, 0, 0]);
+  });
 });
 
 describe("facesCamera", () => {
