@@ -89,7 +89,7 @@ Then add it to `src/content/videos.ts` with the width and height the script prin
 ## Design
 
 - **Night and day.** The site follows the device setting, with a toggle that remembers the
-  choice. Dark mode shows Mood at night; light mode shows it in the sun.
+  choice. In dark mode the hero bus dims and its lamps light up.
 - **Measured palette.** Every colour was sampled from photos of the matatu (see the Colours section).
 - **The nganya's own smileys.** The wordmark spells MOOD with the dead-eyed and melting smileys
   painted on the mirrors and windshield.
