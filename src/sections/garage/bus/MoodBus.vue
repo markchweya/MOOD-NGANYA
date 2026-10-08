@@ -1,6 +1,8 @@
 <script setup lang="ts">
 import type { Texture } from "three";
 import { onBeforeUnmount, onMounted, shallowRef } from "vue";
+import sideLeft from "@/assets/livery/side-left.webp";
+import sideRight from "@/assets/livery/side-right.webp";
 import { cutouts } from "@/content/cutouts";
 import {
   BACK_WIDTH,
@@ -12,16 +14,15 @@ import {
   type Vec3,
 } from "../busGeometry";
 import { C } from "../colours";
-import { createSideLivery } from "../sideLivery";
 import { loadPhoto } from "../textures";
 import BusWheel from "./BusWheel.vue";
 import LampGlows from "./LampGlows.vue";
 import RoofBeacons from "./RoofBeacons.vue";
 
 /**
- * MOOD in 3D. The front and back are the real photo cutouts; between them is a
- * modelled body in clear-coated purple paint with the redrawn side livery,
- * glass you can see reflections in, alloy wheels and the roof crown.
+ * MOOD in 3D. The front and back are the real photo cutouts; the sides are
+ * MOOD's real paintwork unwarped from photos, clear-coated so they catch the
+ * garage lights, on a modelled body with alloy wheels and the roof crown.
  * Emits `ready` once every texture is on the GPU.
  */
 const { power } = defineProps<{
@@ -39,9 +40,10 @@ onMounted(async () => {
   [front.value, back.value, liveryRight.value, liveryLeft.value] = await Promise.all([
     loadPhoto(cutouts.frontCrisp.src),
     loadPhoto(cutouts.back.src),
-    // On the right (+x) the nose is on the viewer's left; on the left side it is on their right.
-    createSideLivery(true),
-    createSideLivery(false),
+    // Built from the real paintwork by scripts/build-side-livery.py. The
+    // photographed side is the left (-x); the right (+x) is laid out nose-first.
+    loadPhoto(sideRight),
+    loadPhoto(sideLeft),
   ]);
   emit("ready");
 });
@@ -53,18 +55,6 @@ onBeforeUnmount(() => {
 const panelHeight = BUS.roof - BUS.bodyBottom;
 const panelY = BUS.bodyBottom + panelHeight / 2;
 const bodyLength = BUS.length - 0.08;
-
-const windowHeight = BUS.windows.top - BUS.windows.bottom;
-const windowY = BUS.windows.bottom + windowHeight / 2;
-/** Glass panes on both sides, centred on their painted openings. */
-const panes = [1, -1].flatMap((side) =>
-  BUS.windows.panes.map(([from, to]) => ({
-    key: `${String(side)}-${String(from)}`,
-    position: [side * (BUS.width / 2 + 0.012), windowY, FRONT_Z - (from + to) / 2] satisfies Vec3,
-    rotation: [0, (side * Math.PI) / 2, 0] satisfies Vec3,
-    width: to - from - 0.06,
-  })),
-);
 
 const { frontAxle, rearAxle, radius, track } = BUS.wheel;
 const wheels = [frontAxle, rearAxle].flatMap((z) =>
@@ -119,25 +109,6 @@ const wheels = [frontAxle, rearAxle].flatMap((z) =>
         />
       </TresMesh>
     </template>
-
-    <!-- Tinted glass over the painted openings, so the windows catch reflections. -->
-    <TresMesh
-      v-for="pane in panes"
-      :key="pane.key"
-      :position="pane.position"
-      :rotation="pane.rotation"
-    >
-      <TresPlaneGeometry :args="[pane.width, windowHeight - 0.06]" />
-      <TresMeshPhysicalMaterial
-        color="#05030a"
-        :metalness="0"
-        :roughness="0.04"
-        :clearcoat="1"
-        :transparent="true"
-        :opacity="0.5"
-        :env-map-intensity="1.6"
-      />
-    </TresMesh>
 
     <!-- The real front and back, cut out of their photos. Lit gently and kept
          close to the photo's own colours with an emissive copy of the map. -->
