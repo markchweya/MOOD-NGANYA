@@ -20,6 +20,10 @@ describe("fitDistance", () => {
 });
 
 describe("showroom framing", () => {
+  it("opens on the photographed side of the bus", () => {
+    expect(showroomEye(16 / 9)[0]).toBeLessThan(0);
+  });
+
   it("opens up the lens on portrait screens", () => {
     expect(fieldOfView(0.8)).toBeGreaterThan(fieldOfView(1.6));
   });

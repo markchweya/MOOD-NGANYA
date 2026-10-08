@@ -99,8 +99,9 @@ Then add it to `src/content/videos.ts` with the width and height the script prin
   sticker wall and gallery photos **rise** into place.
 - **The garage.** A real-time WebGL scene. The shutter, tagged with the MOOD wordmark, rolls up;
   the strip lights flicker on; and the camera glides in to MOOD on a turntable with a GLSL neon rim.
-  The front and back are the photo cutouts, the body between them is modelled in clear-coated
-  paint with a redrawn side livery, and its lamps bloom. Drag to walk around it, and pick a dot to
+  The front and back are the photo cutouts and the sides are MOOD's real paintwork, unwarped from
+  the three-quarter photo by `scripts/build-side-livery.py` (the unphotographed rear of the saloon
+  is continued from the same paint), on a clear-coated body whose lamps bloom. Drag to walk around it, and pick a dot to
   fly to a detail. Three.js loads only as the section approaches and renders only while on
   screen; reflections come from a generated room, so there is no HDRI download.
 - **The bus in 3D.** The Colours section shows the matatu as a front/back pair you can drag to

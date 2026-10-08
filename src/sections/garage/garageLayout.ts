@@ -37,9 +37,9 @@ export function showroomDistance(aspect: number): number {
   return Math.min(MAX_DISTANCE, fitDistance(aspect, fieldOfView(aspect)) * 1.05);
 }
 
-/** The showroom view: three-quarters from the front, framed to fit. */
+/** The showroom view: three-quarters from the front on the photographed side, framed to fit. */
 export function showroomEye(aspect: number): Vec3 {
-  const [dx, dy, dz] = [0.66, 0.22, 0.72];
+  const [dx, dy, dz] = [-0.66, 0.22, 0.72];
   const k = showroomDistance(aspect) / Math.hypot(dx, dy, dz);
   return [BUS_CENTRE[0] + dx * k, BUS_CENTRE[1] + dy * k, BUS_CENTRE[2] + dz * k];
 }
